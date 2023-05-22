@@ -12,6 +12,7 @@
 //TODO: Adicionar botão para ver filhotes favoritados
 
 import 'package:dreampuppy/src/domain/singletons/user.dart';
+import 'package:dreampuppy/src/features/profile/domain/usecases/needhelp.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
@@ -55,8 +56,18 @@ class _UserProfileOptionsViewState extends State<UserProfileOptionsView> {
                   ? ListTile(
                       leading: const Icon(Icons.login),
                       title: const Text("Entrar"),
-                      subtitle: const Text("Cadastrar"),
+                      subtitle: const Text("Bem vindo de volta!"),
                       onTap: () => Modular.to.pushNamed('/login'),
+                      trailing: const Icon(Icons.arrow_forward_ios),
+                    )
+                  : Container(),
+               userSingleton.user == null
+                  ? ListTile(
+                    //TODO: Adicionar um fundo como se fosse a entrada de um parque de diversões
+                      leading: const Icon(Icons.person_add),
+                      title: const Text("Cadastrar"),
+                      subtitle: const Text("Vem sonhar com a gente..."),
+                      onTap: () => Modular.to.pushNamed('/login/register'),
                       trailing: const Icon(Icons.arrow_forward_ios),
                     )
                   : Container(),
@@ -136,18 +147,32 @@ class _UserProfileOptionsViewState extends State<UserProfileOptionsView> {
                 // subtitle: Text("O que há de novo pelo app"),
                 trailing: Icon(Icons.arrow_forward_ios),
               ),),
-              //TODO: Irá levar a pessoa para o ZAP da DreamPuppy
-              const ListTile(
-                leading: Icon(Icons.help),
-                title: Text("Preciso de Ajuda"),
-                trailing: Icon(Icons.arrow_forward_ios),
+              
+              ListTile(
+                onTap: () => Modular.get<NeedHelpUseCase>().call('Preciso de ajuda!'),
+                leading: const Icon(Icons.auto_stories),
+                //TODO: A wiki inclui o faq, como usar o app, tutoriais, etc v
+                
+                title: const Text("Wiki || Preciso de Ajuda"),
+                trailing: const Icon(Icons.arrow_forward_ios),
               ),
+
               userSingleton.user != null
-                  ? const ListTile(
-                      leading: Icon(Icons.logout),
-                      title: Text("Sair"),
-                    )
+                  ? const  Visibility(
+                    visible: false,
+                    child: ListTile(
+                        leading: Icon(Icons.logout),
+                        title: Text("Sair"),
+                      ),
+                  )
                   : Container(),
+
+                //TODO: O botão de Sobre Informa os dados do aplicativo (Versão, etc...)
+                // ! [ Tambem irá informar atualizações disponíveis para o user]
+               const ListTile(
+                        leading: Icon(Icons.info),
+                        title: Text("Sobre"),
+                  ),
             ]
                 .map((e) => e.runtimeType == ListTile
                     ? Card(
