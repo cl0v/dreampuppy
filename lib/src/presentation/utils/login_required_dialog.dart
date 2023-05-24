@@ -1,5 +1,5 @@
 import 'package:awesome_dialog/awesome_dialog.dart';
-import 'package:dreampuppy/src/domain/singletons/user.dart';
+import 'package:dreampuppy/src/_domain/singletons/user.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
@@ -22,7 +22,7 @@ Future<void> checkUserLoginAndShowLoginDialog(BuildContext context,
     desc: "A função que você está tentando acessar requer um usuário conectado",
     //TODO: Alterar o estilo dos botões, tentar fazer no mesmo modelo da página de login
     btnCancelText: 'Cadastrar',
-    btnCancelOnPress: () => Modular.to.pushNamed('/login/register'),
+    btnCancelOnPress: () => Modular.to.pushNamed('/login/create'),
     btnOkText: 'Entrar',
     btnOkOnPress: () {
       Navigator.of(context).pop(true);
@@ -48,7 +48,7 @@ class _LoginRequiredDialog extends StatelessWidget {
       content: Text(content),
       actions: [
         ElevatedButton(
-            onPressed: () => Modular.to.pushNamed('/login/register'),
+            onPressed: () => Modular.to.pushNamed('/login/create'),
             child: const Text("Cadastrar")),
         ElevatedButton(
           onPressed: () => Modular.to.pushNamed('/login'),

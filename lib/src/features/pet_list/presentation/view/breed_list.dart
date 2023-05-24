@@ -1,6 +1,7 @@
 import 'package:dreampuppy/algolia_application.dart';
 import 'package:dreampuppy/data.dart';
-import 'package:dreampuppy/src/domain/singletons/user.dart';
+import 'package:dreampuppy/src/_domain/singletons/user.dart';
+import 'package:dreampuppy/src/features/pet_list/features/search_others/presentation/components/card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:flutter_svg/svg.dart';
@@ -8,14 +9,14 @@ import '../widgets/favoritable_card.dart';
 
 //TODO: Usar o icone para organizar: Icons.filter_list_sharp (sort)
 
-class PetBreedListPage extends StatefulWidget {
-  const PetBreedListPage({super.key});
+class BreedListPage extends StatefulWidget {
+  const BreedListPage({super.key});
 
   @override
-  State<PetBreedListPage> createState() => _PetBreedListPageState();
+  State<BreedListPage> createState() => _BreedListPageState();
 }
 
-class _PetBreedListPageState extends State<PetBreedListPage> {
+class _BreedListPageState extends State<BreedListPage> {
   late TextEditingController searchController;
 
   final userSingleton = Modular.get<UserSingleton>();
@@ -149,12 +150,12 @@ class _PetBreedListPageState extends State<PetBreedListPage> {
                     mainAxisSpacing: 6,
                   ),
                   children: cards
-                      .map(
-                        (e) => FavotirablePetWidget(
+                      .map<Widget>(
+                        (e) => FavoritablePetWidget(
                           card: e,
                         ),
                       )
-                      .toList(),
+                      .toList()..add(const MoreBreedsSurveyWidget()),
                 ),
               ),
               // const Divider(),

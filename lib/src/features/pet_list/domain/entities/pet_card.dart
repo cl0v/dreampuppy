@@ -5,15 +5,17 @@ class PetCardEntity {
   final String imgUrl;
   final String breed;
   final int colorValue;
-  final String path;
+  final String? description;
 
   PetCardEntity({
     this.id = 'id01',
     this.imgUrl = "assets/images/dogs/rottweiler.png",
     required this.breed,
     required this.colorValue,
-    this.path = 'rottweiler',
+    this.description,
   });
 
   Color get color => Color(colorValue);
+
+  String get path => Uri.encodeFull(breed.toLowerCase());
 }

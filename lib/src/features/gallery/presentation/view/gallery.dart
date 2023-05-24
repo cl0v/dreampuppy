@@ -1,11 +1,9 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:dreampuppy/src/features/gallery/presentation/view/filter/filter_view.dart';
-import 'package:dreampuppy/src/features/pet_details/presentation/view/pet_details.dart';
 import 'package:dreampuppy/src/features/pet_list/domain/entities/pet_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
-
-import '../../../../domain/entities/pet.dart';
+import '../../../../_domain/entities/pet.dart';
 
 // TODO: O enquadramento das imagens será disposta em um modelo diferente, focando em 9/16; Para a imagem em grid
 // TODO: Adicionar filtro que mostra a ninhada, o pai ou a mae na capa que deveria ter a ninhada.
@@ -227,14 +225,9 @@ class _GalleryPageState extends State<GalleryPage> {
             return Container(
               padding: const EdgeInsets.all(0.5),
               child: InkWell(
-                onTap: () => Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (_) => PetDetailsPage(
-                      images: pets[i].images,
-                      statusBarColor: widget.petCard.color,
-                    ),
-                  ),
+                onTap: () => Modular.to.pushNamed(
+                  '/pets/${pets[i].id}',
+                  arguments: pets[i],
                 ),
                 child: Hero(
                   tag: photo,

@@ -1,10 +1,6 @@
-import 'package:dreampuppy/data.dart';
-import 'package:dreampuppy/src/features/gallery/presentation/view/gallery.dart';
 import 'package:dreampuppy/src/features/pet_list/domain/entities/pet_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
-import 'package:flutter/services.dart' show PlatformException;
-
 import '../../domain/entities/breed_details.dart';
 
 // TODO: Manter todos os botões de selecões do mesmo tamanho, para dar um aspecto melhor, mesmo que isso coma um pouco do texto.
@@ -15,42 +11,33 @@ import '../../domain/entities/breed_details.dart';
 class BreedDetailsPage extends StatefulWidget {
   const BreedDetailsPage({
     super.key,
-    required this.path,
+    required this.card,
   });
 
-  final String path;
+  final PetCardEntity card;
 
   @override
   State<BreedDetailsPage> createState() => _BreedDetailsPageState();
 }
 
 class _BreedDetailsPageState extends State<BreedDetailsPage> {
-  late PetCardEntity card;
   late Size sScreen;
 
   //TODO: Vai buscar os valores do servidor, e irá atualizar quando os valores forem recebidos.
   late BreedDetails? details;
 
   @override
-  void initState() {
-    
-    card = cards.firstWhere(
-        (element) => element.path.toLowerCase() == widget.path.toLowerCase());
-    super.initState();
-  }
-
-  @override
   Widget build(BuildContext context) {
     sScreen = MediaQuery.of(context).size;
     final shadow = Image.asset(
-      card.imgUrl,
+      widget.card.imgUrl,
       width: sScreen.width * 0.4,
       height: sScreen.width * 0.4,
       color: Colors.black.withOpacity(.59),
     );
 
     final img = Image.asset(
-      card.imgUrl,
+      widget.card.imgUrl,
       width: sScreen.width * 0.4,
       height: sScreen.width * 0.4,
     );
@@ -59,43 +46,13 @@ class _BreedDetailsPageState extends State<BreedDetailsPage> {
       appBar: AppBar(
         elevation: 0,
         backgroundColor: Colors.transparent,
-        actions: [
-          const Visibility(
+        actions: const [
+          Visibility(
             visible: false,
             child: IconButton(
               onPressed: null,
               icon: Icon(Icons.shopping_bag),
               tooltip: "Itens escolhidos",
-            ),
-          ),
-          const Visibility(
-            visible: false,
-            child: IconButton(
-              onPressed: null,
-              icon: Icon(Icons.favorite),
-              tooltip: "Favoritar",
-            ),
-          ),
-          Visibility(
-            visible: false,
-            child: IconButton(
-              onPressed: () async {
-                // Platform messages may fail, so we use a try/catch PlatformException.
-                try {
-                  // final initialLink = await getInitialLink();
-
-                  // Parse the link and warn the user, if it is not correct,
-                  // but keep in mind it could be `null`.
-                  // debugPrint(initialLink);
-                } on PlatformException {
-                  // Handle exception by warning the user their action did not succeed
-                  // return?
-                }
-              },
-              icon: const Icon(
-                Icons.share,
-              ),
-              tooltip: "Compartilhar",
             ),
           ),
         ],
@@ -110,7 +67,7 @@ class _BreedDetailsPageState extends State<BreedDetailsPage> {
                 Container(
                   width: double.infinity,
                   height: sScreen.height * 0.40,
-                  color: card.color,
+                  color: widget.card.color,
                   child: Stack(
                     children: [
                       Padding(
@@ -121,7 +78,7 @@ class _BreedDetailsPageState extends State<BreedDetailsPage> {
                         child: Align(
                           alignment: Alignment.bottomLeft,
                           child: Text(
-                            card.breed,
+                            widget.card.breed,
                             style: Theme.of(context).textTheme.headlineMedium,
                           ),
                         ),
@@ -156,58 +113,64 @@ class _BreedDetailsPageState extends State<BreedDetailsPage> {
                 const Divider(),
                 Row(
                   crossAxisAlignment: CrossAxisAlignment.center,
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  // mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        FilledButton(
-                          onPressed: () => debugPrint("variação"),
-                          style: FilledButton.styleFrom(
-                            minimumSize:
-                                Size(MediaQuery.of(context).size.width / 2, 48),
-                            backgroundColor: Colors.green.shade600,
+                    Visibility(
+                      visible: false,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          FilledButton(
+                            onPressed: () => debugPrint("variação"),
+                            style: FilledButton.styleFrom(
+                              minimumSize:
+                                  Size(MediaQuery.of(context).size.width / 2, 48),
+                              backgroundColor: Colors.green.shade600,
+                            ),
+                            child: const Text("Selecione a variação"),
                           ),
-                          child: const Text("Selecione a variação"),
-                        ),
-                        const SizedBox(
-                          height: 8,
-                        ),
-                        FilledButton(
-                            onPressed: () {},
-                            style: FilledButton.styleFrom(
-                              backgroundColor: Colors.black,
-                              minimumSize: Size(
-                                  MediaQuery.of(context).size.width / 2, 48),
-                            ),
-                            child: const Text("Selecione a cor do pelo")),
-                        const SizedBox(
-                          height: 8,
-                        ),
-                        FilledButton(
-                            style: FilledButton.styleFrom(
-                              backgroundColor: Colors.black,
-                              minimumSize: Size(
-                                  MediaQuery.of(context).size.width / 2, 48),
-                            ),
-                            onPressed: () {},
-                            child: const Text("Selecione o gênero")),
-                      ],
+                          const SizedBox(
+                            height: 8,
+                          ),
+                          FilledButton(
+                              onPressed: () {},
+                              style: FilledButton.styleFrom(
+                                backgroundColor: Colors.black,
+                                minimumSize: Size(
+                                    MediaQuery.of(context).size.width / 2, 48),
+                              ),
+                              child: const Text("Selecione a cor do pelo")),
+                          const SizedBox(
+                            height: 8,
+                          ),
+                          FilledButton(
+                              style: FilledButton.styleFrom(
+                                backgroundColor: Colors.black,
+                                minimumSize: Size(
+                                    MediaQuery.of(context).size.width / 2, 48),
+                              ),
+                              onPressed: () {},
+                              child: const Text("Selecione o gênero")),
+                        ],
+                      ),
                     ),
                     GestureDetector(
-                      onTap: () => Modular.to.push(MaterialPageRoute(
-                          builder: (context) => GalleryPage(petCard: card))),
+                      //TODO: Corrigir a navegação pra galeria, lembrando que tenho que pensar na melhor forma de rotas, para não haver quebra de links desnecessários.
+                      onTap: () => Modular.to
+                          .pushNamed('/gallery', arguments: widget.card),
                       child: Container(
                         // margin: const EdgeInsets.all(8),
                         padding: const EdgeInsets.all(8),
-                        width: 90,
+                        width: 90*1.7,
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(18),
                           color: Colors.grey[300],
                         ),
                         //TODO: Ou mostra a column, ou mostra a capa do filhote escolhido.
                         child: AspectRatio(
-                          aspectRatio: 10 / 16,
+                          // aspectRatio: 10 / 16,
+                          aspectRatio: 16 / 16,
                           child:
 
                               //TODO: Substituir o selecionar filhote pela imagem do filhote selecionado.
@@ -218,7 +181,7 @@ class _BreedDetailsPageState extends State<BreedDetailsPage> {
                               Icon(
                                 Icons.image,
                                 //TODO: Experimental
-                                color: card.color,
+                                color: widget.card.color,
                                 size: 64,
                               ),
                               const Text(
@@ -254,6 +217,7 @@ class _BreedDetailsPageState extends State<BreedDetailsPage> {
                 Padding(
                   padding: const EdgeInsets.only(left: 8.0, top: 12),
                   child: Text(
+                    widget.card.description ??
                     "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum",
                     textAlign: TextAlign.start,
                     style: Theme.of(context).textTheme.bodyMedium,

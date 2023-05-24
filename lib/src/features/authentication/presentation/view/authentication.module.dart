@@ -10,6 +10,6 @@ class AuthenticationModule extends Module{
   @override
   get routes => [
     ChildRoute('/', child: (c,a)=> LoginPage())
-    ,ChildRoute('/register', child: (c,a)=> const RegisterPage())
+    ,ChildRoute('/create', child: (c,a)=> const RegisterPage())
   ];
 }

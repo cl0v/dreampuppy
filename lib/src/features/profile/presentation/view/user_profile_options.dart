@@ -11,7 +11,7 @@
 //TODO: Adicionar preferencias de pagamento
 //TODO: Adicionar botão para ver filhotes favoritados
 
-import 'package:dreampuppy/src/domain/singletons/user.dart';
+import 'package:dreampuppy/src/_domain/singletons/user.dart';
 import 'package:dreampuppy/src/features/profile/domain/usecases/needhelp.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';

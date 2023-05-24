@@ -2,214 +2,310 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:dreampuppy/src/features/slider/presentation/view/slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:toast/toast.dart';
+
+import '../../../../_domain/entities/pet.dart';
+import '../bloc/fetch_pet.dart';
+
+//TODO: Buscar o produto do servidor, buscando assim todos os dados do pet em especifico
+//TODO: Criar versão de carregamento da página (Shimmer/Skelton)
+//TODO: Salvar o historico de fotos do filhote, para que sirva de memória
 
 class PetDetailsPage extends StatefulWidget {
   const PetDetailsPage({
     super.key,
-    required this.images,
-    required this.statusBarColor,
+    this.pet,
+    this.id,
   });
-  final List<String> images;
+  final Pet? pet;
+  final String? id;
 
-  final Color statusBarColor;
   @override
   State<PetDetailsPage> createState() => _PetDetailsPageState();
 }
 
 class _PetDetailsPageState extends State<PetDetailsPage> {
   final pageController = PageController();
+  late final fetchBloc = Modular.get<FetchPetBloc>();
 
   @override
   initState() {
     super.initState();
+    if (widget.pet == null && widget.id != null) {
+      fetchBloc.add(FetchPetByIdEvent(widget.id!));
+    } else {
+      fetchBloc.add(SetPetEvent(widget.pet!));
+    }
     SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
-      statusBarColor: widget.statusBarColor,
+      statusBarColor: Colors.red[200],
     ));
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: SafeArea(
-        child: SingleChildScrollView(
-          child: Column(
-            children: [
-              SizedBox(
-                height: MediaQuery.of(context).size.height * 0.48,
-                child: Stack(
-                  children: [
-                    PageView.builder(
-                      itemCount: widget.images.length,
-                      controller: pageController,
-                      itemBuilder: (context, index) {
-                        return Stack(
-                          fit: StackFit.expand,
-                          children: [
-                            CachedNetworkImage(
-                              imageUrl: widget.images[index],
-                              fit: BoxFit.fitWidth,
-                            ),
-                            Align(
-                              alignment: const Alignment(0, 0.95),
-                              child: Text(
-                                "(${index + 1}/${widget.images.length})",
-                                style: const TextStyle(color: Colors.white),
-                              ),
-                            )
-                          ],
+    return BlocProvider(
+      create: (_) => fetchBloc,
+      child: Scaffold(
+        body: SafeArea(
+          child: SingleChildScrollView(
+            child: Column(
+              children: [
+                SizedBox(
+                  height: MediaQuery.of(context).size.height * 0.48,
+                  child: BlocBuilder<FetchPetBloc, Pet?>(
+                    builder: (context, pet) {
+                      if (pet == null) {
+                        //TODO: Implementar um sisteminha de loading
+                        return const Center(
+                          child: CircularProgressIndicator(),
                         );
-                      },
-                    ),
-                    const Align(
-                      alignment: Alignment.topLeft,
-                      child: BackButton(
-                        color: Colors.white,
-                      ),
-                    ),
-                    Align(
-                      alignment: Alignment.bottomRight,
-                      child: CircleAvatar(
-                        radius: 26,
-                        backgroundColor: Colors.black.withOpacity(.6),
-                        child: IconButton(
-                          onPressed: () {
-                            Modular.to.push(MaterialPageRoute(
-                                builder: (context) => PhotoViewPage(
-                                      photos: widget.images,
-                                      controller: pageController,
-                                    )));
-                          },
-                          icon: const Icon(Icons.fullscreen),
-                          color: Colors.white,
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    IntrinsicHeight(
-                      child: Row(
+                      }
+                      return Stack(
                         children: [
-                          Expanded(
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              children: [
-                                Text(
-                                  'R\$',
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .bodyMedium
-                                      ?.copyWith(fontWeight: FontWeight.bold),
-                                ),
-                                Text(
-                                  '2499',
-                                  textAlign: TextAlign.justify,
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .headlineMedium
-                                      ?.copyWith(fontWeight: FontWeight.bold),
-                                ),
-                              ],
+                          PageView.builder(
+                            itemCount: widget.pet!.images.length,
+                            controller: pageController,
+                            itemBuilder: (context, index) {
+                              return Stack(
+                                fit: StackFit.expand,
+                                children: [
+                                  CachedNetworkImage(
+                                    imageUrl: widget.pet!.images[index],
+                                    fit: BoxFit.fitWidth,
+                                    placeholder: (context, url) => Center(
+                                      child: Container(
+                                        color: Colors.grey.shade300,
+                                      ),
+                                    ),
+                                  ),
+                                  Align(
+                                    alignment: const Alignment(0, 0.95),
+                                    child: Text(
+                                      "(${index + 1}/${widget.pet!.images.length})",
+                                      style:
+                                          const TextStyle(color: Colors.white),
+                                    ),
+                                  )
+                                ],
+                              );
+                            },
+                          ),
+                          const Align(
+                            alignment: Alignment.topLeft,
+                            child: BackButton(
+                              color: Colors.white,
                             ),
                           ),
-                          const VerticalDivider(),
-                          Row(
-                            children: [
-                              GestureDetector(
-                                onTap: () {},
-                                child: const Icon(Icons.favorite_border),
+                          Align(
+                            alignment: const Alignment(0.94, 0.94),
+                            child: CircleAvatar(
+                              radius: 26,
+                              backgroundColor: Colors.black.withOpacity(.6),
+                              child: IconButton(
+                                onPressed: () {
+                                  Modular.to.push(MaterialPageRoute(
+                                      builder: (context) => PhotoViewPage(
+                                            photos: widget.pet!.images,
+                                            controller: pageController,
+                                          )));
+                                },
+                                icon: const Icon(Icons.fullscreen),
+                                color: Colors.white,
                               ),
-                              IconButton(
-                                onPressed: () {},
-                                icon: const Icon(Icons.share),
-                              ),
-                              ElevatedButton.icon(
-                                icon: const Icon(Icons.pets),
-                                style: ElevatedButton.styleFrom(),
-                                onPressed: () {},
-                                label: const Text("Comprar"),
-                              ),
-                            ],
-                          )
+                            ),
+                          ),
                         ],
+                      );
+                    },
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      IntrinsicHeight(
+                        child: Row(
+                          children: [
+                            Expanded(
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    'R\$',
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .bodyMedium
+                                        ?.copyWith(fontWeight: FontWeight.bold),
+                                  ),
+                                  Text(
+                                    '2499',
+                                    textAlign: TextAlign.justify,
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .headlineMedium
+                                        ?.copyWith(fontWeight: FontWeight.bold),
+                                  ),
+                                  const Spacer(),
+                                  widget.pet!.isMale
+                                      ? Icon(Icons.male,
+                                          color: Colors.blue.shade300)
+                                      : Icon(Icons.female,
+                                          color: Colors.pink.shade300),
+                                ],
+                              ),
+                            ),
+                            const VerticalDivider(),
+                            Row(
+                              children: [
+                                GestureDetector(
+                                  onTap: () {},
+                                  child: const Icon(Icons.favorite_border),
+                                ),
+                                IconButton(
+                                  onPressed: () {},
+                                  icon: const Icon(Icons.share),
+                                ),
+                                ElevatedButton.icon(
+                                  icon: const Icon(Icons.pets),
+                                  style: ElevatedButton.styleFrom(),
+                                  onPressed: () {},
+                                  label: const Text("Comprar"),
+                                ),
+                              ],
+                            )
+                          ],
+                        ),
                       ),
-                    ),
-                    SizedBox(
-                      height: 10,
-                    ),
-                    Container(
-                        child: Text(
-                            "O filhote mais alegre da ninhada.")), //TODO: Replace with $description
-                    SizedBox(
-                      height: 10,
-                    ),
-                    Divider(),
-                    BirthRowWidget(
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      const Text(
+                          "O filhote mais alegre da ninhada."), //TODO: Replace with $description
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      // Divider(),
+                      BirthRowWidget(
                         icon: Icon(
                           Icons.cake_rounded,
                           color: Colors.pink.shade100,
                         ),
-                        children: [
-                          IconBornDate(
-                            icon: Icon(
-                              Icons.calendar_month,
-                              color: Colors.black,
-                            ),
-                            text: "23 Abril",
-                          ),
-                          IconBornDate(
-                            icon: Icon(
-                              Icons.timer_sharp,
-                              color: Colors.black,
-                            ),
-                            text: "21:32",
-                          ),
-                        ]),
-                    BirthRowWidget(
-                        icon: Text(""),
-                        children: [
-                          IconBornDate(
-                            icon: Icon(
-                              Icons.calendar_month,
-                              color: Colors.black,
-                            ),
-                            text: "23 Abril",
-                          ),
-                          IconBornDate(
-                            icon: Icon(
-                              Icons.timer_sharp,
-                              color: Colors.black,
-                            ),
-                            text: "21:32",
-                          ),
-                        ]),
-                    Divider(),
-
-                    Text(
-                      'Saiba mais',
-                      style: Theme.of(context).textTheme.headlineSmall,
-                      textAlign: TextAlign.start,
-                    ),
-                    Card(
-                      child: ListTile(
-                        tileColor: Colors.grey.shade300,
-                        leading: const Icon(Icons.info),
-                        title: const Text("Detalhes da ninhada"),
-                        subtitle: const Text("Pai, Mãe, Irmãos"),
-                        trailing: const Icon(Icons.arrow_forward_ios),
+                        child: const Text(
+                          "23 Abril as 21:32",
+                        ),
                       ),
-                    ),
-                  ],
+                      const SizedBox(
+                        height: 4,
+                      ),
+                      BirthRowWidget(
+                        icon: SizedBox(
+                            height: 24,
+                            child: Image.asset(
+                              "assets/images/icons/drug_medecine_syringue_icon.png",
+                              color: Colors.red.shade300,
+                            )),
+                        child: const Text("2x Importada"),
+                      ),
+                      const SizedBox(
+                        height: 4,
+                      ),
+                      BirthRowWidget(
+                        icon: SizedBox(
+                            height: 24,
+                            child: Image.asset(
+                              "assets/images/icons/dna_icon.png",
+                              color: Colors.blue.shade200,
+                            )),
+                        child: const Text(
+                          "Genética alemã",
+                        ),
+                        /*
+    
+                            IconBornDate(
+                              icon: Icon(
+                                Icons.calendar_month,
+                                color: Colors.black,
+                              ),
+                              text: "23 Abril",
+                            ),
+                            IconBornDate(
+                              icon: Icon(
+                                Icons.timer_sharp,
+                                color: Colors.black,
+                              ),
+                              text: "21:32",
+                            ),
+                            */
+                      ),
+                      const SizedBox(
+                        height: 4,
+                      ),
+                      BirthRowWidget(
+                        icon: SizedBox(
+                            height: 24,
+                            child: Icon(
+                              Icons.camera_enhance_rounded,
+                              color: Colors.orange.shade200,
+                            )),
+                        child: const Text(
+                          "Fotos atualizadas hà 15 dias",
+                        ),
+                      ),
+                      const Divider(),
+
+                      Text(
+                        'Saiba mais',
+                        style: Theme.of(context).textTheme.headlineSmall,
+                        textAlign: TextAlign.start,
+                      ),
+                      Card(
+                        child: ListTile(
+                          tileColor: Colors.grey.shade300,
+                          onTap: () => Toast.show(
+                            "Em breve",
+                            duration: Toast.lengthShort,
+                            gravity: Toast.bottom,
+                          ),
+                          leading: const Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Icon(Icons.info),
+                            ],
+                          ),
+                          title: const Text("Detalhes da ninhada"),
+                          subtitle: const Text("Pai, Mãe, Irmãos"),
+                          trailing: const Icon(Icons.lock_clock_rounded),
+                        ),
+                      ),
+                      Card(
+                        child: ListTile(
+                          tileColor: Colors.grey.shade300,
+                          onTap: () => Toast.show(
+                            "Em breve",
+                            duration: Toast.lengthShort,
+                            gravity: Toast.bottom,
+                          ),
+                          leading: const Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Icon(Icons.photo),
+                            ],
+                          ),
+                          title: const Text("Fotos antigas [ + Fotos]"),
+                          //Videos e fotos > //TODO: Incentivar os canis a preferirem postar toda e qualquer foto relacionada aquele cachorro
+                          //TODO: Exibir quantidade de fotos disponíveis.
+                          trailing: const Text("0"),
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       ),
@@ -220,22 +316,32 @@ class _PetDetailsPageState extends State<PetDetailsPage> {
 class BirthRowWidget extends StatelessWidget {
   const BirthRowWidget({
     super.key,
-    required this.children,
+    required this.child,
     required this.icon,
   });
 
-  final List<Widget> children;
+  final Widget child;
   final Widget icon;
 
   @override
   Widget build(BuildContext context) {
     return IntrinsicHeight(
       child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
-          icon, const SizedBox(),
-          const VerticalDivider(),
-          ...children
+          Flexible(flex: 1, child: icon),
+          Flexible(
+            flex: 4,
+            child: Row(
+              children: [
+                const VerticalDivider(),
+                SizedBox(
+                  width: 12,
+                ),
+                child
+              ],
+            ),
+          ),
           // VerticalDivider(),
           // IconBornDate(),
           // VerticalDivider(),
@@ -252,14 +358,11 @@ class IconBornDate extends StatelessWidget {
     required this.icon,
     required this.text,
   });
-  final Icon icon;
+  final Widget icon;
   final String text;
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      crossAxisAlignment: CrossAxisAlignment.end,
-      children: [icon, Text(text)],
-    );
+    return Text(text);
   }
 }

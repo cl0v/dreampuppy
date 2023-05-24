@@ -1,5 +1,8 @@
+import 'dart:io';
+
 import 'package:dreampuppy/app.dart';
 import 'package:dreampuppy/app.module.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
@@ -19,14 +22,19 @@ void main() async {
         options.tracesSampleRate = kDebugMode ? 1.0 : 0.3;
         options.addIntegration(LoggingIntegration());
       },
-      appRunner: () => runApp(
-        ModularApp(
-          module: AppModule(),
-          child: const App(),
-        ),
-      ),
+      appRunner: () async {
+        WidgetsFlutterBinding.ensureInitialized();
+        Platform.isWindows ? null : await Firebase.initializeApp();
+        runApp(
+          ModularApp(
+            module: AppModule(),
+            child: const App(),
+          ),
+        );
+      },
     );
   }, (exception, stackTrace) async {
+    debugPrint("Ocorreu uma exception: $exception");
     await Sentry.captureException(exception, stackTrace: stackTrace);
   });
 }

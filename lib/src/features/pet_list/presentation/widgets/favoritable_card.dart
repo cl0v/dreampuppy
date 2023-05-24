@@ -1,39 +1,39 @@
-import 'package:dreampuppy/src/domain/singletons/user.dart';
+import 'package:dreampuppy/src/_domain/singletons/user.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
-import '../../../../presentation/utils/login_required_dialog.dart';
 import '../../domain/entities/pet_card.dart';
 
-class FavotirablePetWidget extends StatefulWidget {
-  const FavotirablePetWidget({
+class FavoritablePetWidget extends StatefulWidget {
+  const FavoritablePetWidget({
     super.key,
     required this.card,
   });
   final PetCardEntity card;
 
   @override
-  State<FavotirablePetWidget> createState() => _FavotirablePetWidgetState();
+  State<FavoritablePetWidget> createState() => _FavoritablePetWidgetState();
 }
 
-class _FavotirablePetWidgetState extends State<FavotirablePetWidget> {
-  late bool isFavorite;
+class _FavoritablePetWidgetState extends State<FavoritablePetWidget> {
+  late bool isFavorite = false;
 
   final user = Modular.get<UserSingleton>().user;
   @override
   void initState() {
-    isFavorite = user?.isFavorite(widget.card.id) ?? false;
+    // isFavorite = user?.isFavorite(widget.card.id) ?? false;
     super.initState();
   }
 
   onFavorite() async {
-    await checkUserLoginAndShowLoginDialog(context);
+    return;
+    // await checkUserLoginAndShowLoginDialog(context);
 
-    setState(() {
-      isFavorite = !isFavorite;
-    });
+    // setState(() {
+    //   isFavorite = !isFavorite;
+    // });
 
     //TODO: Implementar favoritar por usecase
-    user?.favorites.add(widget.card.id);
+    // user?.favorites.add(widget.card.id);
   }
 
 
@@ -42,7 +42,8 @@ class _FavotirablePetWidgetState extends State<FavotirablePetWidget> {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () => Modular.to.pushNamed(
-        '/pets/dogs/${widget.card.breed.toLowerCase()}',
+        '/breeds/${widget.card.breed.toLowerCase()}',
+        arguments: widget.card,
       ),
       child: Stack(
         children: [

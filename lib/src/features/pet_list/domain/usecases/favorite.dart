@@ -1,4 +1,4 @@
-import 'package:dreampuppy/src/domain/singletons/user.dart';
+import 'package:dreampuppy/src/_domain/singletons/user.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
 abstract class FavoriteUseCase{

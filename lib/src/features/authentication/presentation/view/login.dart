@@ -147,7 +147,7 @@ class LoginPage extends StatelessWidget {
                       style: TextStyle(color: Colors.grey[700]),
                     ),
                     TextButton(
-                      onPressed: () => Modular.to.pushReplacementNamed('./register'),
+                      onPressed: () => Modular.to.pushReplacementNamed('./create'),
                       child: const Text(
                         'Cadastrar agora',
                         style: TextStyle(

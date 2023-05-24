@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "1024413198026",
+    "project_id": "dreampuppy-12951",
+    "storage_bucket": "dreampuppy-12951.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1024413198026:android:1f771d484b4c8a9a797633",
+        "android_client_info": {
+          "package_name": "com.dreampuppy"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1024413198026-7ht4c0brof0a2hj5h5eoodrbrvcrrtkt.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBn-IdzNoAdwqY2h9xjjEYKgl-R-BKrhlA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1024413198026-7ht4c0brof0a2hj5h5eoodrbrvcrrtkt.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
