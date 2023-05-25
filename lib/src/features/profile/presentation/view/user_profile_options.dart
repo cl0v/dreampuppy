@@ -52,19 +52,29 @@ class _UserProfileOptionsViewState extends State<UserProfileOptionsView> {
                   ),
                 ),
               ),
-               userSingleton.user == null
+              userSingleton.user == null
                   ? ListTile(
-                      leading: const Icon(Icons.login),
+                      leading: const Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Icon(Icons.login),
+                        ],
+                      ),
                       title: const Text("Entrar"),
                       subtitle: const Text("Bem vindo de volta!"),
                       onTap: () => Modular.to.pushNamed('/login'),
                       trailing: const Icon(Icons.arrow_forward_ios),
                     )
                   : Container(),
-               userSingleton.user == null
+              userSingleton.user == null
                   ? ListTile(
-                    //TODO: Adicionar um fundo como se fosse a entrada de um parque de diversões
-                      leading: const Icon(Icons.person_add),
+                      //TODO: Adicionar um fundo como se fosse a entrada de um parque de diversões
+                      leading: const Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Icon(Icons.person_add),
+                        ],
+                      ),
                       title: const Text("Cadastrar"),
                       subtitle: const Text("Vem sonhar com a gente..."),
                       onTap: () => Modular.to.pushNamed('/login/register'),
@@ -73,106 +83,109 @@ class _UserProfileOptionsViewState extends State<UserProfileOptionsView> {
                   : Container(),
               userSingleton.user != null
                   ? const Visibility(
-                    visible: false,
-                    child: ListTile(
+                      visible: false,
+                      child: ListTile(
                         leading: Icon(Icons.person),
                         subtitle: Text("Altere email, senha, etc.."),
                         title: Text("Editar perfil"),
                         trailing: Icon(Icons.arrow_forward_ios),
                       ),
-                  )
+                    )
                   : Container(),
-                  //TODO: Liberar funcionalidade de favoritar
-             Visibility(
-              visible: false,
-              child:  userSingleton.user != null
-                  ? const  Visibility(
-                    visible: false,
-                    child: ListTile(
-                      leading: Icon(Icons.favorite),
-                      title: Text("Favoritos"),
-                      trailing: Icon(Icons.arrow_forward_ios),
-                    ))
-                  : Container(),),
+              //TODO: Liberar funcionalidade de favoritar
+              Visibility(
+                visible: false,
+                child: userSingleton.user != null
+                    ? const Visibility(
+                        visible: false,
+                        child: ListTile(
+                          leading: Icon(Icons.favorite),
+                          title: Text("Favoritos"),
+                          trailing: Icon(Icons.arrow_forward_ios),
+                        ))
+                    : Container(),
+              ),
               userSingleton.user != null
                   ? const Visibility(
-                    visible: false,
-                    child: ListTile(
-                      leading: Icon(Icons.document_scanner),
-                      title: Text("Documentos pendentes"),
-                      trailing: Icon(Icons.arrow_forward_ios),
-                    ))
+                      visible: false,
+                      child: ListTile(
+                        leading: Icon(Icons.document_scanner),
+                        title: Text("Documentos pendentes"),
+                        trailing: Icon(Icons.arrow_forward_ios),
+                      ))
                   : Container(),
-                  //TODO: (Importante) Implementar histórico de compras
+              //TODO: (Importante) Implementar histórico de compras
               userSingleton.user != null
                   ? const Visibility(
-                    visible: false,
-                    child: ListTile(
-                      leading: Icon(Icons.history),
-                      title: Text("Histórico de compras"),
-                      trailing: Icon(Icons.arrow_forward_ios),
-                    ))
+                      visible: false,
+                      child: ListTile(
+                        leading: Icon(Icons.history),
+                        title: Text("Histórico de compras"),
+                        trailing: Icon(Icons.arrow_forward_ios),
+                      ))
                   : Container(),
               userSingleton.user != null
-                  ? const  Visibility(
-                    visible: false,
-                    child: ListTile(
-                      leading: Icon(Icons.credit_card),
-                      title: Text("Meus Cartões"),
-                      trailing: Icon(Icons.arrow_forward_ios),
-                    ))
+                  ? const Visibility(
+                      visible: false,
+                      child: ListTile(
+                        leading: Icon(Icons.credit_card),
+                        title: Text("Meus Cartões"),
+                        trailing: Icon(Icons.arrow_forward_ios),
+                      ))
                   : Container(),
               userSingleton.user != null
-                  ? const  Visibility(
-                    visible: false,
-                    child: ListTile(
-                      leading: Icon(Icons.location_on),
-                      title: Text("Endereço cadastrado"),
-                      trailing: Icon(Icons.arrow_forward_ios),
-                    ))
+                  ? const Visibility(
+                      visible: false,
+                      child: ListTile(
+                        leading: Icon(Icons.location_on),
+                        title: Text("Endereço cadastrado"),
+                        trailing: Icon(Icons.arrow_forward_ios),
+                      ))
                   : Container(),
-             
+
               const Visibility(
-                    visible: false,
-                    child:  ListTile(
-                leading: Icon(Icons.notifications),
-                title: Text("Notificações"),
-                trailing: Icon(Icons.arrow_forward_ios),
-              ),),
+                visible: false,
+                child: ListTile(
+                  leading: Icon(Icons.notifications),
+                  title: Text("Notificações"),
+                  trailing: Icon(Icons.arrow_forward_ios),
+                ),
+              ),
               const Visibility(
-                    visible: false,
-                    child:  ListTile(
-                leading: Icon(Icons.newspaper),
-                title: Text("Novidades"),
-                // subtitle: Text("O que há de novo pelo app"),
-                trailing: Icon(Icons.arrow_forward_ios),
-              ),),
-              
+                visible: false,
+                child: ListTile(
+                  leading: Icon(Icons.newspaper),
+                  title: Text("Novidades"),
+                  // subtitle: Text("O que há de novo pelo app"),
+                  trailing: Icon(Icons.arrow_forward_ios),
+                ),
+              ),
+
+              //TODO: A wiki inclui o faq, como usar o app, tutoriais, etc v
               ListTile(
-                onTap: () => Modular.get<NeedHelpUseCase>().call('Preciso de ajuda!'),
+                title: const Text("Wiki | Preciso de Ajuda"),
                 leading: const Icon(Icons.auto_stories),
-                //TODO: A wiki inclui o faq, como usar o app, tutoriais, etc v
-                
-                title: const Text("Wiki || Preciso de Ajuda"),
                 trailing: const Icon(Icons.arrow_forward_ios),
+                onTap: () =>
+                    Modular.get<NeedHelpUseCase>().call('Preciso de ajuda!'),
               ),
 
               userSingleton.user != null
-                  ? const  Visibility(
-                    visible: false,
-                    child: ListTile(
+                  ? const Visibility(
+                      visible: false,
+                      child: ListTile(
                         leading: Icon(Icons.logout),
                         title: Text("Sair"),
                       ),
-                  )
+                    )
                   : Container(),
 
-                //TODO: O botão de Sobre Informa os dados do aplicativo (Versão, etc...)
-                // ! [ Tambem irá informar atualizações disponíveis para o user]
-               const ListTile(
-                        leading: Icon(Icons.info),
-                        title: Text("Sobre"),
-                  ),
+              //TODO: O botão de Sobre Informa os dados do aplicativo (Versão, etc...)
+              // ! [ Tambem irá informar atualizações disponíveis para o user]
+              const ListTile(
+                leading: Icon(Icons.info),
+                title: Text("Sobre"),
+              ),
             ]
                 .map((e) => e.runtimeType == ListTile
                     ? Card(

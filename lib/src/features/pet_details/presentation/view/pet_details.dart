@@ -1,26 +1,26 @@
-import 'package:cached_network_image/cached_network_image.dart';
-import 'package:dreampuppy/src/features/slider/presentation/view/slider.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
+import '../bloc/fetch_pet.dart';
+import 'package:toast/toast.dart'; 
+import 'package:flutter/material.dart'; 
+import 'package:flutter/services.dart'; 
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_modular/flutter_modular.dart';
-import 'package:toast/toast.dart';
-
-import '../../../../_domain/entities/pet.dart';
-import '../bloc/fetch_pet.dart';
+import 'package:dreampuppy/src/_domain/entities/pet.dart';
+import 'package:cached_network_image/cached_network_image.dart';
+import 'package:dreampuppy/src/features/slider/presentation/view/slider.dart';
 
 //TODO: Buscar o produto do servidor, buscando assim todos os dados do pet em especifico
 //TODO: Criar versão de carregamento da página (Shimmer/Skelton)
 //TODO: Salvar o historico de fotos do filhote, para que sirva de memória
 
 class PetDetailsPage extends StatefulWidget {
+  final Pet? pet;
+  final String? id;
+
   const PetDetailsPage({
     super.key,
     this.pet,
     this.id,
   });
-  final Pet? pet;
-  final String? id;
 
   @override
   State<PetDetailsPage> createState() => _PetDetailsPageState();
