@@ -13,10 +13,8 @@ class Dog extends Pet {
     required this.breed,
     required super.data,
     required super.value,
-    required super.ninhadaId,
-  }) : super(
-          category: "dog",
-        );
+    required super.geoloc,
+  });
 
   factory Dog.fromJson(Map<String, dynamic> json) => _$DogFromJson(json);
 

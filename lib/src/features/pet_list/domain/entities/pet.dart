@@ -1,20 +1,27 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:json_annotation/json_annotation.dart';
+
 part 'pet.g.dart';
 
 @JsonSerializable()
 class Pet {
   /// Dog, Cat, Bunny, etc...
-  String category;
+  final String category = 'dog';
+  //TODO: Lançar sem os dados dos pais
   PetComplementarData data;
+  //TODO: Lançar sem o id da ninhada
+  // String ninhadaId;
   double value;
   String? description;
-  String ninhadaId;
+  @JsonKey(name: '_geoloc')
+  Geoloc geoloc;
 
   Pet({
-    required this.category,
-    required this.data,
     required this.value,
-    required this.ninhadaId,
+    this.description,
+    required this.data,
+    // required this.ninhadaId,
+    required this.geoloc,
   });
 
   factory Pet.fromJson(Map<String, dynamic> json) => _$PetFromJson(json);
@@ -49,6 +56,21 @@ class PetParentData {
 
 
 @JsonSerializable()
+class  Geoloc {
+  final String lat;
+  final String lng;
+
+  Geoloc({
+    required this.lat,
+    required this.lng,
+  });
+
+  factory Geoloc.fromJson(Map<String, dynamic> json) => _$GeolocFromJson(json);
+  Map<String, dynamic> toJson() => _$GeolocToJson(this);
+}
+
+
+@JsonSerializable()
 class PetComplementarData {
   //TODO: Os dados de pai e mae deverão existir também na ninhada.
   final PetParentData father;
@@ -58,7 +80,6 @@ class PetComplementarData {
     required this.father,
     required this.mother,
   });
-
   
   factory PetComplementarData.fromJson(Map<String, dynamic> json) => _$PetComplementarDataFromJson(json);
   Map<String, dynamic> toJson() => _$PetComplementarDataToJson(this);

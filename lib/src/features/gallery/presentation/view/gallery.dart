@@ -1,8 +1,11 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:dreampuppy/data.dart';
 import 'package:dreampuppy/src/features/gallery/presentation/view/filter/filter_view.dart';
 import 'package:dreampuppy/src/features/pet_list/domain/entities/pet_card.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+import '../../../../../config.dart';
 import '../../../../_domain/entities/pet.dart';
 
 // TODO: O enquadramento das imagens será disposta em um modelo diferente, focando em 9/16; Para a imagem em grid
@@ -75,10 +78,14 @@ final List<Pet> pets = [
 class GalleryPage extends StatefulWidget {
   const GalleryPage({
     super.key,
-    required this.petCard,
+    required this.breed,
   });
   //TODO: Receber informações sobre a raça em específico.
-  final PetCardEntity petCard;
+  final String breed;
+  // gen (genero) -1/0/1 (femea/todos/macho) //TODO: Genero será a primeira versão
+  // type (variação) "variação" (micro/toy/mini/exotic...) // TODO!: Por enquanto não tem variações (Terceira versão)
+  // color (cor) "cor" (black/white/brown...) //TODO: Cor será a segunda versão 
+  //TODO: Adicionar specs de filtros ?gen=-1&type=frances&color=black
 
   @override
   State<GalleryPage> createState() => _GalleryPageState();
@@ -87,101 +94,128 @@ class GalleryPage extends StatefulWidget {
 class _GalleryPageState extends State<GalleryPage> {
   //TODO: BUG: GlobalKey está dando erro.
   late GlobalKey<ScaffoldState> _key;
+  late final PetCardEntity petCard;
 
   @override
   void initState() {
     _key = GlobalKey();
+    petCard = cards.firstWhere((element) => element.path == widget.breed);
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
+    SystemConfig.changeStatusBarColor(petCard.color);
     return Scaffold(
       key: _key,
-      //TODO: O drawer ainda não está funcionando.
-      endDrawer: Drawer(
-        child: FilterView(
-          barColor: widget.petCard.color,
+      drawerEnableOpenDragGesture:
+          kDebugMode, //TODO: !Remover: O Drawer deve ter o acesso facilitado ao máximo.
+      //TODO: Implementar o sistema de filtros do Drawer
+      endDrawer: kDebugMode
+          ? Drawer(
+              child: FilterView(
+                barColor: petCard.color,
+              ),
+            )
+          : null,
+      appBar: AppBar(
+        actions: const [
+          SizedBox.shrink(),
+        ],
+        backgroundColor: petCard.color,
+        centerTitle: true,
+        leading: IconButton(
+          onPressed: () {
+            //TODO: O comportamento esperado é que esse botão volte sempre pra lista de raças.
+            //TODO: Interrogar usuários o que eles acham desse botão ter esse comportamento.
+            if (Modular.to.canPop()) {
+              Modular.to.pop();
+            } else {
+              Modular.to.pushReplacementNamed('/');
+            }
+          },
+          icon: const Icon(
+            Icons.arrow_back_ios,
+            color: Colors.white,
+          ),
+        ),
+        title: const Text(
+          "Gallery",
+          style: TextStyle(
+            fontStyle: FontStyle.italic,
+            color: Colors.white,
+            fontWeight: FontWeight.w500,
+            fontSize: 16,
+          ),
         ),
       ),
       bottomNavigationBar: BottomAppBar(
-          color: widget.petCard.color,
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Row(
-                children: [
-                  IconButton(
-                      //TODO: Usar a cor do botão se adaptar de acordo com o tema
-                      onPressed: () => Modular.to.pop(),
-                      // style: Theme.of(context).iconButtonTheme.style,
-                      icon: const Icon(
-                        Icons.arrow_back,
-                        color: Colors.white,
-                      )),
-                  const Text(
-                    "Gallery",
-                    style: TextStyle(
-                      fontStyle: FontStyle.italic,
+          color: petCard.color,
+          child:
+              Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
+            Modular.to.canPop()
+                ? TextButton.icon(
+                    onPressed: Modular.to.pop,
+                    icon: const Icon(
+                      Icons.arrow_back_ios,
                       color: Colors.white,
-                      fontWeight: FontWeight.w500,
-                      fontSize: 16,
                     ),
-                  ),
-                ],
-              ),
-              Row(
-                children: [
-                  const Visibility(
-                    visible: false,
-                    child: IconButton(
-                      //TODO: Adicionar botão de ir para o carrinho.
-                      onPressed: null,
-                      icon: Icon(
-                        Icons.shopping_bag,
-                        color: Colors.white,
-                      ),
-                      tooltip: "Itens escolhidos",
+                    label: const Text(
+                      "Anterior",
+                      style: TextStyle(color: Colors.white),
+                    ))
+                : const SizedBox.shrink(),
+            Row(
+              children: [
+                const Visibility(
+                  visible: false,
+                  child: IconButton(
+                    //TODO: Adicionar botão de ir para o carrinho.
+                    onPressed: null,
+                    icon: Icon(
+                      Icons.shopping_bag,
+                      color: Colors.white,
                     ),
+                    tooltip: "Itens escolhidos",
                   ),
-                  //TODO: Adicionar botão de compartilhar
-                  const Visibility(
-                    visible: false,
-                    child: IconButton(
-                      onPressed: null,
-                      icon: Icon(
-                        Icons.share,
-                        color: Colors.white,
-                      ),
-                      tooltip: "Compartilhar",
+                ),
+                Visibility(
+                  visible: kDebugMode,
+                  child: IconButton(
+                    //TODO: Implementar compartilhar
+                    onPressed: () {},
+                    icon: const Icon(
+                      Icons.share,
+                      color: Colors.white,
                     ),
+                    tooltip: "Compartilhar",
                   ),
-                  //TODO: Adicionar botão de filtros
-                  Visibility(
-                    visible: false,
-                    child: IconButton(
-                      onPressed: () {
-                        _key.currentState?.openEndDrawer();
-                      },
-                      icon: Transform(
-                        alignment: Alignment.center,
-                        transform: Matrix4.identity()
-                          ..scale(-1.0, 1.0, 1.0), // Apply horizontal mirroring
-                        child: const RotatedBox(
-                          quarterTurns: 0,
-                          child: Icon(
-                            Icons.sort,
-                            color: Colors.white,
-                          ),
+                ),
+                //TODO: Adicionar botão de filtros
+                Visibility(
+                  visible: true,
+                  child: IconButton(
+                    onPressed: () {
+                      _key.currentState?.openEndDrawer();
+                    },
+                    icon: Transform(
+                      alignment: Alignment.center,
+                      transform: Matrix4.identity()
+                        ..scale(-1.0, 1.0, 1.0), // Apply horizontal mirroring
+                      child: const RotatedBox(
+                        quarterTurns: 0,
+                        child: Icon(
+                          Icons.sort,
+                          color: Colors.white,
                         ),
                       ),
-                      tooltip: "Adicionar filtros",
                     ),
+                    tooltip: "Adicionar filtros",
                   ),
-                ],
-              ),
-            ],
-          )),
+                ),
+              ],
+            )
+          ])),
       // appBar: AppBar(
       //   title: const Text("Gallery"),
       //   actions: const [
@@ -226,7 +260,7 @@ class _GalleryPageState extends State<GalleryPage> {
               padding: const EdgeInsets.all(0.5),
               child: InkWell(
                 onTap: () => Modular.to.pushNamed(
-                  '/pets/${pets[i].id}',
+                  '/pet/p/${pets[i].id}',
                   arguments: pets[i],
                 ),
                 child: Hero(

@@ -1,5 +1,7 @@
 import 'dart:ui';
 
+import '../../../../utils/format_to_uri.dart';
+
 class PetCardEntity {
   final String id;
   final String imgUrl;
@@ -17,5 +19,5 @@ class PetCardEntity {
 
   Color get color => Color(colorValue);
 
-  String get path => Uri.encodeFull(breed.toLowerCase());
+  String get path => formatToUri(breed.toLowerCase());
 }

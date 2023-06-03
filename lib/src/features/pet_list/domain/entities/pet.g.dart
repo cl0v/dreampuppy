@@ -7,18 +7,17 @@ part of 'pet.dart';
 // **************************************************************************
 
 Pet _$PetFromJson(Map<String, dynamic> json) => Pet(
-      category: json['category'] as String,
-      data: PetComplementarData.fromJson(json['data'] as Map<String, dynamic>),
       value: (json['value'] as num).toDouble(),
-      ninhadaId: json['ninhadaId'] as String,
-    )..description = json['description'] as String?;
+      description: json['description'] as String?,
+      data: PetComplementarData.fromJson(json['data'] as Map<String, dynamic>),
+      geoloc: Geoloc.fromJson(json['_geoloc'] as Map<String, dynamic>),
+    );
 
 Map<String, dynamic> _$PetToJson(Pet instance) => <String, dynamic>{
-      'category': instance.category,
       'data': instance.data,
       'value': instance.value,
       'description': instance.description,
-      'ninhadaId': instance.ninhadaId,
+      '_geoloc': instance.geoloc,
     };
 
 PetParentData _$PetParentDataFromJson(Map<String, dynamic> json) =>
@@ -39,6 +38,16 @@ Map<String, dynamic> _$PetParentDataToJson(PetParentData instance) =>
       'nick': instance.nick,
       'imagesUrl': instance.imagesUrl,
       'description': instance.description,
+    };
+
+Geoloc _$GeolocFromJson(Map<String, dynamic> json) => Geoloc(
+      lat: json['lat'] as String,
+      lng: json['lng'] as String,
+    );
+
+Map<String, dynamic> _$GeolocToJson(Geoloc instance) => <String, dynamic>{
+      'lat': instance.lat,
+      'lng': instance.lng,
     };
 
 PetComplementarData _$PetComplementarDataFromJson(Map<String, dynamic> json) =>

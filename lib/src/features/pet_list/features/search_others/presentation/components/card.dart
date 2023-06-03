@@ -31,7 +31,7 @@ class _MoreBreedsSurveyWidgetState extends State<MoreBreedsSurveyWidget> {
               errorBuilder: (context, error, stackTrace) =>
                   const Icon(Icons.image_not_supported_outlined),
               'assets/images/dogs/rottweiler.png',
-              color: Colors.black,
+              color: Colors.black.withOpacity(0.6), //TODO: Deixar mais cinza
               //TODO: Testar tamanho em dispositivos variados.
               height: 120,
             )),

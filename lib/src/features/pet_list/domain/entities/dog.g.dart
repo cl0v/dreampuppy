@@ -10,17 +10,14 @@ Dog _$DogFromJson(Map<String, dynamic> json) => Dog(
       breed: json['breed'] as String,
       data: PetComplementarData.fromJson(json['data'] as Map<String, dynamic>),
       value: (json['value'] as num).toDouble(),
-      ninhadaId: json['ninhadaId'] as String,
-    )
-      ..category = json['category'] as String
-      ..description = json['description'] as String?;
+      geoloc: Geoloc.fromJson(json['_geoloc'] as Map<String, dynamic>),
+    )..description = json['description'] as String?;
 
 Map<String, dynamic> _$DogToJson(Dog instance) => <String, dynamic>{
-      'category': instance.category,
       'data': instance.data,
       'value': instance.value,
       'description': instance.description,
-      'ninhadaId': instance.ninhadaId,
+      '_geoloc': instance.geoloc,
       'breed': instance.breed,
     };
 

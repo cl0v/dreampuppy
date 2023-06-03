@@ -10,8 +10,7 @@ class BreedDetailsModule extends Module {
         ChildRoute(
           '/:breed',
           child: (context, args) {
-            final card = args.data;
-            return BreedDetailsPage(card: card);
+            return BreedDetailsPage(breed: args.params['breed'],);
           },
         ),
       ];

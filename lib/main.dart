@@ -1,5 +1,4 @@
 import 'dart:io';
-
 import 'package:dreampuppy/app.dart';
 import 'package:dreampuppy/app.module.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -9,6 +8,9 @@ import 'package:flutter_modular/flutter_modular.dart';
 import 'package:sentry_flutter/sentry_flutter.dart';
 import 'package:sentry_logging/sentry_logging.dart';
 import 'dart:async';
+
+//TODO: Adicionar credenciais de desenvolvedor e invalidar toda e qualquer ação que pode atrapalhar o funcionamento do app.
+// Login a ser usado: (email: developer@dreampuppy.com.br, senha: @developer@)
 
 void main() async {
   runZonedGuarded(() async {
@@ -25,6 +27,10 @@ void main() async {
       appRunner: () async {
         WidgetsFlutterBinding.ensureInitialized();
         Platform.isWindows ? null : await Firebase.initializeApp();
+
+
+        // To keep the screen on:
+        // Wakelock.enable(); // or Wakelock.toggle(on: true);
         runApp(
           ModularApp(
             module: AppModule(),
@@ -34,7 +40,6 @@ void main() async {
       },
     );
   }, (exception, stackTrace) async {
-    debugPrint("Ocorreu uma exception: $exception");
     await Sentry.captureException(exception, stackTrace: stackTrace);
   });
 }

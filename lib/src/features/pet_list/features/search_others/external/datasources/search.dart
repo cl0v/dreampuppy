@@ -6,7 +6,7 @@ import '../../infra/datasources/search.dart';
 
 class SearchDataSourceImpl implements SearchDataSource {
   final FirebaseFirestore firestore;
-  final String collectionPath = '${kDebugMode ? 'dev_' : ''}search';
+  final String collectionPath = kDebugMode ? 'dev_search': 'search';
 
   SearchDataSourceImpl(this.firestore);
 

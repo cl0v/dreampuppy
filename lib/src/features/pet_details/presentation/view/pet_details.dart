@@ -1,7 +1,7 @@
 import '../bloc/fetch_pet.dart';
-import 'package:toast/toast.dart'; 
-import 'package:flutter/material.dart'; 
-import 'package:flutter/services.dart'; 
+import 'package:toast/toast.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:dreampuppy/src/_domain/entities/pet.dart';
@@ -38,9 +38,11 @@ class _PetDetailsPageState extends State<PetDetailsPage> {
     } else {
       fetchBloc.add(SetPetEvent(widget.pet!));
     }
-    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+    /*
+SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
       statusBarColor: Colors.red[200],
     ));
+    */
   }
 
   @override
@@ -142,7 +144,7 @@ class _PetDetailsPageState extends State<PetDetailsPage> {
                                         ?.copyWith(fontWeight: FontWeight.bold),
                                   ),
                                   Text(
-                                    '2499',
+                                    '24999',
                                     textAlign: TextAlign.justify,
                                     style: Theme.of(context)
                                         .textTheme
@@ -161,13 +163,19 @@ class _PetDetailsPageState extends State<PetDetailsPage> {
                             const VerticalDivider(),
                             Row(
                               children: [
-                                GestureDetector(
-                                  onTap: () {},
-                                  child: const Icon(Icons.favorite_border),
+                                Visibility(
+                                  visible: false,
+                                  child: GestureDetector(
+                                    onTap: () {},
+                                    child: const Icon(Icons.favorite_border),
+                                  ),
                                 ),
-                                IconButton(
-                                  onPressed: () {},
-                                  icon: const Icon(Icons.share),
+                                Visibility(
+                                  visible: false,
+                                  child: IconButton(
+                                    onPressed: () {},
+                                    icon: const Icon(Icons.share),
+                                  ),
                                 ),
                                 ElevatedButton.icon(
                                   icon: const Icon(Icons.pets),
@@ -257,11 +265,7 @@ class _PetDetailsPageState extends State<PetDetailsPage> {
                       ),
                       const Divider(),
 
-                      Text(
-                        'Saiba mais',
-                        style: Theme.of(context).textTheme.headlineSmall,
-                        textAlign: TextAlign.start,
-                      ),
+                     
                       Card(
                         child: ListTile(
                           tileColor: Colors.grey.shade300,
@@ -298,7 +302,11 @@ class _PetDetailsPageState extends State<PetDetailsPage> {
                           title: const Text("Fotos antigas [ + Fotos]"),
                           //Videos e fotos > //TODO: Incentivar os canis a preferirem postar toda e qualquer foto relacionada aquele cachorro
                           //TODO: Exibir quantidade de fotos disponíveis.
-                          trailing: const Text("0"),
+                          //TODO: A partir 99 fotos, exibir "99+ fotos" (Corrigir o layout para numeros grandes)
+                          trailing: CircleAvatar(
+                            radius: 14,
+                            backgroundColor: Colors.black.withOpacity(.3),
+                            child: const Text("99", style: TextStyle(color: Colors.white),)),
                         ),
                       ),
                     ],

@@ -75,8 +75,4 @@ final List<PetCardEntity> cards = [
   PetCardEntity(breed: "Shih tzu", colorValue: Colors.blue[200]!.value),
   PetCardEntity(breed: "Spitz Alemão", colorValue: Colors.green[200]!.value),
   PetCardEntity(breed: "Labrador", colorValue: Colors.purple[200]!.value),
-  PetCardEntity(breed: "Labrador", colorValue: Colors.purple[200]!.value),
-  PetCardEntity(breed: "Labrador", colorValue: Colors.purple[200]!.value),
-  PetCardEntity(breed: "Labrador", colorValue: Colors.purple[200]!.value),
-  PetCardEntity(breed: "Labrador", colorValue: Colors.purple[200]!.value),
 ];

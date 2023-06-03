@@ -1,10 +1,8 @@
-import 'package:dreampuppy/algolia_application.dart';
 import 'package:dreampuppy/data.dart';
 import 'package:dreampuppy/src/_domain/singletons/user.dart';
 import 'package:dreampuppy/src/features/pet_list/features/search_others/presentation/components/card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
-import 'package:flutter_svg/svg.dart';
 import '../widgets/favoritable_card.dart';
 
 //TODO: Usar o icone para organizar: Icons.filter_list_sharp (sort)
@@ -23,7 +21,6 @@ class _BreedListPageState extends State<BreedListPage> {
 
   @override
   void initState() {
-    Modular.get<AlgoliaApplication>();
     searchController = TextEditingController();
     super.initState();
   }
@@ -32,8 +29,8 @@ class _BreedListPageState extends State<BreedListPage> {
   Widget build(BuildContext context) {
     return WillPopScope(
       onWillPop: () async {
-        return false;
-        //TODO: Adicionar dialog de prevenção de saida do app. 
+        //TODO: Adicionar dialog de prevenção de saida do app. (Usar esse botão como atalho rapido para chamar o suporte)
+        return true;
         // > (Quando o user tocar 2 vezes no sair, ou seja, abrir o dialog e tocar novamente em sair, apenas fechar o app...)
 
         // await AwesomeDialog(
@@ -64,25 +61,58 @@ class _BreedListPageState extends State<BreedListPage> {
           //TODO: Latir quando tocar no botão
           leading: IconButton(
             onPressed: null,
-            icon: SvgPicture.asset(
-              "assets/images/icons/logo512.svg",
-              placeholderBuilder: (context) => const Icon(Icons.pets),
+            icon: Image.asset(
+              "assets/images/icons/logo512.png",
             ),
           ),
-          title: const Text(
-            "DreamPuppy",
-            style: TextStyle(fontStyle: FontStyle.italic, color: Colors.black),
+          title: const Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              Text(
+                "Dream",
+                // style: GoogleFonts.rubik(
+                //   fontWeight: FontWeight.w500,
+                //   fontSize: 24,
+                //   color: Colors.black,
+                // ),
+                style: TextStyle(
+                  // fontFamily: 'Clicker Script',
+                  // fontFamily: 'Rubik Gemstones',
+                  fontFamily: 'Cherry Bomb One',
+                  fontStyle: FontStyle.italic,
+                  color: Color(0xFF2B9199), //0xFF2B9199
+                ),
+              ),
+              Text(
+                "Puppy",
+                // style: GoogleFonts.rubik(
+                //   fontWeight: FontWeight.w500,
+                //   fontSize: 24,
+                //   color: Colors.black,
+                // ),
+                style: TextStyle(
+                  // fontFamily: 'Clicker Script',
+                  // fontFamily: 'Rubik Gemstones',
+                  fontFamily: 'Cherry Bomb One',
+                  fontStyle: FontStyle.italic,
+                  color: Color(0xFF2B9199),
+                ),
+              ),
+            ],
           ),
           backgroundColor: Colors.white,
           actions: [
-            //! TODO: Caso já esteja conectado, esconder a palavra "ENTRAR".
-
             TextButton.icon(
-              icon: userSingleton.user != null
+              style: TextButton.styleFrom(),
+              label: userSingleton.user != null
                   ? Container()
-                  : const Text("Entrar"),
-              label: const Icon(
-                Icons.person,
+                  : const Text(
+                      "Entrar",
+                      style: TextStyle(color: Colors.black),
+                    ),
+              icon: const Icon(
+                Icons.account_circle,
+                size: 26,
                 color: Colors.black,
               ),
               onPressed: () => Modular.to.pushNamed('/profile'),
@@ -91,7 +121,6 @@ class _BreedListPageState extends State<BreedListPage> {
         ),
         body: SafeArea(
           minimum: const EdgeInsets.only(
-            top: 8,
             left: 6,
             right: 6,
           ),
@@ -144,19 +173,24 @@ class _BreedListPageState extends State<BreedListPage> {
               // ),
               Expanded(
                 child: GridView(
-                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 2,
-                    crossAxisSpacing: 6,
-                    mainAxisSpacing: 6,
-                  ),
-                  children: cards
-                      .map<Widget>(
-                        (e) => FavoritablePetWidget(
-                          card: e,
-                        ),
-                      )
-                      .toList()..add(const MoreBreedsSurveyWidget()),
-                ),
+                    padding: EdgeInsets.symmetric(vertical: 6),
+                    gridDelegate:
+                        const SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: 2,
+                      crossAxisSpacing: 6,
+                      childAspectRatio: 0.8,
+                      mainAxisSpacing: 6,
+                    ),
+                    children: [
+                      ...cards
+                          .map<Widget>(
+                            (e) => FavoritablePetWidget(
+                              card: e,
+                            ),
+                          )
+                          .toList()
+                        ..add(const MoreBreedsSurveyWidget()),
+                    ]),
               ),
               // const Divider(),
               // const PageBottomWithInfos(),

@@ -1,3 +1,4 @@
+import 'package:dreampuppy/data.dart';
 import 'package:dreampuppy/src/features/pet_list/domain/entities/pet_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
@@ -11,33 +12,40 @@ import '../../domain/entities/breed_details.dart';
 class BreedDetailsPage extends StatefulWidget {
   const BreedDetailsPage({
     super.key,
-    required this.card,
+    required this.breed,
   });
 
-  final PetCardEntity card;
+  final String breed;
 
   @override
   State<BreedDetailsPage> createState() => _BreedDetailsPageState();
 }
 
 class _BreedDetailsPageState extends State<BreedDetailsPage> {
+  late final PetCardEntity card;
   late Size sScreen;
 
   //TODO: Vai buscar os valores do servidor, e irá atualizar quando os valores forem recebidos.
   late BreedDetails? details;
 
   @override
+  void initState() {
+    card = cards.firstWhere((element) => element.path == widget.breed);
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     sScreen = MediaQuery.of(context).size;
     final shadow = Image.asset(
-      widget.card.imgUrl,
+      card.imgUrl,
       width: sScreen.width * 0.4,
       height: sScreen.width * 0.4,
       color: Colors.black.withOpacity(.59),
     );
 
     final img = Image.asset(
-      widget.card.imgUrl,
+      card.imgUrl,
       width: sScreen.width * 0.4,
       height: sScreen.width * 0.4,
     );
@@ -67,7 +75,7 @@ class _BreedDetailsPageState extends State<BreedDetailsPage> {
                 Container(
                   width: double.infinity,
                   height: sScreen.height * 0.40,
-                  color: widget.card.color,
+                  color: card.color,
                   child: Stack(
                     children: [
                       Padding(
@@ -78,7 +86,7 @@ class _BreedDetailsPageState extends State<BreedDetailsPage> {
                         child: Align(
                           alignment: Alignment.bottomLeft,
                           child: Text(
-                            widget.card.breed,
+                            card.breed,
                             style: Theme.of(context).textTheme.headlineMedium,
                           ),
                         ),
@@ -124,8 +132,8 @@ class _BreedDetailsPageState extends State<BreedDetailsPage> {
                           FilledButton(
                             onPressed: () => debugPrint("variação"),
                             style: FilledButton.styleFrom(
-                              minimumSize:
-                                  Size(MediaQuery.of(context).size.width / 2, 48),
+                              minimumSize: Size(
+                                  MediaQuery.of(context).size.width / 2, 48),
                               backgroundColor: Colors.green.shade600,
                             ),
                             child: const Text("Selecione a variação"),
@@ -155,40 +163,44 @@ class _BreedDetailsPageState extends State<BreedDetailsPage> {
                         ],
                       ),
                     ),
-                    GestureDetector(
-                      //TODO: Corrigir a navegação pra galeria, lembrando que tenho que pensar na melhor forma de rotas, para não haver quebra de links desnecessários.
-                      onTap: () => Modular.to
-                          .pushNamed('/gallery', arguments: widget.card),
-                      child: Container(
-                        // margin: const EdgeInsets.all(8),
-                        padding: const EdgeInsets.all(8),
-                        width: 90*1.7,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(18),
-                          color: Colors.grey[300],
-                        ),
-                        //TODO: Ou mostra a column, ou mostra a capa do filhote escolhido.
-                        child: AspectRatio(
-                          // aspectRatio: 10 / 16,
-                          aspectRatio: 16 / 16,
-                          child:
+                    //TODO: Ajustar o tamanho desse botão para deixa-lo um pouco menos em destaque, por enquanto
+                    Visibility(
+                      visible: false,
+                      child: GestureDetector(
+                        //TODO: Corrigir a navegação pra galeria, lembrando que tenho que pensar na melhor forma de rotas, para não haver quebra de links desnecessários.
+                        onTap: () =>
+                            Modular.to.pushNamed('/gallery', arguments: card),
+                        child: Container(
+                          // margin: const EdgeInsets.all(8),
+                          padding: const EdgeInsets.all(8),
+                          width: 90 * 1.7,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(18),
+                            color: Colors.grey[300],
+                          ),
+                          //TODO: Ou mostra a column, ou mostra a capa do filhote escolhido.
+                          child: AspectRatio(
+                            // aspectRatio: 10 / 16,
+                            aspectRatio: 16 / 16,
+                            child:
 
-                              //TODO: Substituir o selecionar filhote pela imagem do filhote selecionado.
-                              Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              Icon(
-                                Icons.image,
-                                //TODO: Experimental
-                                color: widget.card.color,
-                                size: 64,
-                              ),
-                              const Text(
-                                "Selecionar filhote",
-                                textAlign: TextAlign.center,
-                              ),
-                            ],
+                                //TODO: Substituir o selecionar filhote pela imagem do filhote selecionado.
+                                Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                Icon(
+                                  Icons.image,
+                                  //TODO: Experimental
+                                  color: card.color,
+                                  size: 64,
+                                ),
+                                const Text(
+                                  "Selecionar filhote",
+                                  textAlign: TextAlign.center,
+                                ),
+                              ],
+                            ),
                           ),
                         ),
                       ),
@@ -217,8 +229,8 @@ class _BreedDetailsPageState extends State<BreedDetailsPage> {
                 Padding(
                   padding: const EdgeInsets.only(left: 8.0, top: 12),
                   child: Text(
-                    widget.card.description ??
-                    "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum",
+                    card.description ??
+                        "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum",
                     textAlign: TextAlign.start,
                     style: Theme.of(context).textTheme.bodyMedium,
                   ),
