@@ -20,25 +20,10 @@ class _RegisterPageState extends State<RegisterPage> {
   final fullNameController = TextEditingController();
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
-  // final confirmPasswordController = TextEditingController();
-  // final cpfController = TextEditingController();
-  // final phoneController = TextEditingController();
-  // TODO: Ver necessidade de campo telefone
-  // TODO: Perdir Endereço em outra tela
 
   late SignupUseCase signupUseCase = Modular.get<SignupUseCase>();
 
   final ValueNotifier<bool> _isLoading = ValueNotifier(false);
-
-  @override
-  void initState() {
-    super.initState();
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
-  }
 
   signUp() async {
     //TODO: Implementar sistema de validaçao
@@ -91,10 +76,7 @@ class _RegisterPageState extends State<RegisterPage> {
                     Icons.lock,
                     size: 100,
                   ),
-
                   const SizedBox(height: 50),
-
-                  // welcome back, you've been missed!
                   Text(
                     'Crie sua conta',
                     style: TextStyle(
@@ -118,9 +100,7 @@ class _RegisterPageState extends State<RegisterPage> {
                       return null;
                     },
                   ),
-
                   const SizedBox(height: 10),
-
                   // username textfield
                   CustomAuthTextField(
                     controller: emailController,
@@ -136,11 +116,10 @@ class _RegisterPageState extends State<RegisterPage> {
                     },
                   ),
                   const SizedBox(height: 10),
-
                   // TODO: Adicionar sistema de verificação de senha (icone de olho + Quando exibido, afastar um pouco os caracteres)
                   CustomAuthTextField(
                     controller: passwordController,
-                    obscureText: true,
+                    isPasswordField: true,
                     hintText: 'Senha de acesso',
                     validator: (value) {
                       if (value == null) {

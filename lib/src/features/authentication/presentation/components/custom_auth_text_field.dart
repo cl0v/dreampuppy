@@ -1,41 +1,85 @@
-
-
 import 'package:flutter/material.dart';
 
 class CustomAuthTextField extends StatelessWidget {
   final TextEditingController controller;
   final String hintText;
-  final bool obscureText;
+  final bool isPasswordField;
   final String? Function(String?)? validator;
 
-  const CustomAuthTextField({
+  CustomAuthTextField({
     super.key,
     required this.controller,
     required this.hintText,
-    this.obscureText = false,
+    this.isPasswordField = false,
     this.validator,
   });
+
+  final ValueNotifier<bool> _isPasswordVisible = ValueNotifier(false);
 
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 25.0),
-      child: TextFormField(
-        validator: validator,
-        controller: controller,
-        obscureText: obscureText,
-        decoration: InputDecoration(
-            enabledBorder: const OutlineInputBorder(
-              borderSide: BorderSide(color: Colors.white),
-            ),
-            focusedBorder: OutlineInputBorder(
-              borderSide: BorderSide(color: Colors.grey.shade400),
-            ),
-            fillColor: Colors.grey.shade200,
-            filled: true,
-            hintText: hintText,
-            hintStyle: TextStyle(color: Colors.grey[500])),
-      ),
+      child: ValueListenableBuilder<bool>(
+          valueListenable: _isPasswordVisible,
+          builder: (_, isPasswordVisible, __) {
+            return TextFormField(
+              validator: validator,
+              style: isPasswordVisible
+                  ? const TextStyle(
+                      letterSpacing: 8,
+                      fontWeight: FontWeight.bold,
+                    )
+                  : null,
+              controller: controller,
+              // Tabela verdade [v] representa visível e [f] representa campo senha
+              // [r] representa resultado [!] representa que é impossível acontecer
+              /*
+                v    f    r
+                F    T    T
+                F    F    F
+                T    T    F
+                T    F    !
+              */
+              obscureText: !isPasswordVisible &&
+                  isPasswordField, //vF && fT = fT | vF && fF = fF | vT && fT = tT | vT && fT = tF
+              decoration: InputDecoration(
+                enabledBorder: const OutlineInputBorder(
+                  borderSide: BorderSide(color: Colors.white),
+                ),
+                focusedBorder: OutlineInputBorder(
+                  borderSide: BorderSide(color: Colors.grey.shade400),
+                ),
+                fillColor: Colors.grey.shade200,
+                filled: true,
+                hintText: hintText,
+                hintStyle: TextStyle(
+                  color: Colors.grey[500],
+                ),
+                suffixIcon: _buildSuffixIcon(
+                  isPasswordField,
+                  isPasswordVisible,
+                  () => _isPasswordVisible.value = !_isPasswordVisible.value,
+                ),
+              ),
+            );
+          }),
     );
   }
+}
+
+Widget? _buildSuffixIcon(bool isPasswordField, bool visible, Function() onTap) {
+  if (isPasswordField) {
+    if (visible) {
+      return IconButton(
+        onPressed: onTap,
+        icon: const Icon(Icons.visibility_off),
+      );
+    }
+    return IconButton(
+      onPressed: onTap,
+      icon: const Icon(Icons.remove_red_eye),
+    );
+  }
+  return null;
 }

@@ -93,7 +93,7 @@ class _LoginPageState extends State<LoginPage> {
                   CustomAuthTextField(
                     controller: usernameController,
                     hintText: 'E-mail',
-                    obscureText: false,
+                    isPasswordField: false,
                     validator: (value) {
                       if (value == null) {
                         print("Valor é nulo, investigar essa situação");
@@ -111,7 +111,7 @@ class _LoginPageState extends State<LoginPage> {
                   CustomAuthTextField(
                     controller: passwordController,
                     hintText: 'Senha',
-                    obscureText: true,
+                    isPasswordField: true,
                     validator: (value) {
                       if (value == null) {
                         print("Valor é nulo, investigar essa situação");
