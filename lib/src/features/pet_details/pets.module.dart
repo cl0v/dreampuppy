@@ -14,7 +14,7 @@ class PetsModule extends Module {
   @override
   final List<Bind> binds = [
     Bind.lazySingleton((i) => AlgoliaApplication()),
-    Bind.lazySingleton<FetchPetBloc>((i) => FetchPetBloc()),
+    Bind.factory<FetchPetBloc>((i) => FetchPetBloc()),
     Bind.factory<PetRepository>((i) => PetRepositoryImpl(i())),
     Bind.factory<PetDataSource>((i) => FirestorePetDataSourceImpl(i())),
     Bind.factory<FetchPetByIDUseCase>((i) => FetchPetByIDUseCaseImpl(i())),

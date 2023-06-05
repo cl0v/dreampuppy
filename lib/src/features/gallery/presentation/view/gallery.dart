@@ -27,20 +27,18 @@ import '../../../../_domain/entities/pet.dart';
 final List<Pet> pets = [
   Pet(
     id: "id",
-    coverImgUrl: 'https://m.media-amazon.com/images/I/71IeYNcBYdL._SX679_.jpg',
+    coverImgUrl: 'https://wallpapers.com/images/featured/wj7msvc5kj9v6cyy.jpg',
     images: const [
-      'https://instagram.ftfl2-1.fna.fbcdn.net/v/t51.12442-15/346929063_558636119517469_6909837779127671266_n.jpg?stp=dst-jpg_e15_p480x480&_nc_ht=instagram.ftfl2-1.fna.fbcdn.net&_nc_cat=101&_nc_ohc=kc9wuef8oYsAX-5Dgg2&edm=ANmP7GQBAAAA&ccb=7-5&ig_cache_key=MzEwNDY5NDczNzMwNzQ1Mjc4NQ%3D%3D.2-ccb7-5&oh=00_AfAmpgzm-36oqVhxFROrhIRppiFPUeQwrKU_t2R-XV91kQ&oe=6466CEFE&_nc_sid=b32767',
-      'https://instagram.ftfl2-1.fna.fbcdn.net/v/t51.12442-15/346929063_558636119517469_6909837779127671266_n.jpg?stp=dst-jpg_e15_p480x480&_nc_ht=instagram.ftfl2-1.fna.fbcdn.net&_nc_cat=101&_nc_ohc=kc9wuef8oYsAX-5Dgg2&edm=ANmP7GQBAAAA&ccb=7-5&ig_cache_key=MzEwNDY5NDczNzMwNzQ1Mjc4NQ%3D%3D.2-ccb7-5&oh=00_AfAmpgzm-36oqVhxFROrhIRppiFPUeQwrKU_t2R-XV91kQ&oe=6466CEFE&_nc_sid=b32767',
-      'https://upload.wikimedia.org/wikipedia/commons/e/e7/Everest_North_Face_toward_Base_Camp_Tibet_Luca_Galuzzi_2006.jpg',
-      'https://hairstyleonpoint.com/wp-content/uploads/2015/09/4ce06e936dcd5e5c5c3e44be9edbc8ff.jpg',
-      'https://bsmedia.business-standard.com/_media/bs/img/article/2020-12/11/full/1607656152-0479.jpg',
-      'https://cdn.pixabay.com/photo/2015/04/19/08/32/marguerite-729510__340.jpg',
+      'https://media.istockphoto.com/id/1128787293/photo/portrait-of-five-adorable-golden-retriever-puppies.jpg?s=612x612&w=0&k=20&c=ajN4MpV43KJPbQCF6Hl_HEMHZt-vewgeqZ1--y-zL_0=',
+      'https://wallpapers.com/images/featured/wj7msvc5kj9v6cyy.jpg',
+      'https://4.bp.blogspot.com/-B0eaz5h_Rd4/UGNCvdjBn1I/AAAAAAAAVDc/xv5lX2HPCJ4/s1600/Puppies-+Dogs-food-Wallpapers-+%25281%2529.jpg',
+      'https://images6.fanpop.com/image/photos/37300000/Cute-puppies-dogs-37395739-1600-1200.jpg',
     ],
   ),
   Pet(
     id: "id",
     coverImgUrl:
-        'https://upload.wikimedia.org/wikipedia/commons/e/e7/Everest_North_Face_toward_Base_Camp_Tibet_Luca_Galuzzi_2006.jpg',
+        'https://4.bp.blogspot.com/-B0eaz5h_Rd4/UGNCvdjBn1I/AAAAAAAAVDc/xv5lX2HPCJ4/s1600/Puppies-+Dogs-food-Wallpapers-+%25281%2529.jpg',
     images: const [
       'https://m.media-amazon.com/images/I/71IeYNcBYdL._SX679_.jpg',
       'https://upload.wikimedia.org/wikipedia/commons/e/e7/Everest_North_Face_toward_Base_Camp_Tibet_Luca_Galuzzi_2006.jpg',
@@ -52,7 +50,7 @@ final List<Pet> pets = [
   Pet(
     id: "id",
     coverImgUrl:
-        'https://hairstyleonpoint.com/wp-content/uploads/2015/09/4ce06e936dcd5e5c5c3e44be9edbc8ff.jpg',
+        'https://images6.fanpop.com/image/photos/37300000/Cute-puppies-dogs-37395739-1600-1200.jpg',
     images: const [
       'https://m.media-amazon.com/images/I/71IeYNcBYdL._SX679_.jpg',
       'https://upload.wikimedia.org/wikipedia/commons/e/e7/Everest_North_Face_toward_Base_Camp_Tibet_Luca_Galuzzi_2006.jpg',
@@ -64,7 +62,7 @@ final List<Pet> pets = [
   Pet(
     id: "id",
     coverImgUrl:
-        'https://bsmedia.business-standard.com/_media/bs/img/article/2020-12/11/full/1607656152-0479.jpg',
+        'https://media.istockphoto.com/id/1128787293/photo/portrait-of-five-adorable-golden-retriever-puppies.jpg?s=612x612&w=0&k=20&c=ajN4MpV43KJPbQCF6Hl_HEMHZt-vewgeqZ1--y-zL_0=',
     images: const [
       'https://m.media-amazon.com/images/I/71IeYNcBYdL._SX679_.jpg',
       'https://upload.wikimedia.org/wikipedia/commons/e/e7/Everest_North_Face_toward_Base_Camp_Tibet_Luca_Galuzzi_2006.jpg',
@@ -84,7 +82,7 @@ class GalleryPage extends StatefulWidget {
   final String breed;
   // gen (genero) -1/0/1 (femea/todos/macho) //TODO: Genero será a primeira versão
   // type (variação) "variação" (micro/toy/mini/exotic...) // TODO!: Por enquanto não tem variações (Terceira versão)
-  // color (cor) "cor" (black/white/brown...) //TODO: Cor será a segunda versão 
+  // color (cor) "cor" (black/white/brown...) //TODO: Cor será a segunda versão
   //TODO: Adicionar specs de filtros ?gen=-1&type=frances&color=black
 
   @override
@@ -149,73 +147,75 @@ class _GalleryPageState extends State<GalleryPage> {
           ),
         ),
       ),
-      bottomNavigationBar: BottomAppBar(
-          color: petCard.color,
-          child:
-              Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-            Modular.to.canPop()
-                ? TextButton.icon(
-                    onPressed: Modular.to.pop,
-                    icon: const Icon(
-                      Icons.arrow_back_ios,
-                      color: Colors.white,
+      bottomNavigationBar: Visibility(
+        visible: false,
+        child: BottomAppBar(
+            color: petCard.color,
+            child: Row(mainAxisAlignment: MainAxisAlignment.end, children: [
+              // Modular.to.canPop()
+              //     ? TextButton.icon(
+              //         onPressed: Modular.to.pop,
+              //         icon: const Icon(
+              //           Icons.arrow_back_ios,
+              //           color: Colors.white,
+              //         ),
+              //         label: const Text(
+              //           "Anterior",
+              //           style: TextStyle(color: Colors.white),
+              //         ))
+              //     : const SizedBox.shrink(),
+              Row(
+                children: [
+                  const Visibility(
+                    visible: false,
+                    child: IconButton(
+                      //TODO: Adicionar botão de ir para o carrinho.
+                      onPressed: null,
+                      icon: Icon(
+                        Icons.shopping_bag,
+                        color: Colors.white,
+                      ),
+                      tooltip: "Itens escolhidos",
                     ),
-                    label: const Text(
-                      "Anterior",
-                      style: TextStyle(color: Colors.white),
-                    ))
-                : const SizedBox.shrink(),
-            Row(
-              children: [
-                const Visibility(
-                  visible: false,
-                  child: IconButton(
-                    //TODO: Adicionar botão de ir para o carrinho.
-                    onPressed: null,
-                    icon: Icon(
-                      Icons.shopping_bag,
-                      color: Colors.white,
-                    ),
-                    tooltip: "Itens escolhidos",
                   ),
-                ),
-                Visibility(
-                  visible: kDebugMode,
-                  child: IconButton(
-                    //TODO: Implementar compartilhar
-                    onPressed: () {},
-                    icon: const Icon(
-                      Icons.share,
-                      color: Colors.white,
+                  Visibility(
+                    visible: kDebugMode,
+                    child: IconButton(
+                      //TODO: Implementar compartilhar
+                      onPressed: () {},
+                      icon: const Icon(
+                        Icons.share,
+                        color: Colors.white,
+                      ),
+                      tooltip: "Compartilhar",
                     ),
-                    tooltip: "Compartilhar",
                   ),
-                ),
-                //TODO: Adicionar botão de filtros
-                Visibility(
-                  visible: true,
-                  child: IconButton(
-                    onPressed: () {
-                      _key.currentState?.openEndDrawer();
-                    },
-                    icon: Transform(
-                      alignment: Alignment.center,
-                      transform: Matrix4.identity()
-                        ..scale(-1.0, 1.0, 1.0), // Apply horizontal mirroring
-                      child: const RotatedBox(
-                        quarterTurns: 0,
-                        child: Icon(
-                          Icons.sort,
-                          color: Colors.white,
+                  //TODO: Adicionar botão de filtros
+                  Visibility(
+                    visible: true,
+                    child: IconButton(
+                      onPressed: () {
+                        _key.currentState?.openEndDrawer();
+                      },
+                      icon: Transform(
+                        alignment: Alignment.center,
+                        transform: Matrix4.identity()
+                          ..scale(-1.0, 1.0, 1.0), // Apply horizontal mirroring
+                        child: const RotatedBox(
+                          quarterTurns: 0,
+                          child: Icon(
+                            Icons.sort,
+                            color: Colors.white,
+                          ),
                         ),
                       ),
+                      tooltip: "Adicionar filtros",
                     ),
-                    tooltip: "Adicionar filtros",
                   ),
-                ),
-              ],
-            )
-          ])),
+                ],
+              )
+            ])),
+      ),
       // appBar: AppBar(
       //   title: const Text("Gallery"),
       //   actions: const [

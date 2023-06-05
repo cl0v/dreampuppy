@@ -115,7 +115,7 @@ class _BreedListPageState extends State<BreedListPage> {
                 size: 26,
                 color: Colors.black,
               ),
-              onPressed: () => Modular.to.pushNamed('/profile'),
+              onPressed: () => Modular.to.pushNamed('/profile/'),
             )
           ],
         ),
@@ -184,7 +184,7 @@ class _BreedListPageState extends State<BreedListPage> {
                     children: [
                       ...cards
                           .map<Widget>(
-                            (e) => FavoritablePetWidget(
+                      (e) => FavoritablePetWidget(
                               card: e,
                             ),
                           )

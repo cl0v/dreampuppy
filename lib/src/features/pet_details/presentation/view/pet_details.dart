@@ -1,7 +1,6 @@
+import 'package:fluttertoast/fluttertoast.dart';
 import '../bloc/fetch_pet.dart';
-import 'package:toast/toast.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:dreampuppy/src/_domain/entities/pet.dart';
@@ -11,6 +10,7 @@ import 'package:dreampuppy/src/features/slider/presentation/view/slider.dart';
 //TODO: Buscar o produto do servidor, buscando assim todos os dados do pet em especifico
 //TODO: Criar versão de carregamento da página (Shimmer/Skelton)
 //TODO: Salvar o historico de fotos do filhote, para que sirva de memória
+//TODO: Tornar o fundo da imagem preto
 
 class PetDetailsPage extends StatefulWidget {
   final Pet? pet;
@@ -38,10 +38,11 @@ class _PetDetailsPageState extends State<PetDetailsPage> {
     } else {
       fetchBloc.add(SetPetEvent(widget.pet!));
     }
+    //TODO: Manter a cor da statusBar referente à raça
     /*
-SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
-      statusBarColor: Colors.red[200],
-    ));
+      SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+          statusBarColor: Colors.red[200],
+        ));
     */
   }
 
@@ -75,7 +76,7 @@ SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
                                 children: [
                                   CachedNetworkImage(
                                     imageUrl: widget.pet!.images[index],
-                                    fit: BoxFit.fitWidth,
+                                    fit: BoxFit.fitHeight,
                                     placeholder: (context, url) => Center(
                                       child: Container(
                                         color: Colors.grey.shade300,
@@ -265,14 +266,13 @@ SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
                       ),
                       const Divider(),
 
-                     
                       Card(
                         child: ListTile(
                           tileColor: Colors.grey.shade300,
-                          onTap: () => Toast.show(
-                            "Em breve",
-                            duration: Toast.lengthShort,
-                            gravity: Toast.bottom,
+                          onTap: () => Fluttertoast.showToast(
+                            msg: "Em breve",
+                            toastLength: Toast.LENGTH_SHORT,
+                            gravity: ToastGravity.BOTTOM,
                           ),
                           leading: const Column(
                             mainAxisAlignment: MainAxisAlignment.center,
@@ -288,10 +288,10 @@ SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
                       Card(
                         child: ListTile(
                           tileColor: Colors.grey.shade300,
-                          onTap: () => Toast.show(
-                            "Em breve",
-                            duration: Toast.lengthShort,
-                            gravity: Toast.bottom,
+                          onTap: () => Fluttertoast.showToast(
+                            msg: "Em breve",
+                            toastLength: Toast.LENGTH_SHORT,
+                            gravity: ToastGravity.BOTTOM,
                           ),
                           leading: const Column(
                             mainAxisAlignment: MainAxisAlignment.center,
@@ -304,9 +304,12 @@ SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
                           //TODO: Exibir quantidade de fotos disponíveis.
                           //TODO: A partir 99 fotos, exibir "99+ fotos" (Corrigir o layout para numeros grandes)
                           trailing: CircleAvatar(
-                            radius: 14,
-                            backgroundColor: Colors.black.withOpacity(.3),
-                            child: const Text("99", style: TextStyle(color: Colors.white),)),
+                              radius: 14,
+                              backgroundColor: Colors.black.withOpacity(.3),
+                              child: const Text(
+                                "199",
+                                style: TextStyle(color: Colors.white),
+                              )),
                         ),
                       ),
                     ],

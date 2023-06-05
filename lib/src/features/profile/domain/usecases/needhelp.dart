@@ -10,7 +10,11 @@ class NeedHelpUseCaseImpl implements NeedHelpUseCase {
     const phoneNumber = '5533998744781';
     final message = Uri.encodeFull(msg);
 
+    //TODO: Testar se o link funciona para iOS e Android
     final url = 'https://wa.me/$phoneNumber?text=$message';
+    // final url =
+    //     'whatsapp://send?phone=$phoneNumber?text=${Uri.encodeComponent(message)}';
+
     final uri = Uri.parse(url);
 
     if (await canLaunchUrl(uri)) {

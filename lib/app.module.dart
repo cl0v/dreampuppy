@@ -1,5 +1,6 @@
 import 'package:dreampuppy/src/features/pet_details/pets.module.dart';
 import 'package:dreampuppy/src/features/pet_list/presentation/view/breed_list.dart';
+import 'package:dreampuppy/src/features/profile/profile.module.dart';
 import 'src/_domain/singletons/user.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -29,7 +30,7 @@ class AppModule extends Module {
         // ChildRoute('/', child: (context, args) => const BreedListPage()),
         ChildRoute('/breed_priority_research',
             child: (context, args) => const BreedPrioritySurveyPage()),
-       ChildRoute('/profile', child: (c, a) => const UserProfileOptionsView()),
+        ModuleRoute('/profile', module: ProfileModule()),
         ModuleRoute('/pet', module: PetsModule()),
         ModuleRoute('/breeds', module: BreedDetailsModule()),
         ModuleRoute('/login', module: AuthenticationModule()),

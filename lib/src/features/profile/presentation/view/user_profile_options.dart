@@ -11,7 +11,11 @@
 //TODO: Adicionar preferencias de pagamento
 //TODO: Adicionar botão para ver filhotes favoritados
 
+//TODO: Adicionar Row de Bolinhas de redes sociais. Insta/Twitter/Reddit/Facebook/Linkedin/Youtube/Whatsapp/Telegram/ReclameAqui/GooglePlay/AppStore/SiteOficial/Blog/Etc...
+
+import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:dreampuppy/src/_domain/singletons/user.dart';
+import 'package:dreampuppy/src/features/profile/domain/usecases/about.dart';
 import 'package:dreampuppy/src/features/profile/domain/usecases/needhelp.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
@@ -32,6 +36,9 @@ class _UserProfileOptionsViewState extends State<UserProfileOptionsView> {
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,
+        leading: const BackButton(
+          color: Colors.black,
+        ),
       ),
       backgroundColor: Colors.grey[300],
       body: SafeArea(
@@ -54,20 +61,6 @@ class _UserProfileOptionsViewState extends State<UserProfileOptionsView> {
               ),
               userSingleton.user == null
                   ? ListTile(
-                      leading: const Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Icon(Icons.login),
-                        ],
-                      ),
-                      title: const Text("Entrar"),
-                      subtitle: const Text("Bem vindo de volta!"),
-                      onTap: () => Modular.to.pushNamed('/login'),
-                      trailing: const Icon(Icons.arrow_forward_ios),
-                    )
-                  : Container(),
-              userSingleton.user == null
-                  ? ListTile(
                       //TODO: Adicionar um fundo como se fosse a entrada de um parque de diversões
                       leading: const Column(
                         mainAxisAlignment: MainAxisAlignment.center,
@@ -76,11 +69,24 @@ class _UserProfileOptionsViewState extends State<UserProfileOptionsView> {
                         ],
                       ),
                       title: const Text("Cadastrar"),
-                      subtitle: const Text("Vem sonhar com a gente..."),
-                      onTap: () => Modular.to.pushNamed('/login/register'),
+                      onTap: () => Modular.to.pushNamed('/login/create'),
                       trailing: const Icon(Icons.arrow_forward_ios),
                     )
                   : Container(),
+              userSingleton.user == null
+                  ? ListTile(
+                      leading: const Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Icon(Icons.login),
+                        ],
+                      ),
+                      title: const Text("Entrar"),
+                      onTap: () => Modular.to.pushNamed('/login'),
+                      trailing: const Icon(Icons.arrow_forward_ios),
+                    )
+                  : Container(),
+
               userSingleton.user != null
                   ? const Visibility(
                       visible: false,
@@ -166,8 +172,19 @@ class _UserProfileOptionsViewState extends State<UserProfileOptionsView> {
                 title: const Text("Wiki | Preciso de Ajuda"),
                 leading: const Icon(Icons.auto_stories),
                 trailing: const Icon(Icons.arrow_forward_ios),
-                onTap: () =>
-                    Modular.get<NeedHelpUseCase>().call('Preciso de ajuda!'),
+                onTap: () async {
+                  await AwesomeDialog(
+                    context: context,
+                    title: "Sair do App?",
+                    desc:
+                        "Você será redirecionado para o WhatsApp da DreamPuppy, lá você poderá tirar suas dúvidas e receber ajuda.",
+                    useRootNavigator: false,
+                    showCloseIcon: true,
+                    btnOkText: 'Sim, quero sair',
+                    btnOkOnPress: () => Modular.get<NeedHelpUseCase>()
+                        .call('Preciso de ajuda!'),
+                  ).show();
+                },
               ),
 
               userSingleton.user != null
@@ -182,9 +199,21 @@ class _UserProfileOptionsViewState extends State<UserProfileOptionsView> {
 
               //TODO: O botão de Sobre Informa os dados do aplicativo (Versão, etc...)
               // ! [ Tambem irá informar atualizações disponíveis para o user]
-              const ListTile(
-                leading: Icon(Icons.info),
-                title: Text("Sobre"),
+              ListTile(
+                leading: const Icon(Icons.info),
+                title: const Text("Sobre"),
+                onTap: () async {
+                  await AwesomeDialog(
+                    context: context,
+                    title: "Sair do App?",
+                    desc:
+                        "Você será redirecionado para o Instagram da DreamPuppy, lá você pode conhecer melhor o nosso trabalho.",
+                    useRootNavigator: false,
+                    showCloseIcon: true,
+                    btnOkText: 'Sim, quero sair',
+                    btnOkOnPress: () => Modular.get<OpenAboutUseCase>().call(),
+                  ).show();
+                },
               ),
             ]
                 .map((e) => e.runtimeType == ListTile

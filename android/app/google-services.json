@@ -29,6 +29,13 @@
             {
               "client_id": "1024413198026-7ht4c0brof0a2hj5h5eoodrbrvcrrtkt.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "1024413198026-p97q8j0dr3ln5tg8rv6ekrjmcv3eobi4.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.dreampuppy"
+              }
             }
           ]
         }

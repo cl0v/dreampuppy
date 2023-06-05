@@ -34,7 +34,7 @@ dependencies:
   cloud_firestore: ^4.7.1
   cupertino_icons: ^1.0.2
   device_info_plus: ^9.0.1
-  firebase_auth: ^4.6.1
+  firebase_auth: ^4.6.2
   firebase_core: ^2.13.0
   flutter:
     sdk: flutter
@@ -52,7 +52,7 @@ dependencies:
   sentry_flutter: ^7.6.2
   sentry_logging: ^7.6.2
   sizer: ^2.0.15
-  toast: ^0.3.0
+  fluttertoast: ^8.2.2
   url_launcher: ^6.1.11
 
 dev_dependencies:

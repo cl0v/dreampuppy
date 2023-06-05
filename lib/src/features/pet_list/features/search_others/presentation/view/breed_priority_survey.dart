@@ -1,4 +1,5 @@
 import 'package:dreampuppy/src/features/pet_list/features/search_others/domain/usecases/save_search.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
@@ -19,7 +20,7 @@ class _BreedPrioritySurveyPageState extends State<BreedPrioritySurveyPage> {
   final breedSearchFocusNode = FocusNode();
 
   late SaveSearchUseCase saveSearchUseCase = Modular.get<SaveSearchUseCase>();
-  
+
   search(String s) => saveSearchUseCase(s);
 
   @override
@@ -28,24 +29,32 @@ class _BreedPrioritySurveyPageState extends State<BreedPrioritySurveyPage> {
       appBar: AppBar(
         leading: const BackButton(color: Colors.black),
         backgroundColor: Colors.white,
-        title: TextField(
-          decoration: const InputDecoration(hintText: 'Pesquisar raça'),
+        title: CupertinoTextField(
+          // decoration: const InputDecoration(
+          //   hintText: 'Pesquisar raça',
+            
+          // ),
+          clearButtonMode: OverlayVisibilityMode.editing,
           controller: breedSearchController,
           onSubmitted: search,
+          
+
           //TODO: Testar se está abrindo o teclado
           focusNode: breedSearchFocusNode..requestFocus(),
         ),
         actions: [
-          IconButton(
-            onPressed: () {
-              breedSearchController.text = "";
-              breedSearchFocusNode.requestFocus();
-            },
-            icon: const Icon(
-              Icons.close,
-              color: Colors.black,
-            ),
-          ),
+          // IconButton(
+          //   padding: EdgeInsets.zero,
+            
+          //     onPressed: () {
+          //       breedSearchController.text = "";
+          //       breedSearchFocusNode.requestFocus();
+          //     },
+          //     icon: const Icon(
+          //       Icons.close,
+          //       color: Colors.black,
+          //     ),
+          //   ),
           IconButton(
             onPressed: () => search(breedSearchController.text),
             icon: const Icon(

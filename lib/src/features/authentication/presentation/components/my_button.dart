@@ -1,13 +1,28 @@
-
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-class MyButton extends StatelessWidget {
+class CustomAuthButton extends StatelessWidget {
   final Function()? onTap;
+  final String label;
+  final bool isLoading;
 
-  const MyButton({super.key, required this.onTap});
+  const CustomAuthButton({
+    super.key,
+    required this.onTap,
+    this.label = 'Entrar',
+    this.isLoading = false,
+  });
 
   @override
   Widget build(BuildContext context) {
+    final child = Text(
+      label,
+      style: const TextStyle(
+        color: Colors.white,
+        fontWeight: FontWeight.bold,
+        fontSize: 16,
+      ),
+    );
     return GestureDetector(
       onTap: onTap,
       child: Container(
@@ -17,15 +32,8 @@ class MyButton extends StatelessWidget {
           color: Colors.black,
           borderRadius: BorderRadius.circular(8),
         ),
-        child: const Center(
-          child: Text(
-            "Entrar",
-            style: TextStyle(
-              color: Colors.white,
-              fontWeight: FontWeight.bold,
-              fontSize: 16,
-            ),
-          ),
+        child: Center(
+          child: isLoading ? const CupertinoActivityIndicator(color: Colors.white,) :child,
         ),
       ),
     );

@@ -1,4 +1,3 @@
-import 'dart:io';
 import 'package:dreampuppy/app.dart';
 import 'package:dreampuppy/app.module.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -8,6 +7,8 @@ import 'package:flutter_modular/flutter_modular.dart';
 import 'package:sentry_flutter/sentry_flutter.dart';
 import 'package:sentry_logging/sentry_logging.dart';
 import 'dart:async';
+
+import 'firebase_options.dart';
 
 //TODO: Adicionar credenciais de desenvolvedor e invalidar toda e qualquer ação que pode atrapalhar o funcionamento do app.
 // Login a ser usado: (email: developer@dreampuppy.com.br, senha: @developer@)
@@ -24,10 +25,11 @@ void main() async {
         options.tracesSampleRate = kDebugMode ? 1.0 : 0.3;
         options.addIntegration(LoggingIntegration());
       },
-      appRunner: () async {
+      appRunner: () async { 
         WidgetsFlutterBinding.ensureInitialized();
-        Platform.isWindows ? null : await Firebase.initializeApp();
-
+        await Firebase.initializeApp(
+          options: DefaultFirebaseOptions.currentPlatform,
+        );
 
         // To keep the screen on:
         // Wakelock.enable(); // or Wakelock.toggle(on: true);
@@ -40,6 +42,7 @@ void main() async {
       },
     );
   }, (exception, stackTrace) async {
+    debugPrintStack(stackTrace: stackTrace);
     await Sentry.captureException(exception, stackTrace: stackTrace);
   });
 }

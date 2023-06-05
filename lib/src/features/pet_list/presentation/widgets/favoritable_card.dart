@@ -15,14 +15,16 @@ class FavoritablePetWidget extends StatefulWidget {
 }
 
 class _FavoritablePetWidgetState extends State<FavoritablePetWidget> {
-  
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       //TODO: Enviar para a página de aplicação de filtros
-      onTap: () => Modular.to.pushNamed('pet/${widget.card.path}').then(
-          (value) =>
-              SystemConfig.changeStatusBarColor(Colors.black.withOpacity(.3))),
+      onTap: () {
+        Modular.to.pushNamed('pet/${widget.card.path}/gallery').then((value) {
+          return SystemConfig.changeStatusBarColor(
+              Colors.black.withOpacity(.3));
+        });
+      },
       child: Stack(
         children: [
           Container(
@@ -41,7 +43,6 @@ class _FavoritablePetWidgetState extends State<FavoritablePetWidget> {
                   height: 120,
                 )),
           ),
-         
           Align(
             alignment: const Alignment(0, 0.9),
             child: Column(
@@ -49,18 +50,32 @@ class _FavoritablePetWidgetState extends State<FavoritablePetWidget> {
               mainAxisAlignment: MainAxisAlignment.end,
               mainAxisSize: MainAxisSize.min,
               children: [
-                Text(
-                  widget.card.breed,
-                  style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 24),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 12.0),
+                  child: Text(
+                    widget.card.breed,
+                    textAlign: TextAlign.center,
+                    style: const TextStyle(
+                        fontWeight: FontWeight.bold, fontSize: 21),
+                  ),
                 ),
                 const SizedBox(height: 4),
                 SizedBox(
                   height: 32,
                   child: ElevatedButton(
-                    onPressed: () => Modular.to.pushNamed(
-                      '/breeds/${widget.card.breed.toLowerCase()}',
-                      arguments: widget.card,
-                    ),
+                    onPressed: () {
+                      Modular.to
+                          .pushNamed('pet/${widget.card.path}/gallery')
+                          .then((value) {
+                        return SystemConfig.changeStatusBarColor(
+                            Colors.black.withOpacity(.3));
+                      });
+                      //TODO: Esse botão leva pra tela de especificações da raça
+                      //   Modular.to.pushNamed(
+                      //   '/breeds/${widget.card.breed.toLowerCase()}',
+                      //   arguments: widget.card,
+                      // );
+                    },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: darken(widget.card.color, 0.45),
                       // Colors.grey,
@@ -80,10 +95,10 @@ class _FavoritablePetWidgetState extends State<FavoritablePetWidget> {
                           size: 16,
                         ),
                         SizedBox(
-                          width: 2,
+                          width: 6,
                         ),
                         Text(
-                          "Saiba mais",
+                          "Informações",
                           style: TextStyle(fontWeight: FontWeight.bold),
                         ),
                       ],

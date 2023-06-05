@@ -38,10 +38,10 @@ class _MoreBreedsSurveyWidgetState extends State<MoreBreedsSurveyWidget> {
           ),
        
         const  Align(
-            alignment: const Alignment(0, 0.9),
+            alignment:  Alignment(0, 0.9),
             child: Text(
               'Outros',
-              style: const TextStyle(fontWeight: FontWeight.bold),
+              style:  TextStyle(fontWeight: FontWeight.bold, fontSize: 24),
             ),
           )
         ],
