@@ -1,5 +1,6 @@
 import 'package:dreampuppy/app.dart';
 import 'package:dreampuppy/app.module.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -30,6 +31,8 @@ void main() async {
         await Firebase.initializeApp(
           options: DefaultFirebaseOptions.currentPlatform,
         );
+
+        if(kDebugMode) await FirebaseAuth.instance.useAuthEmulator('localhost', 9099);
 
         // To keep the screen on:
         // Wakelock.enable(); // or Wakelock.toggle(on: true);

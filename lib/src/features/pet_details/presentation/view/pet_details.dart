@@ -299,7 +299,10 @@ class _PetDetailsPageState extends State<PetDetailsPage> {
                               Icon(Icons.photo),
                             ],
                           ),
-                          title: const Text("Fotos antigas [ + Fotos]"),
+                          title: const Text(
+                            // "Fotos antigas [ + Fotos]",
+                            "Ver todas as fotos",
+                          ),
                           //Videos e fotos > //TODO: Incentivar os canis a preferirem postar toda e qualquer foto relacionada aquele cachorro
                           //TODO: Exibir quantidade de fotos disponíveis.
                           //TODO: A partir 99 fotos, exibir "99+ fotos" (Corrigir o layout para numeros grandes)

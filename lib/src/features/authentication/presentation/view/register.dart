@@ -1,11 +1,9 @@
-import 'package:dreampuppy/src/features/authentication/presentation/domain/usecases/signup.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:dreampuppy/src/features/authentication/domain/usecases/signup.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
-
-import '../components/my_button.dart';
-import '../components/my_text_field.dart';
-import '../domain/errors/signup_handler.dart';
+import '../components/custom_auth_button.dart';
+import '../components/custom_auth_text_field.dart';
+import '../../domain/errors/signup_handler.dart';
 
 class RegisterPage extends StatefulWidget {
   const RegisterPage({
@@ -30,6 +28,8 @@ class _RegisterPageState extends State<RegisterPage> {
 
   late SignupUseCase signupUseCase = Modular.get<SignupUseCase>();
 
+  final ValueNotifier<bool> _isLoading = ValueNotifier(false);
+
   @override
   void initState() {
     super.initState();
@@ -42,25 +42,29 @@ class _RegisterPageState extends State<RegisterPage> {
 
   signUp() async {
     //TODO: Implementar sistema de validaçao
+    if (_isLoading.value) return;
     if (!_formKey.currentState!.validate()) return;
-      try {
-        await signupUseCase(
-          fullNameController.text,
-          emailController.text,
-          passwordController.text,
-        );
-        Modular.to.pop();
-      } on SignUpErrorHandler catch (e) {
-        ScaffoldMessenger.of(context).clearSnackBars();
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            backgroundColor: Colors.red.shade400,
-            content: Center(
-              child: Text(e.message),
-            ),
+    _isLoading.value = true;
+    try {
+      await signupUseCase(
+        fullNameController.text,
+        emailController.text,
+        passwordController.text,
+      );
+      Modular.to.pop();
+    } on SignUpErrorHandler catch (e) {
+      ScaffoldMessenger.of(context).clearSnackBars();
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          backgroundColor: Colors.red.shade400,
+          content: Center(
+            child: Text(e.message),
           ),
-        );
-      }
+        ),
+      );
+    } finally {
+      _isLoading.value = false;
+    }
   }
 
   @override
@@ -105,7 +109,7 @@ class _RegisterPageState extends State<RegisterPage> {
                     controller: fullNameController,
                     hintText: 'Seu nome completo',
                     validator: (value) {
-                      if(value == null){
+                      if (value == null) {
                         print("Valor é nulo, investigar essa situação");
                       }
                       if (value!.isEmpty) {
@@ -114,7 +118,7 @@ class _RegisterPageState extends State<RegisterPage> {
                       return null;
                     },
                   ),
-                  
+
                   const SizedBox(height: 10),
 
                   // username textfield
@@ -122,7 +126,7 @@ class _RegisterPageState extends State<RegisterPage> {
                     controller: emailController,
                     hintText: 'Seu melhor E-mail',
                     validator: (value) {
-                      if(value == null){
+                      if (value == null) {
                         print("Valor é nulo, investigar essa situação");
                       }
                       if (value!.isEmpty) {
@@ -139,7 +143,7 @@ class _RegisterPageState extends State<RegisterPage> {
                     obscureText: true,
                     hintText: 'Senha de acesso',
                     validator: (value) {
-                      if(value == null){
+                      if (value == null) {
                         print("Valor é nulo, investigar essa situação");
                       }
                       if (value!.isEmpty) {
@@ -149,33 +153,18 @@ class _RegisterPageState extends State<RegisterPage> {
                     },
                   ),
 
-                  const SizedBox(height: 10),
-
-                  // password textfield
-
-                  const SizedBox(height: 10),
-
-                  // forgot password?
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 25.0),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      children: [
-                        //TODO: Implementar esqueci minha senha
-                        Text(
-                          'Esqueceu a senha?',
-                          style: TextStyle(color: Colors.grey[600]),
-                        ),
-                      ],
-                    ),
-                  ),
-
-                  const SizedBox(height: 25),
+                  const SizedBox(height: 35),
 
                   // TODO: Adicionar indicador de carregamento.
-                  CustomAuthButton(
-                    label: 'Cadastrar',
-                    onTap: signUp,
+                  ValueListenableBuilder(
+                    valueListenable: _isLoading,
+                    builder: (_, isloading, __) {
+                      return CustomAuthButton(
+                        label: 'Cadastrar',
+                        onTap: signUp,
+                        isLoading: isloading,
+                      );
+                    },
                   ),
 
                   const SizedBox(height: 30),

@@ -5,7 +5,6 @@ import 'src/_domain/singletons/user.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dreampuppy/src/features/breed_details/breed_details.module.dart';
-import 'package:dreampuppy/src/features/profile/presentation/view/user_profile_options.dart';
 import 'src/features/pet_list/features/search_others/presentation/view/breed_priority_survey.dart';
 import 'package:dreampuppy/src/features/authentication/presentation/view/authentication.module.dart';
 import 'package:dreampuppy/src/features/pet_list/features/search_others/infra/datasources/search.dart';
@@ -16,8 +15,7 @@ import 'package:dreampuppy/src/features/pet_list/features/search_others/external
 class AppModule extends Module {
   @override
   get binds => [
-        Bind.lazySingleton<FirebaseFirestore>(
-            (i) => FirebaseFirestore.instance),
+        Bind.lazySingleton((i) => FirebaseFirestore.instance),
         Bind.lazySingleton((i) => UserSingleton()),
         Bind.factory<SearchDataSource>((i) => SearchDataSourceImpl(i())),
         Bind.factory<SearchRepository>((i) => SearchRepositoryImpl(i())),

@@ -1,3 +1,6 @@
+//TODO: Garantir a saída do usuário direto para o aplicativo.
+
+
 //TODO: Adicionar o FAQ
 //TODO: Adicionar alguma forma do cliente entrar em contato comigo (ZAP da DreamPuppy)
 //TODO: Adicionar funcionalidades que permite a pessoa conhecer o app, como página de novidade
@@ -19,6 +22,8 @@ import 'package:dreampuppy/src/features/profile/domain/usecases/about.dart';
 import 'package:dreampuppy/src/features/profile/domain/usecases/needhelp.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+
+import '../../../authentication/domain/usecases/logout.dart';
 
 class UserProfileOptionsView extends StatefulWidget {
   const UserProfileOptionsView({super.key});
@@ -188,11 +193,12 @@ class _UserProfileOptionsViewState extends State<UserProfileOptionsView> {
               ),
 
               userSingleton.user != null
-                  ? const Visibility(
-                      visible: false,
+                  ?  Visibility(
+                      visible: true,
                       child: ListTile(
-                        leading: Icon(Icons.logout),
-                        title: Text("Sair"),
+                        leading: const Icon(Icons.logout),
+                        title: const Text("Sair"),
+                        onTap: () => Modular.get<LogoutUseCase>().call(),
                       ),
                     )
                   : Container(),

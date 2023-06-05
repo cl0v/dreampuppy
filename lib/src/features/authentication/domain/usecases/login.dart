@@ -8,12 +8,12 @@ abstract class LoginUseCase {
 }
 
 class LoginUseCaseImpl implements LoginUseCase {
-  final FirebaseAuth auth ;
+  final FirebaseAuth auth;
 
   LoginUseCaseImpl(this.auth);
 
   @override
-  call(e, p) async {
+  Future<String> call(e, p) async {
     try {
       final u = await auth.signInWithEmailAndPassword(
         email: e,

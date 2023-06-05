@@ -1,8 +1,8 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
-import '../domain/usecases/login.dart';
-import '../domain/usecases/signup.dart';
+import '../../domain/usecases/login.dart';
+import '../../domain/usecases/signup.dart';
 import 'login.dart';
 import 'register.dart';
 

@@ -23,17 +23,23 @@ class CustomAuthButton extends StatelessWidget {
         fontSize: 16,
       ),
     );
+
+    
     return GestureDetector(
       onTap: onTap,
       child: Container(
-        padding: const EdgeInsets.all(25),
+        padding: const EdgeInsets.symmetric(horizontal: 25, vertical: 20),
         margin: const EdgeInsets.symmetric(horizontal: 25),
         decoration: BoxDecoration(
           color: Colors.black,
           borderRadius: BorderRadius.circular(8),
         ),
         child: Center(
-          child: isLoading ? const CupertinoActivityIndicator(color: Colors.white,) :child,
+          child: isLoading
+              ? const CupertinoActivityIndicator(
+                  color: Colors.white,
+                )
+              : child,
         ),
       ),
     );

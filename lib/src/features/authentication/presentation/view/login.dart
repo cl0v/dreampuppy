@@ -1,10 +1,10 @@
-import 'package:dreampuppy/src/features/authentication/presentation/domain/errors/login_handler.dart';
+import 'package:dreampuppy/src/features/authentication/domain/errors/login_handler.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
-
-import '../components/my_button.dart';
-import '../components/my_text_field.dart';
-import '../domain/usecases/login.dart';
+import '../components/custom_auth_button.dart';
+import '../components/custom_auth_text_field.dart';
+import '../../domain/usecases/login.dart';
 
 //TODO: Implementar esqueci minha senha
 
@@ -25,9 +25,13 @@ class _LoginPageState extends State<LoginPage> {
 
   late final loginUseCase = Modular.get<LoginUseCase>();
 
+  final ValueNotifier<bool> _isLoading = ValueNotifier(false);
+
   // sign user in method
   void login() async {
+    if (_isLoading.value) return;
     if (!_formKey.currentState!.validate()) return;
+    _isLoading.value = true;
     try {
       await loginUseCase(usernameController.text, passwordController.text);
       Modular.to.pop();
@@ -38,11 +42,13 @@ class _LoginPageState extends State<LoginPage> {
             backgroundColor: Colors.red.shade400,
             content: Center(child: Text(e.message))),
       );
+    } finally {
+      _isLoading.value = false;
     }
   }
 
   void _onForgotPassword() {
-    print('//TODO: forgot password');
+    print('#TODO: forgot password');
   }
 
   @override
@@ -59,7 +65,7 @@ class _LoginPageState extends State<LoginPage> {
       body: SafeArea(
         child: Center(
           child: Form(
-            key: _formKey,
+          key: _formKey,
             child: SingleChildScrollView(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -89,7 +95,7 @@ class _LoginPageState extends State<LoginPage> {
                     hintText: 'E-mail',
                     obscureText: false,
                     validator: (value) {
-                      if(value == null){
+                      if (value == null) {
                         print("Valor é nulo, investigar essa situação");
                       }
                       if (value!.isEmpty) {
@@ -107,7 +113,7 @@ class _LoginPageState extends State<LoginPage> {
                     hintText: 'Senha',
                     obscureText: true,
                     validator: (value) {
-                      if(value == null){
+                      if (value == null) {
                         print("Valor é nulo, investigar essa situação");
                       }
                       if (value!.isEmpty) {
@@ -141,7 +147,9 @@ class _LoginPageState extends State<LoginPage> {
 
                   // sign in button
                   CustomAuthButton(
+
                     onTap: login,
+                    label: 'Entrar',
                   ),
 
                   const SizedBox(height: 30),
@@ -204,7 +212,8 @@ class _LoginPageState extends State<LoginPage> {
                         'É novo por aqui?',
                         style: TextStyle(color: Colors.grey[700]),
                       ),
-                      TextButton(
+                      CupertinoButton(
+                        padding: EdgeInsets.symmetric(horizontal: 4),
                         onPressed: () =>
                             Modular.to.pushReplacementNamed('./create'),
                         child: const Text(
