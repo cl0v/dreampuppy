@@ -1,10 +1,13 @@
+import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:dreampuppy/src/features/authentication/domain/errors/login_handler.dart';
+import 'package:dreampuppy/src/features/authentication/domain/usecases/forgot_password.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import '../components/custom_auth_button.dart';
 import '../components/custom_auth_text_field.dart';
 import '../../domain/usecases/login.dart';
+
 
 //TODO: Implementar esqueci minha senha
 
@@ -19,7 +22,7 @@ class _LoginPageState extends State<LoginPage> {
   final _formKey = GlobalKey<FormState>();
 
   // text editing controllers
-  final usernameController = TextEditingController();
+  final emailController = TextEditingController();
 
   final passwordController = TextEditingController();
 
@@ -33,7 +36,7 @@ class _LoginPageState extends State<LoginPage> {
     if (!_formKey.currentState!.validate()) return;
     _isLoading.value = true;
     try {
-      await loginUseCase(usernameController.text, passwordController.text);
+      await loginUseCase(emailController.text.trim(), passwordController.text);
       Modular.to.pop();
     } on LoginErrorHandler catch (e, s) {
       debugPrintStack(stackTrace: s);
@@ -48,7 +51,18 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   void _onForgotPassword() {
-    print('#TODO: forgot password');
+    //TODO: Exibir Dialog falando que um email será enviado para o email preenchido no campo email. Caso apertar enviar email de recuperação,
+
+    AwesomeDialog(
+            context: context,
+            dialogType: DialogType.warning,
+            showCloseIcon: true,
+            btnOkText: 'Enviar email de recuperação',
+            btnOkOnPress: () =>
+                Modular.get<ForgotPasswordUseCase>().call(emailController.text.trim()),
+            desc:
+                'Um email será enviado para:\n\n${emailController.text.trim()}\n\nAcesse o link enviado para recuperar sua senha')
+        .show();
   }
 
   @override
@@ -65,7 +79,7 @@ class _LoginPageState extends State<LoginPage> {
       body: SafeArea(
         child: Center(
           child: Form(
-          key: _formKey,
+            key: _formKey,
             child: SingleChildScrollView(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -91,7 +105,7 @@ class _LoginPageState extends State<LoginPage> {
 
                   // username textfield
                   CustomAuthTextField(
-                    controller: usernameController,
+                    controller: emailController,
                     hintText: 'E-mail',
                     isPasswordField: false,
                     validator: (value) {
@@ -147,7 +161,6 @@ class _LoginPageState extends State<LoginPage> {
 
                   // sign in button
                   CustomAuthButton(
-
                     onTap: login,
                     label: 'Entrar',
                   ),

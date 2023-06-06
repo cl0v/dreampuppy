@@ -1,0 +1,22 @@
+name: Dart Documentation
+
+on: [push]
+
+jobs:
+  generate-docs:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/[email protected]
+    - uses: actions/[email protected]
+      with:
+        path: .
+        ref: 'refs/heads/master'
+    - uses: actions/[email protected]
+      with:
+        path: /tmp/dart-sdk
+        repo-token: ${{ secrets.GITHUB_TOKEN }}
+        fetch-depth: 0
+    - name: Install dependencies
+      run: dart pub get
+    - name: Generate documentation
+      run: dartdoc

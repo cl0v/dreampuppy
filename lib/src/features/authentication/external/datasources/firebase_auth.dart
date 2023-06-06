@@ -43,4 +43,20 @@ class FirebaseAuthDataSourceImpl implements AuthDataSource {
 
   @override
   Future<void> logout() => auth.signOut();
+
+
+  @override
+  //TODO: Implementar todas as possíveis exceções
+  Future<String> fetchPasswordRecoverEmail(String code) =>
+      auth.verifyPasswordResetCode(code);
+
+  @override
+  //TODO: Implementar todas as possíveis exceções
+  Future<void> forgotPassword(String email) =>
+      auth.sendPasswordResetEmail(email: email);
+
+  @override
+  //TODO: Implementar todas as possíveis exceções
+  Future<void> resetPassword(String code, String password) =>
+      auth.confirmPasswordReset(code: code, newPassword: password);
 }

@@ -8,7 +8,6 @@ import 'package:flutter_modular/flutter_modular.dart';
 import 'package:sentry_flutter/sentry_flutter.dart';
 import 'package:sentry_logging/sentry_logging.dart';
 import 'dart:async';
-
 import 'firebase_options.dart';
 
 //TODO: Adicionar credenciais de desenvolvedor e invalidar toda e qualquer ação que pode atrapalhar o funcionamento do app.
@@ -28,11 +27,12 @@ void main() async {
       },
       appRunner: () async { 
         WidgetsFlutterBinding.ensureInitialized();
+
         await Firebase.initializeApp(
           options: DefaultFirebaseOptions.currentPlatform,
         );
 
-        if(kDebugMode) await FirebaseAuth.instance.useAuthEmulator('localhost', 9099);
+        // if(kDebugMode) await FirebaseAuth.instance.useAuthEmulator('localhost', 9099);
 
         // To keep the screen on:
         // Wakelock.enable(); // or Wakelock.toggle(on: true);

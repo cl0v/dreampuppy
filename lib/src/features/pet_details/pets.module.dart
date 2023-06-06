@@ -32,7 +32,7 @@ class PetsModule extends Module {
       }
       return Container();
       // return TelaGenero(
-      //     // breed: args.params['breed'],
+      //  breed: args.params['breed'],
       //   );
     }),
     ChildRoute('/:breed/gallery', child: (c, args) {

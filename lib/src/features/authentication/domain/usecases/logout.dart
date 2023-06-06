@@ -1,11 +1,11 @@
-import 'package:dreampuppy/src/features/authentication/domain/repositories/user_auth.dart';
+import 'package:dreampuppy/src/features/authentication/domain/repositories/authentication.dart';
 
 abstract class LogoutUseCase {
   Future<void> call();
 }
 
 class LogoutUseCaseImpl implements LogoutUseCase {
-  final UserAuthRepository repository;
+  final AuthRepository repository;
 
   LogoutUseCaseImpl(this.repository);
 

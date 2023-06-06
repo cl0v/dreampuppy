@@ -6,7 +6,7 @@ import 'package:flutter_modular/flutter_modular.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dreampuppy/src/features/breed_details/breed_details.module.dart';
 import 'src/features/pet_list/features/search_others/presentation/view/breed_priority_survey.dart';
-import 'package:dreampuppy/src/features/authentication/presentation/view/authentication.module.dart';
+import 'package:dreampuppy/src/features/authentication/authentication.module.dart';
 import 'package:dreampuppy/src/features/pet_list/features/search_others/infra/datasources/search.dart';
 import 'package:dreampuppy/src/features/pet_list/features/search_others/infra/repositories/search.dart';
 import 'package:dreampuppy/src/features/pet_list/features/search_others/domain/usecases/save_search.dart';

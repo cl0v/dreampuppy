@@ -1,4 +1,5 @@
 import 'package:dreampuppy/src/features/authentication/domain/usecases/signup.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import '../components/custom_auth_button.dart';
@@ -17,9 +18,17 @@ class RegisterPage extends StatefulWidget {
 class _RegisterPageState extends State<RegisterPage> {
   final _formKey = GlobalKey<FormState>();
 
-  final fullNameController = TextEditingController();
-  final emailController = TextEditingController();
-  final passwordController = TextEditingController();
+  final fullNameController = TextEditingController(
+   text: kDebugMode ? 'Viana' : null,
+  );
+  final emailController = TextEditingController(
+   text: kDebugMode ? 'marcelofv12@hotmail.com' : null,
+
+  );
+  final passwordController = TextEditingController(
+   text: kDebugMode ? '123123123' : null,
+
+  );
 
   late SignupUseCase signupUseCase = Modular.get<SignupUseCase>();
 
@@ -33,7 +42,7 @@ class _RegisterPageState extends State<RegisterPage> {
     try {
       await signupUseCase(
         fullNameController.text,
-        emailController.text,
+        emailController.text.trim(),
         passwordController.text,
       );
       Modular.to.pop();
