@@ -1,6 +1,7 @@
+import 'package:dreampuppy/src/features/payment/presenter/view/done.dart';
 import 'package:dreampuppy/src/features/pet_details/pets.module.dart';
 import 'package:dreampuppy/src/features/pet_list/presentation/view/breed_list.dart';
-import 'package:dreampuppy/src/features/profile/profile.module.dart';
+import 'package:dreampuppy/src/features/profile/user.module.dart';
 import 'src/_domain/singletons/user.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -12,6 +13,8 @@ import 'package:dreampuppy/src/features/pet_list/features/search_others/infra/re
 import 'package:dreampuppy/src/features/pet_list/features/search_others/domain/usecases/save_search.dart';
 import 'package:dreampuppy/src/features/pet_list/features/search_others/external/datasources/search.dart';
 
+import 'src/features/profile/domain/usecases/request_contact.dart';
+
 class AppModule extends Module {
   @override
   get binds => [
@@ -20,16 +23,19 @@ class AppModule extends Module {
         Bind.factory<SearchDataSource>((i) => SearchDataSourceImpl(i())),
         Bind.factory<SearchRepository>((i) => SearchRepositoryImpl(i())),
         Bind.factory<SaveSearchUseCase>((i) => SaveSearchUseCaseImpl(i())),
+        Bind.factory<RequestContactUseCase>(
+            (i) => WhatsAppContactUseCaseImpl()),
       ];
 
   @override
   get routes => [
         ChildRoute('/', child: (context, args) => const BreedListPage()),
-        // ChildRoute('/', child: (context, args) => const BreedListPage()),
+        // ChildRoute('/', child: (context, args) => const PaymentDonePage()),
         ChildRoute('/breed_priority_research',
             child: (context, args) => const BreedPrioritySurveyPage()),
-        ModuleRoute('/profile', module: ProfileModule()),
+        ModuleRoute('/user', module: UserModule()),
         ModuleRoute('/pet', module: PetsModule()),
+        // ModuleRoute('/payment', module: PaymentModule()),
         ModuleRoute('/breeds', module: BreedDetailsModule()),
         ModuleRoute('/login', module: AuthenticationModule()),
       ];

@@ -1,10 +1,10 @@
 import 'package:url_launcher/url_launcher.dart';
 
-abstract class NeedHelpUseCase {
+abstract class RequestContactUseCase {
   Future call(String msg);
 }
 
-class NeedHelpUseCaseImpl implements NeedHelpUseCase {
+class WhatsAppContactUseCaseImpl implements RequestContactUseCase {
   @override
   Future call(msg) async {
     const phoneNumber = '5533998744781';
