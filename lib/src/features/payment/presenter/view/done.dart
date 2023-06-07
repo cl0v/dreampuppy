@@ -19,8 +19,7 @@ class PaymentDonePage extends StatefulWidget {
 }
 
 class _PaymentDonePageState extends State<PaymentDonePage> {
-  ValueNotifier<int> secondsRemainingNotifier = ValueNotifier(1);
-
+  ValueNotifier<int> secondsRemainingNotifier = ValueNotifier(3);
 
   final TextEditingController commentController = TextEditingController();
 

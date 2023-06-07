@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:dreampuppy/src/utils/firestore_collections_prefix.dart';
 
 import '../../infra/datasources/rating_service.dart';
 
@@ -18,7 +19,7 @@ class FirestoreRatingCollection implements RatingServiceDataSource {
   FirestoreRatingCollection(this.firestore);
 
   CollectionReference<Map<String, dynamic>> get collection =>
-      firestore.collection('ratings');
+      firestore.getCollection('ratings');
 
   @override
   Future<void> comment(String comment) {

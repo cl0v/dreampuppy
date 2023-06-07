@@ -9,22 +9,8 @@ import 'package:sentry_logging/sentry_logging.dart';
 import 'dart:async';
 import 'firebase_options.dart';
 
-//TODO: Remover cores:
-// Color(0xffeeeeee)
-
 //TODO: Adicionar credenciais de desenvolvedor e invalidar toda e qualquer ação que pode atrapalhar o funcionamento do app.
-// Login a ser usado: (email: developer@dreampuppy.com.br, senha: @developer@)
-
-enum UsageBuildStage {
-  development,
-  staging,
-  production,
-}
-
-//! TODO: Importante lembrar de alterar o staging para prod nos builds de produção
-//TODO: Adicionar tipos de building no .vscode/json
-UsageBuildStage usageBuildStage =
-    kDebugMode ? UsageBuildStage.development : UsageBuildStage.staging;
+// Login a ser usado: (email: openAccount@dreampuppy.com.br, senha: @developer@)
 
 void main() async {
   runZonedGuarded(() async {
@@ -36,6 +22,7 @@ void main() async {
         // Set tracesSampleRate to 1.0 to capture 100% of transactions for performance monitoring.
         // We recommend adjusting this value in production.
         options.tracesSampleRate = kDebugMode ? 1.0 : 0.3;
+        // Estudar esse parametro options.tracesSampler //https://docs.sentry.io/platforms/javascript/performance/
         options.addIntegration(LoggingIntegration());
       },
       appRunner: () async {

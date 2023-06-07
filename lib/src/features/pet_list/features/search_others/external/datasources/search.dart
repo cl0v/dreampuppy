@@ -1,12 +1,14 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:device_info_plus/device_info_plus.dart';
+import 'package:dreampuppy/src/utils/firestore_collections_prefix.dart';
 import 'package:package_info_plus/package_info_plus.dart';
-import 'package:flutter/foundation.dart';
 import '../../infra/datasources/search.dart';
 
 class SearchDataSourceImpl implements SearchDataSource {
   final FirebaseFirestore firestore;
-  final String collectionPath = kDebugMode ? 'dev_search': 'search';
+
+  CollectionReference<Map<String, dynamic>> get collection =>
+      firestore.getCollection('searches');
 
   SearchDataSourceImpl(this.firestore);
 
@@ -18,7 +20,7 @@ class SearchDataSourceImpl implements SearchDataSource {
     final String version = packageInfo.version;
     final String buildNumber = packageInfo.buildNumber;
 
-    await firestore.collection(collectionPath).add({
+    await collection.add({
       'search': search,
       'at': DateTime.now(),
       'deviceInfo': info.data,

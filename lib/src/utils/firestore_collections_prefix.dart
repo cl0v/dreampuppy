@@ -1,18 +1,14 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/foundation.dart';
+import 'package:sentry_flutter/sentry_flutter.dart';
 
-import '../../main.dart';
-
+//TODO: Testar se prefixo está funcionando
 String get prefix {
   if (kDebugMode) return 'dev_';
-  switch (usageBuildStage) {
-    case UsageBuildStage.development:
-      return 'dev_';
-    case UsageBuildStage.staging:
-      return 'stg_';
-    case UsageBuildStage.production:
-      return '';
-  }
+  if (kProfileMode) return 'stg_';
+  if (kProfileMode) return '';
+  Sentry.captureMessage('Firestore prefix not found, using empty string');
+  return '';
 }
 
 extension Firestore on FirebaseFirestore {
