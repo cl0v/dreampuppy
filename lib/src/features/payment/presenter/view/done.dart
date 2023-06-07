@@ -181,7 +181,7 @@ class RatingElement extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             RatingBar.builder(
-              initialRating: 3,
+              initialRating: 0,
               minRating: 1,
               allowHalfRating: false,
               direction: Axis.horizontal,

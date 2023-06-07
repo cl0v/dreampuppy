@@ -1,6 +1,5 @@
 //TODO: Garantir a saída do usuário direto para o aplicativo.
 
-
 //TODO: Adicionar o FAQ
 //TODO: Adicionar alguma forma do cliente entrar em contato comigo (ZAP da DreamPuppy)
 //TODO: Adicionar funcionalidades que permite a pessoa conhecer o app, como página de novidade
@@ -178,6 +177,8 @@ class _UserProfileOptionsViewState extends State<UserProfileOptionsView> {
                 leading: const Icon(Icons.auto_stories),
                 trailing: const Icon(Icons.arrow_forward_ios),
                 onTap: () async {
+                  Modular.to.pushNamed('/help');
+                  return;
                   await AwesomeDialog(
                     context: context,
                     title: "Sair do App?",
@@ -193,7 +194,7 @@ class _UserProfileOptionsViewState extends State<UserProfileOptionsView> {
               ),
 
               userSingleton.user != null
-                  ?  Visibility(
+                  ? Visibility(
                       visible: true,
                       child: ListTile(
                         leading: const Icon(Icons.logout),

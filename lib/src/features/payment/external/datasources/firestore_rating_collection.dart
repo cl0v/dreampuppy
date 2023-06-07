@@ -8,28 +8,32 @@ import '../../infra/datasources/rating_service.dart';
 ///
 /// Os dados serão enviados para cada vez que o user tocar em uma estrela,
 /// conservando o id de avaliação e apenas "somando" o novo valor
-///
-/// Adicionar campo de comentário também
-class FirestoreRatingCollection implements RatingServiceDataSource {
-  @override
+class FirestoreRatingCollectionDataSourceImpl implements RatingServiceDataSource {
+  final FirebaseFirestore _firestore;
+
+  FirestoreRatingCollectionDataSourceImpl(this._firestore);
+
   String? ratingDocId;
 
-  final FirebaseFirestore firestore;
-
-  FirestoreRatingCollection(this.firestore);
-
   CollectionReference<Map<String, dynamic>> get collection =>
-      firestore.getCollection('ratings');
+      _firestore.getCollection('ratings');
 
   @override
-  Future<void> comment(String comment) {
-    // TODO: implement comment
-    throw UnimplementedError();
+  Future<void> comment(
+    String from,
+    String comment,
+  ) async {
+    ratingDocId ??= (await collection.add({"createdAt": Timestamp.now()})).id;
+    return collection.doc(ratingDocId).update({
+      from: comment,
+    });
   }
 
   @override
-  Future<void> rate({required String feature, required int rating}) {
-    // TODO: implement rate
-    throw UnimplementedError();
+  Future<void> rate({required String feature, required int rating}) async{
+    ratingDocId ??= (await collection.add({"createdAt": Timestamp.now()})).id;
+    return collection.doc(ratingDocId).update({
+      feature: rating,
+    });
   }
 }

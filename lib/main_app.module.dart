@@ -1,8 +1,11 @@
+import 'package:dreampuppy/src/features/help_center/presenter/view/notion_web_view.dart';
+import 'package:dreampuppy/src/features/payment/presenter/view/requirements.dart';
 import 'package:dreampuppy/src/features/pet_details/pets.module.dart';
 import 'package:dreampuppy/src/features/pet_list/presentation/view/breed_list.dart';
 import 'package:dreampuppy/src/features/profile/user.module.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/foundation.dart';
+import 'package:webview_flutter/webview_flutter.dart';
 import 'src/_domain/singletons/user.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -31,33 +34,39 @@ class AppModule extends Module {
 
   @override
   get routes => [
+        if (kDebugMode) ChildRoute('/', child: (context, args) => FirstPage()),
         ChildRoute('/', child: (context, args) => const BreedListPage()),
-        if(kDebugMode) ChildRoute('/', child: (context, args) => const FirstPage()),
-        ModuleRoute('/payment', module: PaymentModule()),
+
+        // if(kDebugMode) ChildRoute('/', child: (context, args) => const PaymentRequirementsPage()),
         // ChildRoute('/', child: (context, args) => const CreditCardCreateFormPage()),
+
         ChildRoute('/breed_priority_research',
             child: (context, args) => const BreedPrioritySurveyPage()),
-        ModuleRoute('/user', module: UserModule()),
+        ChildRoute('/help', child: (context, args) => const HelpCenterPage()),
         ModuleRoute('/pet', module: PetsModule()),
-        // ModuleRoute('/payment', module: PaymentModule()),
-        ModuleRoute('/breeds', module: BreedDetailsModule()),
+        ModuleRoute('/user', module: UserModule()),
         ModuleRoute('/login', module: AuthenticationModule()),
+        ModuleRoute('/breeds', module: BreedDetailsModule()),
+        ModuleRoute('/payment', module: PaymentModule()),
       ];
 }
 
-
-
-
 class FirstPage extends StatelessWidget {
-  const FirstPage({super.key});
+  FirstPage({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
-        child: ElevatedButton(
-          onPressed: () => Modular.to.pushNamed('/payment/done'),
-          child: const Text('Go to module'),
+      body: SafeArea(
+        child: Center(
+          child: ElevatedButton(
+            onPressed: () => Modular.to.push(
+              MaterialPageRoute(
+                builder: (_) => const HelpCenterPage(),
+              ),
+            ), //Modular.to.pushNamed('/payment/requirements'),
+            child: const Text('Go to module'),
+          ),
         ),
       ),
     );
