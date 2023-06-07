@@ -65,8 +65,10 @@ class _BreedListPageState extends State<BreedListPage> {
               "assets/images/icons/logo512.png",
             ),
           ),
+          elevation: 0,
+          centerTitle: true,
           title: const Row(
-            mainAxisAlignment: MainAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Text(
                 "Dream",
@@ -104,13 +106,13 @@ class _BreedListPageState extends State<BreedListPage> {
           actions: [
             TextButton.icon(
               style: TextButton.styleFrom(),
-              label: userSingleton.user != null
+              icon: userSingleton.user != null
                   ? Container()
                   : const Text(
-                      "Entrar",
+                      "Perfil",
                       style: TextStyle(color: Colors.black),
                     ),
-              icon: const Icon(
+              label: const Icon(
                 Icons.account_circle,
                 size: 26,
                 color: Colors.black,
