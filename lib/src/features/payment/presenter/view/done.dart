@@ -93,7 +93,7 @@ class _PaymentDonePageState extends State<PaymentDonePage> {
             const Text("Caso não seja redirecionado, clique no botão abaixo."),
             TextButton(
               onPressed: () => requestContactUseCase.call("Pedido concluido!"),
-              child: const Text("+55 (33) 99852-5199"),
+              child: const Text("+55 (33) 99731-2898"),
             ),
           ],
         ),

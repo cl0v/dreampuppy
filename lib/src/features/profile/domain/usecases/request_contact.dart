@@ -7,7 +7,7 @@ abstract class RequestContactUseCase {
 class WhatsAppContactUseCaseImpl implements RequestContactUseCase {
   @override
   Future call(msg) async {
-    const phoneNumber = '5533998744781';
+    const phoneNumber = '5533997312898';
     final message = Uri.encodeFull(msg);
 
     //TODO: Testar se o link funciona para iOS e Android
