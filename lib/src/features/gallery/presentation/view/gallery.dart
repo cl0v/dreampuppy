@@ -98,12 +98,12 @@ class _GalleryPageState extends State<GalleryPage> {
   void initState() {
     _key = GlobalKey();
     petCard = cards.firstWhere((element) => element.path == widget.breed);
+    SystemConfig.changeStatusBarColor(petCard.color);
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    SystemConfig.changeStatusBarColor(petCard.color);
     return Scaffold(
       key: _key,
       drawerEnableOpenDragGesture:

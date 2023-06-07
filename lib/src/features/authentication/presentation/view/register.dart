@@ -9,7 +9,10 @@ import '../../domain/errors/signup_handler.dart';
 class RegisterPage extends StatefulWidget {
   const RegisterPage({
     super.key,
+    this.onCreate,
   });
+
+  final VoidCallback? onCreate;
 
   @override
   State<RegisterPage> createState() => _RegisterPageState();
@@ -19,15 +22,13 @@ class _RegisterPageState extends State<RegisterPage> {
   final _formKey = GlobalKey<FormState>();
 
   final fullNameController = TextEditingController(
-   text: kDebugMode ? 'Viana' : null,
+    text: kDebugMode ? 'Viana' : null,
   );
   final emailController = TextEditingController(
-   text: kDebugMode ? 'marcelofv12@hotmail.com' : null,
-
+    text: kDebugMode ? 'marcelofv12@hotmail.com' : null,
   );
   final passwordController = TextEditingController(
-   text: kDebugMode ? '123123123' : null,
-
+    text: kDebugMode ? '123123123' : null,
   );
 
   late SignupUseCase signupUseCase = Modular.get<SignupUseCase>();
@@ -149,7 +150,7 @@ class _RegisterPageState extends State<RegisterPage> {
                     builder: (_, isloading, __) {
                       return CustomAuthButton(
                         label: 'Cadastrar',
-                        onTap: signUp,
+                        onTap: widget.onCreate ?? signUp,
                         isLoading: isloading,
                       );
                     },

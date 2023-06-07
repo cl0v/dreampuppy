@@ -26,6 +26,7 @@ class _FavoritablePetWidgetState extends State<FavoritablePetWidget> {
         });
       },
       child: Stack(
+        //TODO: Esses sitema não está bom, passar o stack apenas para trabalhar na sombra da imagem. Aqui da pra alinhar tranquilamente com column
         children: [
           Container(
             padding: const EdgeInsets.all(8),
@@ -35,6 +36,7 @@ class _FavoritablePetWidgetState extends State<FavoritablePetWidget> {
             ),
             child: Align(
                 alignment: const Alignment(0, -0.4),
+                //TODO: Da pra colocar uma imagem preta atras dessa, com uma escala um pouco maior, cerca de 1.1 ou 1.2x e adicionar um blurry
                 child: Image.asset(
                   errorBuilder: (context, error, stackTrace) =>
                       const Icon(Icons.image_not_supported_outlined),
@@ -105,34 +107,6 @@ class _FavoritablePetWidgetState extends State<FavoritablePetWidget> {
                     ),
                   ),
                 ),
-                // const SizedBox(
-                //   height: 4,
-                // ),
-                // GestureDetector(
-                //   onTap: () {},
-                //   child: Container(
-                //     height: 24,
-                //     padding: const EdgeInsets.symmetric(
-                //       vertical: 0,
-                //       horizontal: 16,
-                //     ),
-                //     decoration: BoxDecoration(
-                //       color: Colors.grey,
-                //       borderRadius: BorderRadius.circular(16),
-                //     ),
-                //     child: const Row(
-                //       mainAxisSize: MainAxisSize.min,
-                //       mainAxisAlignment: MainAxisAlignment.start,
-                //       children: [
-                //         Icon(
-                //           Icons.info,
-                //           size: 16,
-                //         ),
-                //         Text("Saiba mais"),
-                //       ],
-                //     ),
-                //   ),
-                // ),
               ],
             ),
           )

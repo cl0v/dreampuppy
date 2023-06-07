@@ -30,6 +30,8 @@ class _PetDetailsPageState extends State<PetDetailsPage> {
   final pageController = PageController();
   late final fetchBloc = Modular.get<FetchPetBloc>();
 
+  Color? debugColor;
+
   @override
   initState() {
     super.initState();
@@ -38,12 +40,10 @@ class _PetDetailsPageState extends State<PetDetailsPage> {
     } else {
       fetchBloc.add(SetPetEvent(widget.pet!));
     }
-    //TODO: Manter a cor da statusBar referente à raça
-    /*
-      SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
-          statusBarColor: Colors.red[200],
-        ));
-    */
+    //TODO: Fix this
+    // SchedulerBinding.instance.addPostFrameCallback((_) {
+    //   if (kDebugMode) SystemConfig.changeStatusBarColor(randColor());
+    // });
   }
 
   @override
@@ -303,14 +303,14 @@ class _PetDetailsPageState extends State<PetDetailsPage> {
                             // "Fotos antigas [ + Fotos]",
                             "Ver todas as fotos",
                           ),
-                          //Videos e fotos > //TODO: Incentivar os canis a preferirem postar toda e qualquer foto relacionada aquele cachorro
-                          //TODO: Exibir quantidade de fotos disponíveis.
-                          //TODO: A partir 99 fotos, exibir "99+ fotos" (Corrigir o layout para numeros grandes)
+                          // TODO: Incentivar os canis a preferirem postar toda e qualquer foto relacionada aquele cachorro
+                          // Videos e fotos >
+                          // TODO: Exibir quantidade de fotos disponíveis.
                           trailing: CircleAvatar(
-                              radius: 14,
+                              radius: 16,
                               backgroundColor: Colors.black.withOpacity(.3),
                               child: const Text(
-                                "199",
+                                "101", //Dalmatas
                                 style: TextStyle(color: Colors.white),
                               )),
                         ),

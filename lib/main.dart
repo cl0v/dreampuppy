@@ -1,6 +1,5 @@
 import 'package:dreampuppy/app.dart';
 import 'package:dreampuppy/app.module.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -9,6 +8,9 @@ import 'package:sentry_flutter/sentry_flutter.dart';
 import 'package:sentry_logging/sentry_logging.dart';
 import 'dart:async';
 import 'firebase_options.dart';
+
+//TODO: Remover cores:
+// Color(0xffeeeeee)
 
 //TODO: Adicionar credenciais de desenvolvedor e invalidar toda e qualquer ação que pode atrapalhar o funcionamento do app.
 // Login a ser usado: (email: developer@dreampuppy.com.br, senha: @developer@)

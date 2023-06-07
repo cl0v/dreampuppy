@@ -1,4 +1,4 @@
-import 'package:dreampuppy/src/features/payment/presenter/view/done.dart';
+import 'package:dreampuppy/src/features/payment/presenter/view/credit_card_create_form.dart';
 import 'package:dreampuppy/src/features/pet_details/pets.module.dart';
 import 'package:dreampuppy/src/features/pet_list/presentation/view/breed_list.dart';
 import 'package:dreampuppy/src/features/profile/user.module.dart';
@@ -30,7 +30,7 @@ class AppModule extends Module {
   @override
   get routes => [
         ChildRoute('/', child: (context, args) => const BreedListPage()),
-        // ChildRoute('/', child: (context, args) => const PaymentDonePage()),
+        ChildRoute('/', child: (context, args) => const CreditCardCreateFormPage()),
         ChildRoute('/breed_priority_research',
             child: (context, args) => const BreedPrioritySurveyPage()),
         ModuleRoute('/user', module: UserModule()),

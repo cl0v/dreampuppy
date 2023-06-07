@@ -19,7 +19,7 @@
 import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:dreampuppy/src/_domain/singletons/user.dart';
 import 'package:dreampuppy/src/features/profile/domain/usecases/about.dart';
-import 'package:dreampuppy/src/features/profile/domain/usecases/needhelp.dart';
+import 'package:dreampuppy/src/features/profile/domain/usecases/request_contact.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
@@ -186,7 +186,7 @@ class _UserProfileOptionsViewState extends State<UserProfileOptionsView> {
                     useRootNavigator: false,
                     showCloseIcon: true,
                     btnOkText: 'Sim, quero sair',
-                    btnOkOnPress: () => Modular.get<NeedHelpUseCase>()
+                    btnOkOnPress: () => Modular.get<RequestContactUseCase>()
                         .call('Preciso de ajuda!'),
                   ).show();
                 },
