@@ -1,4 +1,4 @@
-import 'package:dreampuppy/src/features/help_center/presenter/view/notion_web_view.dart';
+import 'package:dreampuppy/src/features/help_center/presenter/view/wiki.dart';
 import 'package:dreampuppy/src/features/payment/presenter/view/requirements.dart';
 import 'package:dreampuppy/src/features/pet_details/pets.module.dart';
 import 'package:dreampuppy/src/features/pet_list/presentation/view/breed_list.dart';
