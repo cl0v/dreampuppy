@@ -34,10 +34,10 @@ class AppModule extends Module {
 
   @override
   get routes => [
-        if (kDebugMode) ChildRoute('/', child: (context, args) => FirstPage()),
         ChildRoute('/', child: (context, args) => const BreedListPage()),
 
-        // if(kDebugMode) ChildRoute('/', child: (context, args) => const PaymentRequirementsPage()),
+        if (kDebugMode) ChildRoute('/', child: (context, args) => FirstPage()),
+        if(kDebugMode) ChildRoute('/', child: (context, args) => const PaymentRequirementsPage()),
         // ChildRoute('/', child: (context, args) => const CreditCardCreateFormPage()),
 
         ChildRoute('/breed_priority_research',
@@ -52,7 +52,7 @@ class AppModule extends Module {
 }
 
 class FirstPage extends StatelessWidget {
-  FirstPage({super.key});
+  const FirstPage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -60,11 +60,7 @@ class FirstPage extends StatelessWidget {
       body: SafeArea(
         child: Center(
           child: ElevatedButton(
-            onPressed: () => Modular.to.push(
-              MaterialPageRoute(
-                builder: (_) => const HelpCenterPage(),
-              ),
-            ), //Modular.to.pushNamed('/payment/requirements'),
+            onPressed: () => Modular.to.pushNamed('/payment/requirements'),
             child: const Text('Go to module'),
           ),
         ),

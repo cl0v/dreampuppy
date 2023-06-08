@@ -65,6 +65,7 @@ class _HelpCenterPageState extends State<HelpCenterPage> {
                 ),
               );
             }
+            //TODO: Quando toco em botões que me redirecionam para o zap dentro do webview ele entra na tela de loading novamente
             return WebViewWidget(
               controller: controller,
             );

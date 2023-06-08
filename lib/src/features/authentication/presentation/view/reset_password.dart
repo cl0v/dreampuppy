@@ -99,7 +99,10 @@ class ResetPasswordPage extends StatelessWidget {
                     },
                   ),
 
-                  CustomAuthButton(onTap: resetPassword, label: 'Redefinir senha',),
+                  LoadingBlackButton(
+                    onTap: resetPassword,
+                    label: 'Redefinir senha',
+                  ),
                 ],
               ),
             ),

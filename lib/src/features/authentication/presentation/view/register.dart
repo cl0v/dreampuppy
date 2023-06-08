@@ -148,7 +148,7 @@ class _RegisterPageState extends State<RegisterPage> {
                   ValueListenableBuilder(
                     valueListenable: _isLoading,
                     builder: (_, isloading, __) {
-                      return CustomAuthButton(
+                      return LoadingBlackButton(
                         label: 'Cadastrar',
                         onTap: widget.onCreate ?? signUp,
                         isLoading: isloading,

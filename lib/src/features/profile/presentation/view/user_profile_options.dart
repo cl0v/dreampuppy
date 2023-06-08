@@ -18,7 +18,6 @@
 import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:dreampuppy/src/_domain/singletons/user.dart';
 import 'package:dreampuppy/src/features/profile/domain/usecases/about.dart';
-import 'package:dreampuppy/src/features/profile/domain/usecases/request_contact.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 

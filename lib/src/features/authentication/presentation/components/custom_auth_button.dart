@@ -1,16 +1,20 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-class CustomAuthButton extends StatelessWidget {
+class LoadingBlackButton extends StatelessWidget {
   final Function()? onTap;
   final String label;
   final bool isLoading;
+  final Color color;
+  final EdgeInsetsGeometry? margin;
 
-  const CustomAuthButton({
+  const LoadingBlackButton({
     super.key,
     required this.onTap,
     this.label = 'Entrar',
     this.isLoading = false,
+    this.color = Colors.black,
+    this.margin,
   });
 
   @override
@@ -24,14 +28,13 @@ class CustomAuthButton extends StatelessWidget {
       ),
     );
 
-    
     return GestureDetector(
       onTap: onTap,
       child: Container(
         padding: const EdgeInsets.symmetric(horizontal: 25, vertical: 20),
-        margin: const EdgeInsets.symmetric(horizontal: 25),
+        margin: margin ?? const EdgeInsets.symmetric(horizontal: 25),
         decoration: BoxDecoration(
-          color: Colors.black,
+          color: color,
           borderRadius: BorderRadius.circular(8),
         ),
         child: Center(

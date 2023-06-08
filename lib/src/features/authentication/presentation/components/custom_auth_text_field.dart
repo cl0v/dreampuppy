@@ -1,10 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 class CustomAuthTextField extends StatelessWidget {
   final TextEditingController controller;
   final String hintText;
   final bool isPasswordField;
   final String? Function(String?)? validator;
+  final EdgeInsetsGeometry padding;
+  final String label;
+  final List<TextInputFormatter>? masks;
 
   CustomAuthTextField({
     super.key,
@@ -12,6 +16,9 @@ class CustomAuthTextField extends StatelessWidget {
     required this.hintText,
     this.isPasswordField = false,
     this.validator,
+    this.label = "",
+    this.padding = const EdgeInsets.symmetric(horizontal: 25.0),
+    this.masks
   });
 
   final ValueNotifier<bool> _isPasswordVisible = ValueNotifier(false);
@@ -19,11 +26,12 @@ class CustomAuthTextField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 25.0),
+      padding: padding,
       child: ValueListenableBuilder<bool>(
           valueListenable: _isPasswordVisible,
           builder: (_, isPasswordVisible, __) {
             return TextFormField(
+              inputFormatters: masks,
               validator: validator,
               style: isPasswordVisible
                   ? const TextStyle(
@@ -44,6 +52,9 @@ class CustomAuthTextField extends StatelessWidget {
               obscureText: !isPasswordVisible &&
                   isPasswordField, //vF && fT = fT | vF && fF = fF | vT && fT = tT | vT && fT = tF
               decoration: InputDecoration(
+                label: Text(
+                  label,
+                ),
                 enabledBorder: const OutlineInputBorder(
                   borderSide: BorderSide(color: Colors.white),
                 ),

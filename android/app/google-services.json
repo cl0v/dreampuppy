@@ -31,10 +31,46 @@
               "client_type": 3
             },
             {
-              "client_id": "1024413198026-p97q8j0dr3ln5tg8rv6ekrjmcv3eobi4.apps.googleusercontent.com",
+              "client_id": "1024413198026-2l38tfauib1oodpv83vu9vgjk1cuo33v.apps.googleusercontent.com",
               "client_type": 2,
               "ios_info": {
-                "bundle_id": "com.dreampuppy"
+                "bundle_id": "com.dreampuppy.gallery"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1024413198026:android:58c3e2c44ca39836797633",
+        "android_client_info": {
+          "package_name": "com.dreampuppy.gallery"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1024413198026-7ht4c0brof0a2hj5h5eoodrbrvcrrtkt.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBn-IdzNoAdwqY2h9xjjEYKgl-R-BKrhlA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1024413198026-7ht4c0brof0a2hj5h5eoodrbrvcrrtkt.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "1024413198026-2l38tfauib1oodpv83vu9vgjk1cuo33v.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.dreampuppy.gallery"
               }
             }
           ]

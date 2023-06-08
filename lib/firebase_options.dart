@@ -51,7 +51,7 @@ class DefaultFirebaseOptions {
 
   static const FirebaseOptions android = FirebaseOptions(
     apiKey: 'AIzaSyBn-IdzNoAdwqY2h9xjjEYKgl-R-BKrhlA',
-    appId: '1:1024413198026:android:1f771d484b4c8a9a797633',
+    appId: '1:1024413198026:android:58c3e2c44ca39836797633',
     messagingSenderId: '1024413198026',
     projectId: 'dreampuppy-12951',
     storageBucket: 'dreampuppy-12951.appspot.com',
@@ -59,11 +59,11 @@ class DefaultFirebaseOptions {
 
   static const FirebaseOptions ios = FirebaseOptions(
     apiKey: 'AIzaSyCQ-9_sETGMKvkwfoKAOP9iagWWdy_eztU',
-    appId: '1:1024413198026:ios:88cdcd858d66ef51797633',
+    appId: '1:1024413198026:ios:f6ef9df378d7ab22797633',
     messagingSenderId: '1024413198026',
     projectId: 'dreampuppy-12951',
     storageBucket: 'dreampuppy-12951.appspot.com',
-    iosClientId: '1024413198026-p97q8j0dr3ln5tg8rv6ekrjmcv3eobi4.apps.googleusercontent.com',
-    iosBundleId: 'com.dreampuppy',
+    iosClientId: '1024413198026-2l38tfauib1oodpv83vu9vgjk1cuo33v.apps.googleusercontent.com',
+    iosBundleId: 'com.dreampuppy.gallery',
   );
 }

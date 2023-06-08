@@ -160,7 +160,7 @@ class _LoginPageState extends State<LoginPage> {
                   const SizedBox(height: 25),
 
                   // sign in button
-                  CustomAuthButton(
+                  LoadingBlackButton(
                     onTap: login,
                     label: 'Entrar',
                   ),
