@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
+//TODO: BUG: O WebView não funciona no Android
 //TODO: Toda vez que toco para entrar nessa página, da uma pequena travada
 class HelpCenterPage extends StatefulWidget {
   const HelpCenterPage({super.key});
@@ -42,22 +43,33 @@ class _HelpCenterPageState extends State<HelpCenterPage> {
       appBar: AppBar(),
       body: SafeArea(
         child: ValueListenableBuilder<int>(
-            valueListenable: progressBarNotifier,
-            builder: (_, progress, __) {
-              if (progress < 100) {
-                return Center(
-                  child: SizedBox(
-                    width: 248,
-                    child: LinearProgressIndicator(
-                      value: progress.toDouble()/100,
-                    ),
+          valueListenable: progressBarNotifier,
+          builder: (_, progress, __) {
+            if (progress < 100) {
+              return Center(
+                child: SizedBox(
+                  width: 248,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        "Acionando o cão guia...",
+                        style: Theme.of(context).textTheme.bodyLarge,
+                      ),
+                      const SizedBox(height: 4),
+                      LinearProgressIndicator(
+                        value: progress.toDouble() / 100,
+                      ),
+                    ],
                   ),
-                );
-              }
-              return WebViewWidget(
-                controller: controller,
+                ),
               );
-            }),
+            }
+            return WebViewWidget(
+              controller: controller,
+            );
+          },
+        ),
       ),
     );
   }

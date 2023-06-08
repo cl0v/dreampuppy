@@ -179,6 +179,7 @@ class _UserProfileOptionsViewState extends State<UserProfileOptionsView> {
                 onTap: () async {
                   Modular.to.pushNamed('/help');
                   return;
+                  /*
                   await AwesomeDialog(
                     context: context,
                     title: "Sair do App?",
@@ -190,6 +191,7 @@ class _UserProfileOptionsViewState extends State<UserProfileOptionsView> {
                     btnOkOnPress: () => Modular.get<RequestContactUseCase>()
                         .call('Preciso de ajuda!'),
                   ).show();
+                  */
                 },
               ),
 
