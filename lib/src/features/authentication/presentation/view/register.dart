@@ -2,7 +2,7 @@ import 'package:dreampuppy/src/features/authentication/domain/usecases/signup.da
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
-import '../components/custom_auth_button.dart';
+import '../components/loading_black_button.dart';
 import '../components/custom_auth_text_field.dart';
 import '../../domain/errors/signup_handler.dart';
 

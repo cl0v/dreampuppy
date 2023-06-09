@@ -4,7 +4,7 @@ import 'package:dreampuppy/src/features/authentication/domain/usecases/forgot_pa
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
-import '../components/custom_auth_button.dart';
+import '../components/loading_black_button.dart';
 import '../components/custom_auth_text_field.dart';
 import '../../domain/usecases/login.dart';
 

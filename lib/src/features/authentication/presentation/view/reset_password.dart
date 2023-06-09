@@ -1,6 +1,6 @@
 import 'package:dreampuppy/src/features/authentication/domain/usecases/fetch_email.dart';
 import 'package:dreampuppy/src/features/authentication/domain/usecases/reset_password.dart';
-import 'package:dreampuppy/src/features/authentication/presentation/components/custom_auth_button.dart';
+import 'package:dreampuppy/src/features/authentication/presentation/components/loading_black_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import '../components/custom_auth_text_field.dart';
