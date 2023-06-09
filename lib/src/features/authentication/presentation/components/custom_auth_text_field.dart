@@ -55,6 +55,7 @@ class CustomAuthTextField extends StatelessWidget {
                 label: Text(
                   label,
                 ),
+                errorText: null,
                 enabledBorder: const OutlineInputBorder(
                   borderSide: BorderSide(color: Colors.white),
                 ),

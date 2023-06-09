@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:dreampuppy/config.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
@@ -42,7 +44,8 @@ class _FavoritablePetWidgetState extends State<FavoritablePetWidget> {
                       const Icon(Icons.image_not_supported_outlined),
                   widget.card.imgUrl,
                   //TODO: Testar tamanho em dispositivos variados.
-                  height: 120,
+                  height: 160,
+                  fit: BoxFit.fitWidth,
                 )),
           ),
           Align(

@@ -24,7 +24,7 @@ import '../../../../_domain/entities/pet.dart';
 //TODO: Acho que nem todos o s botões deveriam ser brancos, fica estranho
 // TODO: Adicionar darkTheme
 
-final List<Pet> pets = [
+List<Pet> pets = [
   Pet(
     id: "id",
     coverImgUrl: 'https://wallpapers.com/images/featured/wj7msvc5kj9v6cyy.jpg',
@@ -96,6 +96,9 @@ class _GalleryPageState extends State<GalleryPage> {
 
   @override
   void initState() {
+    pets = [...pets, ...pets.reversed, ...pets, ...pets.reversed, ...pets];
+    pets = [...pets, ...pets.reversed];
+
     _key = GlobalKey();
     petCard = cards.firstWhere((element) => element.path == widget.breed);
     SystemConfig.changeStatusBarColor(petCard.color);

@@ -180,8 +180,9 @@ class _PetDetailsPageState extends State<PetDetailsPage> {
                                 ),
                                 ElevatedButton.icon(
                                   icon: const Icon(Icons.pets),
-                                  style: ElevatedButton.styleFrom(),
-                                  onPressed: () {},
+                                  style: ElevatedButton.styleFrom(
+                                      backgroundColor: Colors.black),
+                                  onPressed: onPetSelected,
                                   label: const Text("Comprar"),
                                 ),
                               ],
@@ -324,6 +325,11 @@ class _PetDetailsPageState extends State<PetDetailsPage> {
         ),
       ),
     );
+  }
+
+  void onPetSelected() async {
+    //TODO: Add pet to CartProvider. CartProvider should be global and can be accessed anywhere, anytime, including from external fonts link.
+    await Modular.to.pushNamed('/payment/cart');
   }
 }
 

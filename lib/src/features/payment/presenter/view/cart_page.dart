@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
+// Recebe os dados de usuario e carrinho do provider
+
 class CartPage extends StatefulWidget {
   const CartPage({super.key});
 
@@ -14,16 +16,14 @@ class _CartPageState extends State<CartPage> {
     return Scaffold(
       appBar: AppBar(),
       bottomNavigationBar: GestureDetector(
-        onTap: () => Modular.to.pushNamed('/login/create', arguments: () => Modular.to.pushNamed('/user/address/create')),
-        child: SizedBox(
+        onTap: () => Modular.to.pushNamed('/login/create',
+            arguments: () => Modular.to.pushNamed('/user/address/create')),
+        child: const SizedBox(
           height: 56,
           child: Placeholder(child: Center(child: Text('Proceed to checkout'))),
         ),
       ),
-      body: 
-      
-      
-      SafeArea(
+      body: SafeArea(
         minimum: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
         child: Column(
           children: <Widget>[
@@ -126,7 +126,7 @@ Pedido
                   Text(
                       textAlign: TextAlign.center,
                       "Caso ainda não concordar com o valor do frete, você pode cancelar o pedido, e o valor pago será devolvido integralmente."),
-                 SizedBox(
+                  SizedBox(
                     height: 16,
                   ),
                   Text(

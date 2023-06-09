@@ -5,7 +5,6 @@ import 'package:dreampuppy/src/features/pet_list/presentation/view/breed_list.da
 import 'package:dreampuppy/src/features/profile/user.module.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/foundation.dart';
-import 'package:webview_flutter/webview_flutter.dart';
 import 'src/_domain/singletons/user.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -17,7 +16,6 @@ import 'package:dreampuppy/src/features/pet_list/features/search_others/infra/da
 import 'package:dreampuppy/src/features/pet_list/features/search_others/infra/repositories/search.dart';
 import 'package:dreampuppy/src/features/pet_list/features/search_others/domain/usecases/save_search.dart';
 import 'package:dreampuppy/src/features/pet_list/features/search_others/external/datasources/search.dart';
-
 import 'src/features/profile/domain/usecases/request_contact.dart';
 
 class AppModule extends Module {
@@ -34,10 +32,9 @@ class AppModule extends Module {
 
   @override
   get routes => [
-        ChildRoute('/', child: (context, args) => const BreedListPage()),
-
-        if (kDebugMode) ChildRoute('/', child: (context, args) => FirstPage()),
+        if (kDebugMode) ChildRoute('/', child: (context, args) => const FirstPage()),
         if(kDebugMode) ChildRoute('/', child: (context, args) => const PaymentRequirementsPage()),
+        ChildRoute('/', child: (context, args) => const BreedListPage()),
         // ChildRoute('/', child: (context, args) => const CreditCardCreateFormPage()),
 
         ChildRoute('/breed_priority_research',

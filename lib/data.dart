@@ -68,7 +68,7 @@ final List<PetCardEntity> cards = [
   PetCardEntity(
       breed: "Golden Retriever",
       colorValue: Colors.orange[200]!.value,
-      imgUrl: 'assets/images/dogs/cane_corso.png'),
+      imgUrl: 'assets/images/dogs/golden.png'),
   PetCardEntity(
       imgUrl: 'assets/images/dogs/rottweiler.png',
       breed: "Rottweiler",
