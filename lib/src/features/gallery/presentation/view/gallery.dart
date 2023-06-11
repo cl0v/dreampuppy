@@ -1,13 +1,16 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:dreampuppy/data.dart';
-import 'package:dreampuppy/src/features/gallery/presentation/view/filter/filter_view.dart';
+import 'package:dreampuppy/src/features/gallery/domain/entities/gallery_entity.dart';
+import 'package:dreampuppy/src/features/gallery/presentation/components/filter/filter_view.dart';
 import 'package:dreampuppy/src/features/pet_list/domain/entities/pet_card.dart';
+import 'package:dreampuppy/src/utils/platform.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import '../../../../../config.dart';
-import '../../../../_domain/entities/pet.dart';
+import '../bloc/fetch_gallery.dart';
 
 // TODO: O enquadramento das imagens será disposta em um modelo diferente, focando em 9/16; Para a imagem em grid
 // TODO: Adicionar filtro que mostra a ninhada, o pai ou a mae na capa que deveria ter a ninhada.
@@ -25,60 +28,10 @@ import '../../../../_domain/entities/pet.dart';
 //TODO: Acho que nem todos o s botões deveriam ser brancos, fica estranho
 // TODO: Adicionar darkTheme
 
-List<Pet> pets = [
-  Pet(
-    id: "id",
-    coverImgUrl: 'https://wallpapers.com/images/featured/wj7msvc5kj9v6cyy.jpg',
-    images: const [
-      'https://media.istockphoto.com/id/1128787293/photo/portrait-of-five-adorable-golden-retriever-puppies.jpg?s=612x612&w=0&k=20&c=ajN4MpV43KJPbQCF6Hl_HEMHZt-vewgeqZ1--y-zL_0=',
-      'https://wallpapers.com/images/featured/wj7msvc5kj9v6cyy.jpg',
-      'https://4.bp.blogspot.com/-B0eaz5h_Rd4/UGNCvdjBn1I/AAAAAAAAVDc/xv5lX2HPCJ4/s1600/Puppies-+Dogs-food-Wallpapers-+%25281%2529.jpg',
-      'https://images6.fanpop.com/image/photos/37300000/Cute-puppies-dogs-37395739-1600-1200.jpg',
-    ],
-  ),
-  Pet(
-    id: "id",
-    coverImgUrl:
-        'https://4.bp.blogspot.com/-B0eaz5h_Rd4/UGNCvdjBn1I/AAAAAAAAVDc/xv5lX2HPCJ4/s1600/Puppies-+Dogs-food-Wallpapers-+%25281%2529.jpg',
-    images: const [
-      'https://m.media-amazon.com/images/I/71IeYNcBYdL._SX679_.jpg',
-      'https://upload.wikimedia.org/wikipedia/commons/e/e7/Everest_North_Face_toward_Base_Camp_Tibet_Luca_Galuzzi_2006.jpg',
-      'https://hairstyleonpoint.com/wp-content/uploads/2015/09/4ce06e936dcd5e5c5c3e44be9edbc8ff.jpg',
-      'https://bsmedia.business-standard.com/_media/bs/img/article/2020-12/11/full/1607656152-0479.jpg',
-      'https://cdn.pixabay.com/photo/2015/04/19/08/32/marguerite-729510__340.jpg',
-    ],
-  ),
-  Pet(
-    id: "id",
-    coverImgUrl:
-        'https://images6.fanpop.com/image/photos/37300000/Cute-puppies-dogs-37395739-1600-1200.jpg',
-    images: const [
-      'https://m.media-amazon.com/images/I/71IeYNcBYdL._SX679_.jpg',
-      'https://upload.wikimedia.org/wikipedia/commons/e/e7/Everest_North_Face_toward_Base_Camp_Tibet_Luca_Galuzzi_2006.jpg',
-      'https://hairstyleonpoint.com/wp-content/uploads/2015/09/4ce06e936dcd5e5c5c3e44be9edbc8ff.jpg',
-      'https://bsmedia.business-standard.com/_media/bs/img/article/2020-12/11/full/1607656152-0479.jpg',
-      'https://cdn.pixabay.com/photo/2015/04/19/08/32/marguerite-729510__340.jpg',
-    ],
-  ),
-  Pet(
-    id: "id",
-    coverImgUrl:
-        'https://media.istockphoto.com/id/1128787293/photo/portrait-of-five-adorable-golden-retriever-puppies.jpg?s=612x612&w=0&k=20&c=ajN4MpV43KJPbQCF6Hl_HEMHZt-vewgeqZ1--y-zL_0=',
-    images: const [
-      'https://m.media-amazon.com/images/I/71IeYNcBYdL._SX679_.jpg',
-      'https://upload.wikimedia.org/wikipedia/commons/e/e7/Everest_North_Face_toward_Base_Camp_Tibet_Luca_Galuzzi_2006.jpg',
-      'https://hairstyleonpoint.com/wp-content/uploads/2015/09/4ce06e936dcd5e5c5c3e44be9edbc8ff.jpg',
-      'https://bsmedia.business-standard.com/_media/bs/img/article/2020-12/11/full/1607656152-0479.jpg',
-      'https://cdn.pixabay.com/photo/2015/04/19/08/32/marguerite-729510__340.jpg',
-    ],
-  ),
-];
-
-
 /// Essa página pode ser acessada por deep linking
 /// Aplica filtros de busca e exibe uma galeria da imagem de capa de todos os pets encontrados.
 /// A ideia é que essa galeria seja infinitamente scrollavel, exibindo até mesmo pets já vendidos, com uma marcação de "vendido" na imagem.
-/// Ao clicar em uma imagem, o usuário seja redirecionado para a página de detalhes do pet. 
+/// Ao clicar em uma imagem, o usuário seja redirecionado para a página de detalhes do pet.
 class GalleryPage extends StatefulWidget {
   const GalleryPage({
     super.key,
@@ -100,6 +53,8 @@ class _GalleryPageState extends State<GalleryPage> {
   late GlobalKey<ScaffoldState> _key;
   late final PetCardEntity petCard;
 
+  final galleryBloc = Modular.get<FetchGalleryBloc>();
+
   bool isLoading = false;
 
   @override
@@ -111,21 +66,57 @@ class _GalleryPageState extends State<GalleryPage> {
     super.initState();
   }
 
-  populateMockPetList() {
-    
-    
-  }
+  populateMockPetList() {}
 
   @override
   Widget build(BuildContext context) {
-    return isLoading
-        ? Scaffold(
-            body: Center(child: CircularProgressIndicator()),
-          )
-        : Scaffold(
+    return BlocBuilder<FetchGalleryBloc, GalleryState>(
+        bloc: null,
+        builder: (context, state) {
+          Widget? child;
+          List<GalleryEntity> entities = [];
+          switch (state.runtimeType) {
+            case GalleryStateLoading:
+              child = Center(
+                child: isIos()
+                    ? const CupertinoActivityIndicator(
+                        color: Colors.black,
+                      )
+                    : const CircularProgressIndicator(),
+              );
+              break;
+            case GalleryStateError:
+              state = state as GalleryStateError;
+              child = Center(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      state.message,
+                      style: Theme.of(context).textTheme.bodyMedium,
+                    ),
+                    TextButton(
+                      onPressed: () {
+                        // fetchBloc.add(FetchPetByIdEvent(widget.id));
+                      },
+                      child: const Text("Tentar novamente"),
+                    ),
+                  ],
+                ),
+              );
+              break;
+            case GalleryStateSuccess:
+              state = state as GalleryStateSuccess;
+              entities = state.entities;
+
+              break;
+            default:
+          }
+
+          return Scaffold(
             key: _key,
-            drawerEnableOpenDragGesture:
-                kDebugMode, //TODO: !Remover: O Drawer deve ter o acesso facilitado ao máximo.
+            drawerEnableOpenDragGesture: kDebugMode,
+            //TODO: !Remover: O Drawer deve ter o acesso facilitado ao máximo.
             //TODO: Implementar o sistema de filtros do Drawer
             endDrawer: kDebugMode
                 ? Drawer(
@@ -264,29 +255,27 @@ class _GalleryPageState extends State<GalleryPage> {
             //   ],
             //   backgroundColor: petCard.color,
             // ),
-            body: SafeArea(
+            body: child ??= SafeArea(
               child: GridView.builder(
                 physics: const BouncingScrollPhysics(
                   parent: AlwaysScrollableScrollPhysics(),
                 ),
                 padding: const EdgeInsets.all(1),
-                itemCount: pets.length,
+                itemCount: entities.length,
                 gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: 3,
                 ),
                 itemBuilder: ((context, i) {
-                  final photo = pets[i].coverImgUrl;
+                  final GalleryEntity entity = entities[i];
                   return Container(
                     padding: const EdgeInsets.all(0.5),
                     child: InkWell(
-                      onTap: () => Modular.to.pushNamed(
-                        '/pet/p/${pets[i].id}',
-                        arguments: pets[i],
-                      ),
+                      onTap: () =>
+                          Modular.to.pushNamed('/pet/p/${entity.petId}'),
                       child: Hero(
-                        tag: photo,
+                        tag: entity.imgUrl,
                         child: CachedNetworkImage(
-                          imageUrl: photo,
+                          imageUrl: entity.imgUrl,
                           fit: BoxFit.fitHeight,
                           placeholder: (context, url) =>
                               Container(color: Colors.grey),
@@ -302,5 +291,6 @@ class _GalleryPageState extends State<GalleryPage> {
               ),
             ),
           );
+        });
   }
 }

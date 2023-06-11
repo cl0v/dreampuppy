@@ -1,4 +1,4 @@
-import 'package:dreampuppy/src/features/gallery/presentation/view/filter/components/filter_header.dart';
+import 'package:dreampuppy/src/features/gallery/presentation/components/filter/components/filter_header.dart';
 import 'package:flutter/material.dart';
 
 import 'components/filter_footer.dart';

@@ -1,4 +1,5 @@
-import 'package:dreampuppy/src/features/gallery/presentation/view/gallery.dart';
+import 'package:dreampuppy/src/utils/platform.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import '../bloc/fetch_pet.dart';
 import 'package:flutter/material.dart';
@@ -35,33 +36,48 @@ class _PetDetailsPageState extends State<PetDetailsPage> {
   @override
   initState() {
     super.initState();
-    // if (widget.id != null) {
-    //   fetchBloc.add(FetchPetByIdEvent(widget.id!));
-    // }
-    fetchBloc.add(InjectPetEvent(pets.first));
-    //TODO: Fix this
-    // SchedulerBinding.instance.addPostFrameCallback((_) {
-    //   if (kDebugMode) SystemConfig.changeStatusBarColor(randColor());
-    // });
+    Future.microtask(() => fetchBloc.add(FetchPetByIdEvent(widget.id)));
+
+    //TODO: Buscar o pet pelo ID.
+    // Future.microtask(() => fetchBloc.add(InjectPetEvent(pets.first)));
   }
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<FetchPetBloc, Pet?>(
+    return BlocBuilder<FetchPetBloc, PetDetailsState>(
       bloc: fetchBloc,
-      builder: (context, pet) {
+      builder: (context, state) {
         Widget? child;
         PreferredSizeWidget? appBar;
         Pet? newPet;
-        if (pet == null) {
-          //? Nesse cason é possível ocorrer o problema de conexão,
-          //TODO: tratar esse caso para a pessoa não ficar no looop infinot
-
-          child = const Center(
-            child: CircularProgressIndicator(),
+        if (state is PetDetailsStateLoading) {
+          child = Center(
+            child: isIos()
+                ? const CupertinoActivityIndicator(
+                    color: Colors.black,
+                  )
+                : const CircularProgressIndicator(),
           );
-        } else {
-          newPet = pet;
+        } else if (state is PetDetailsStateError) {
+          child = Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  state.message,
+                  style: Theme.of(context).textTheme.bodyMedium,
+                ),
+                TextButton(
+                  onPressed: () {
+                    fetchBloc.add(FetchPetByIdEvent(widget.id));
+                  },
+                  child: const Text("Tentar novamente"),
+                ),
+              ],
+            ),
+          );
+        } else if (state is PetDetailsStateSuccess) {
+          newPet = state.pet;
           appBar = AppBar(
             title: const Text("Detalhes do pet"),
             centerTitle: true,
@@ -196,7 +212,7 @@ class _PetDetailsPageState extends State<PetDetailsPage> {
                         ),
                       ),
                       Container(
-                        padding: EdgeInsets.symmetric(horizontal: 8),
+                        padding: const EdgeInsets.symmetric(horizontal: 8),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
@@ -258,10 +274,7 @@ class _PetDetailsPageState extends State<PetDetailsPage> {
                                 "Fotos atualizadas hà 15 dias",
                               ),
                             ),
-                            
-                           
                             const Divider(),
-
                             Card(
                               child: ListTile(
                                 tileColor: Colors.grey.shade300,

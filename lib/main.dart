@@ -1,4 +1,4 @@
-import 'package:dreampuppy/app.dart';
+import 'package:dreampuppy/main_app.dart';
 import 'package:dreampuppy/main_app.module.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/foundation.dart';

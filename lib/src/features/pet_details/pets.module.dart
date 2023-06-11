@@ -10,6 +10,8 @@ import 'infra/datasources/pet.dart';
 import 'presentation/bloc/fetch_pet.dart';
 import 'presentation/view/pet_details.dart';
 
+// Herda o id das raças do BreedModule
+
 class PetsModule extends Module {
   @override
   final List<Bind> binds = [

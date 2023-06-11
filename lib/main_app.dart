@@ -21,12 +21,12 @@ class _AppState extends State<App> {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp.router(
-      debugShowCheckedModeBanner: false,
-      title: 'DreamPuppy - Galeria de filhotes',
-      themeMode: ThemeMode.dark,
-      routeInformationParser: Modular.routeInformationParser,
-      routerDelegate: Modular.routerDelegate,
+    return  MaterialApp.router(
+        debugShowCheckedModeBanner: false,
+        title: 'DreamPuppy - Galeria de filhotes',
+        themeMode: ThemeMode.dark,
+        routeInformationParser: Modular.routeInformationParser,
+        routerDelegate: Modular.routerDelegate,
     );
   }
 }
