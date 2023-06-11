@@ -1,4 +1,4 @@
-import '../../_domain/entities/pet.dart';
+import '../../../../_domain/entities/pet.dart';
 import '../datasources/pet.dart';
 
 abstract class PetRepository {

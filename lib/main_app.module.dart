@@ -32,8 +32,11 @@ class AppModule extends Module {
 
   @override
   get routes => [
-        if (kDebugMode) ChildRoute('/', child: (context, args) => const FirstPage()),
-        if(kDebugMode) ChildRoute('/', child: (context, args) => const PaymentRequirementsPage()),
+        if (kDebugMode)
+          ChildRoute('/',
+              child: (context, args) => const PaymentUserRequirementsPage()),
+        if (kDebugMode)
+          ChildRoute('/', child: (context, args) => const FirstPage()),
         ChildRoute('/', child: (context, args) => const BreedListPage()),
         // ChildRoute('/', child: (context, args) => const CreditCardCreateFormPage()),
 
@@ -57,7 +60,7 @@ class FirstPage extends StatelessWidget {
       body: SafeArea(
         child: Center(
           child: ElevatedButton(
-            onPressed: () => Modular.to.pushNamed('/payment/requirements'),
+            onPressed: () => Modular.to.pushNamed('/login/create'),
             child: const Text('Go to module'),
           ),
         ),

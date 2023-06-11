@@ -30,7 +30,8 @@ Pet _$PetFromJson(Map<String, dynamic> json) => Pet(
           ? null
           : VaccineRecord.fromJson(
               json['vaccineRecord'] as Map<String, dynamic>),
-      isMale: json['isMale'] as bool? ?? true,
+      gender: $enumDecodeNullable(_$PetGenderEnumMap, json['gender']) ??
+          PetGender.female,
     )..characteristics = (json['characteristics'] as List<dynamic>)
         .map((e) => e as String)
         .toList();
@@ -46,9 +47,14 @@ Map<String, dynamic> _$PetToJson(Pet instance) => <String, dynamic>{
       'lastUpdate': instance.lastUpdate?.toIso8601String(),
       'birthDate': instance.birthDate?.toIso8601String(),
       'vaccineRecord': instance.vaccineRecord,
-      'isMale': instance.isMale,
+      'gender': _$PetGenderEnumMap[instance.gender]!,
       'characteristics': instance.characteristics,
     };
+
+const _$PetGenderEnumMap = {
+  PetGender.female: 'female',
+  PetGender.male: 'male',
+};
 
 VaccineRecord _$VaccineRecordFromJson(Map<String, dynamic> json) =>
     VaccineRecord(

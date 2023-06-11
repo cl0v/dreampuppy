@@ -1,12 +1,12 @@
-import 'package:dreampuppy/src/_infra/datasources/pet.dart';
-import 'package:dreampuppy/src/_infra/repositories/pet.dart';
-import 'package:dreampuppy/src/external/datasources/firestore_pet.dart';
+import 'package:dreampuppy/src/features/pet_details/infra/repositories/pet.dart';
+import 'package:dreampuppy/src/features/pet_details/external/datasources/firestore_pet.dart';
 import 'package:dreampuppy/src/features/breed_details/presentation/view/breed_details.dart';
 import 'package:dreampuppy/src/features/gallery/presentation/view/gallery.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import '../../../algolia_application.dart';
 import 'domain/usecases/fetch_pet.dart';
+import 'infra/datasources/pet.dart';
 import 'presentation/bloc/fetch_pet.dart';
 import 'presentation/view/pet_details.dart';
 
@@ -22,9 +22,8 @@ class PetsModule extends Module {
 
   @override
   final List<ModularRoute> routes = [
-    ChildRoute('/:breed',
-        //TODO: Implementar página de filtros antes de ir para a galeria.
-        child: (_, args) {
+    //TODO: Implementar página de filtros antes de ir direto pra galeria.
+    ChildRoute('/:breed', child: (_, args) {
       final String breed = args.params['breed'];
       if (breed.isEmpty) {
         //TODO: Show 404
@@ -50,7 +49,6 @@ class PetsModule extends Module {
     ChildRoute('/p/:id',
         child: (_, args) => PetDetailsPage(
               id: args.params['id'],
-              pet: args.data,
             )),
   ];
 }

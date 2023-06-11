@@ -3,15 +3,16 @@ import 'package:flutter/material.dart';
 
 import '../components/user_sensitive_data_form.dart';
 
-class PaymentRequirementsPage extends StatefulWidget {
-  const PaymentRequirementsPage({super.key});
+class PaymentUserRequirementsPage extends StatefulWidget {
+  const PaymentUserRequirementsPage({super.key});
 
   @override
-  State<PaymentRequirementsPage> createState() =>
-      _PaymentRequirementsPageState();
+  State<PaymentUserRequirementsPage> createState() =>
+      _PaymentUserRequirementsPageState();
 }
 
-class _PaymentRequirementsPageState extends State<PaymentRequirementsPage> {
+class _PaymentUserRequirementsPageState
+    extends State<PaymentUserRequirementsPage> {
   int idx = 0;
   List<Step> steps = [];
 
@@ -24,13 +25,14 @@ class _PaymentRequirementsPageState extends State<PaymentRequirementsPage> {
   getDataFormKey(GlobalKey<FormState> formKey) {
     dataFormKey = formKey;
   }
+
   getAddressFormKey(GlobalKey<FormState> formKey) {
     addressFormKey = formKey;
   }
+
   getCardFormKey(GlobalKey<FormState> formKey) {
     cardFormKey = formKey;
   }
-
 
   bool isLoading(loading) {
     if (loading) return true;
@@ -71,8 +73,7 @@ class _PaymentRequirementsPageState extends State<PaymentRequirementsPage> {
   /// Atualiza os dados de segurança do usuário.
   Future<bool> updateUserSensitiveData() async {
     bool? formValidation = dataFormKey.currentState?.validate();
-    bool errorWithFormValidation =
-        !(formValidation ?? true);
+    bool errorWithFormValidation = !(formValidation ?? true);
     if (errorWithFormValidation) return false;
     await Future.delayed(const Duration(seconds: 2));
     return true;
@@ -80,8 +81,7 @@ class _PaymentRequirementsPageState extends State<PaymentRequirementsPage> {
 
   Future<bool> updateUserAddress() async {
     bool? formValidation = addressFormKey.currentState?.validate();
-    bool errorWithFormValidation =
-        !(formValidation ?? true);
+    bool errorWithFormValidation = !(formValidation ?? true);
     if (errorWithFormValidation) return false;
     await Future.delayed(const Duration(seconds: 2));
     return true;
@@ -146,8 +146,11 @@ class _PaymentRequirementsPageState extends State<PaymentRequirementsPage> {
                         margin: EdgeInsets.zero,
                         color: Colors.blue,
                         isLoading: isLoading,
-                        onTap: () => onTap(isLoading,
-                            details), // TODO: Implementar a navegação na ultima página
+                        // TODO: Implementar a navegação na ultima página
+                        onTap: () => onTap(
+                          isLoading,
+                          details,
+                        ), 
                         label: "Próximo",
                       );
                     }),

@@ -65,48 +65,51 @@ class _FavoritablePetWidgetState extends State<FavoritablePetWidget> {
                   ),
                 ),
                 const SizedBox(height: 4),
-                SizedBox(
-                  height: 32,
-                  child: ElevatedButton(
-                    onPressed: () {
-                      Modular.to
-                          .pushNamed('pet/${widget.card.path}/gallery')
-                          .then((value) {
-                        return SystemConfig.changeStatusBarColor(
-                            Colors.black.withOpacity(.3));
-                      });
-                      //TODO: Esse botão leva pra tela de especificações da raça
-                      //   Modular.to.pushNamed(
-                      //   '/breeds/${widget.card.breed.toLowerCase()}',
-                      //   arguments: widget.card,
-                      // );
-                    },
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: darken(widget.card.color, 0.45),
-                      // Colors.grey,
-                      // padding: const EdgeInsets.symmetric(
-                      //   vertical: 0,
-                      //   horizontal: 32,
-                      // ),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(16),
+                Visibility(
+                  visible: false,
+                  child: SizedBox(
+                    height: 32,
+                    child: ElevatedButton(
+                      onPressed: () {
+                        Modular.to
+                            .pushNamed('pet/${widget.card.path}/gallery')
+                            .then((value) {
+                          return SystemConfig.changeStatusBarColor(
+                              Colors.black.withOpacity(.3));
+                        });
+                        //TODO: Esse botão leva pra tela de especificações da raça
+                        //   Modular.to.pushNamed(
+                        //   '/breeds/${widget.card.breed.toLowerCase()}',
+                        //   arguments: widget.card,
+                        // );
+                      },
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: darken(widget.card.color, 0.45),
+                        // Colors.grey,
+                        // padding: const EdgeInsets.symmetric(
+                        //   vertical: 0,
+                        //   horizontal: 32,
+                        // ),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(16),
+                        ),
                       ),
-                    ),
-                    child: const Row(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        Icon(
-                          Icons.info,
-                          size: 16,
-                        ),
-                        SizedBox(
-                          width: 6,
-                        ),
-                        Text(
-                          "Informações",
-                          style: TextStyle(fontWeight: FontWeight.bold),
-                        ),
-                      ],
+                      child: const Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Icon(
+                            Icons.info,
+                            size: 16,
+                          ),
+                          SizedBox(
+                            width: 6,
+                          ),
+                          Text(
+                            "Informações",
+                            style: TextStyle(fontWeight: FontWeight.bold),
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                 ),

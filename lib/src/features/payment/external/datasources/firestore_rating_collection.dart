@@ -1,5 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:dreampuppy/src/utils/firestore_collections_prefix.dart';
+import 'package:dreampuppy/src/utils/collections_prefix.dart';
 
 import '../../infra/datasources/rating_service.dart';
 

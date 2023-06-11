@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:device_info_plus/device_info_plus.dart';
-import 'package:dreampuppy/src/utils/firestore_collections_prefix.dart';
+import 'package:dreampuppy/src/utils/collections_prefix.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import '../../infra/datasources/search.dart';
 

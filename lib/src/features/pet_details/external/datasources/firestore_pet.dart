@@ -1,8 +1,9 @@
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dreampuppy/src/_domain/entities/pet.dart';
+import 'package:dreampuppy/src/utils/collections_prefix.dart';
 
-import '../../_infra/datasources/pet.dart';
+import '../../infra/datasources/pet.dart';
 
 
 class FirestorePetDataSourceImpl implements PetDataSource {
@@ -12,11 +13,10 @@ class FirestorePetDataSourceImpl implements PetDataSource {
 
   @override
   Stream<Pet> fetchPetByID(String id) {
-    return firestore
-        .collection('pets')
+    //TODO: Tratar erros de falha de conexão.
+    return firestore.getCollection('pets')
         .doc(id)
         .snapshots()
-        //TODO: Testar se existe alguma chance de vir nulo nesse endpoint
         .map((snapshot) => Pet.fromJson(snapshot.data()!));
   }
 }

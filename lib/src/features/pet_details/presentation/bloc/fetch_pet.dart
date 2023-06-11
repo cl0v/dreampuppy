@@ -12,31 +12,25 @@ class FetchPetByIdEvent extends PetEvent {
   FetchPetByIdEvent(this.id);
 }
 
-class SetPetEvent extends PetEvent {
+class InjectPetEvent extends PetEvent {
   final Pet pet;
 
-  SetPetEvent(this.pet);
+  InjectPetEvent(this.pet);
 }
 
 class FetchPetBloc extends Bloc<PetEvent, Pet?> {
-
   late final fetchPetByIdUseCase = Modular.get<FetchPetByIDUseCase>();
 
   FetchPetBloc() : super(null) {
     debugPrint('FetchPetBloc inicializado');
-    on<SetPetEvent>(set);
     on<FetchPetByIdEvent>(fetch);
+    on((InjectPetEvent event, emit) => emit(event.pet));
   }
 
-  fetch(FetchPetByIdEvent event, Emitter<Pet?> emitter) async{
+  fetch(FetchPetByIdEvent event, Emitter<Pet?> emitter) async {
     emitter.onEach<Pet>(
-     fetchPetByIdUseCase(event.id),
-     onData: (pet) => emitter(pet),
+      fetchPetByIdUseCase(event.id),
+      onData: (pet) => emitter(pet),
     );
-    
-  }
-
-  set(SetPetEvent event, Emitter<Pet?> emitter) {
-    emitter(event.pet);
   }
 }

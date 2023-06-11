@@ -1,5 +1,5 @@
 import '../../../../_domain/entities/pet.dart';
-import '../../../../_infra/repositories/pet.dart';
+import '../../infra/repositories/pet.dart';
 
 abstract class FetchPetByIDUseCase {
   Stream<Pet> call(String id);

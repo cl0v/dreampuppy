@@ -10,9 +10,11 @@ class RegisterPage extends StatefulWidget {
   const RegisterPage({
     super.key,
     this.onCreate,
+    this.shouldPop = true,
   });
 
-  final VoidCallback? onCreate;
+  final Future<VoidCallback>? onCreate;
+  final bool shouldPop;
 
   @override
   State<RegisterPage> createState() => _RegisterPageState();
@@ -21,9 +23,6 @@ class RegisterPage extends StatefulWidget {
 class _RegisterPageState extends State<RegisterPage> {
   final _formKey = GlobalKey<FormState>();
 
-  final fullNameController = TextEditingController(
-    text: kDebugMode ? 'Viana' : null,
-  );
   final emailController = TextEditingController(
     text: kDebugMode ? 'marcelofv12@hotmail.com' : null,
   );
@@ -41,12 +40,9 @@ class _RegisterPageState extends State<RegisterPage> {
     if (!_formKey.currentState!.validate()) return;
     _isLoading.value = true;
     try {
-      await signupUseCase(
-        fullNameController.text,
-        emailController.text.trim(),
-        passwordController.text,
-      );
-      Modular.to.pop();
+      await signupUseCase(emailController.text.trim(), passwordController.text);
+       (await widget.onCreate)?.call();
+      if(widget.shouldPop) Modular.to.pop();
     } on SignUpErrorHandler catch (e) {
       ScaffoldMessenger.of(context).clearSnackBars();
       ScaffoldMessenger.of(context).showSnackBar(
@@ -72,7 +68,7 @@ class _RegisterPageState extends State<RegisterPage> {
           color: Colors.black,
         ),
       ),
-      backgroundColor: Colors.grey[300],
+      // backgroundColor: Colors.grey[300],
       body: SafeArea(
         child: Center(
           child: Form(
@@ -88,7 +84,7 @@ class _RegisterPageState extends State<RegisterPage> {
                   ),
                   const SizedBox(height: 50),
                   Text(
-                    'Crie sua conta',
+                    'Cadastre-se',
                     style: TextStyle(
                       color: Colors.grey[700],
                       fontSize: 16,
@@ -97,20 +93,6 @@ class _RegisterPageState extends State<RegisterPage> {
 
                   const SizedBox(height: 25),
 
-                  CustomAuthTextField(
-                    controller: fullNameController,
-                    hintText: 'Seu nome completo',
-                    validator: (value) {
-                      if (value == null) {
-                        print("Valor é nulo, investigar essa situação");
-                      }
-                      if (value!.isEmpty) {
-                        return 'Digite um nome válido';
-                      }
-                      return null;
-                    },
-                  ),
-                  const SizedBox(height: 10),
                   // username textfield
                   CustomAuthTextField(
                     controller: emailController,
@@ -150,7 +132,7 @@ class _RegisterPageState extends State<RegisterPage> {
                     builder: (_, isloading, __) {
                       return LoadingBlackButton(
                         label: 'Cadastrar',
-                        onTap: widget.onCreate ?? signUp,
+                        onTap: signUp,
                         isLoading: isloading,
                       );
                     },
@@ -189,7 +171,15 @@ class _RegisterPageState extends State<RegisterPage> {
                       ),
                     ),
                   ),
-
+                  // SizedBox(
+                  //   height: 300,
+                  //   child: Flexible(
+                  //     flex: 2,
+                  //     child: SingleChildScrollView(
+                  //       child: SignOutButton(variant: ButtonVariant.text),
+                  //     ),
+                  //   ),
+                  // ),
                   // const SizedBox(height: 50),
 
                   // // google + apple sign in buttons

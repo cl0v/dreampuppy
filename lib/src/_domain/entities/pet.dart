@@ -3,11 +3,23 @@ import 'package:json_annotation/json_annotation.dart';
 
 part 'pet.g.dart';
 
+
+//TODO: Adicionar ao json_serializable
+enum PetGender {
+  female(value: -1),
+  male(value: 1);
+
+  final int value;
+  const PetGender({required this.value});
+}
+
 @JsonSerializable()
 class Pet {
   String id;
-  String coverImgUrl; //TOOD: Salvar em 512x512
-  //TODO: Preço cobrado em reais, não existe centavos nesse momento do app.
+
+  /// Imagens do cover podem ser em 512x512.
+  String coverImgUrl;
+  /// Preço cobrado em reais, não existe centavos nesse momento do app.
   int price;
   List<String> images;
   List<String> imagesHistory;
@@ -16,7 +28,7 @@ class Pet {
   DateTime? lastUpdate = DateTime.now();
   DateTime? birthDate = DateTime.now();
   VaccineRecord? vaccineRecord;
-  bool isMale; //TODO: substituir para gender
+  PetGender gender; //TODO: substituir para gender
   //TODO: Exibir detalhes caracteristicos do filhote.
   List<String> characteristics = [];
 
@@ -32,7 +44,7 @@ class Pet {
     this.lastUpdate,
     this.birthDate,
     this.vaccineRecord,
-    this.isMale = true,
+    this.gender = PetGender.female,
   });
 
   factory Pet.fromJson(Map<String, dynamic> json) => _$PetFromJson(json);

@@ -16,12 +16,12 @@ import 'presenter/view/requirements.dart';
 class PaymentModule extends Module {
   @override
   final List<Bind> binds = [
-    Bind.factory<StoreRatingUseCase>((i) => StoreRatingUseCaseImp()),
     Bind.lazySingleton<RatingServiceDataSource>(
         (i) => FirestoreRatingCollectionDataSourceImpl(i())),
     Bind.factory<RateRepository>((i) => RateRepositoryImpl(i())),
-    Bind.factory<SendCommentUseCase>((i) => SendCommentUseCaseImpl(i())),
     Bind.factory<RateUseCase>((i) => RateUseCaseImpl(i())),
+    Bind.factory<SendCommentUseCase>((i) => SendCommentUseCaseImpl(i())),
+    Bind.factory<StoreRatingUseCase>((i) => StoreRatingUseCaseImp()),
   ];
 
   @override
@@ -29,6 +29,6 @@ class PaymentModule extends Module {
     ChildRoute('/cart', child: (_, __) => const CartPage()),
     ChildRoute('/done', child: (_, __) => const PaymentDonePage()),
     ChildRoute('/requirements',
-        child: (_, __) => const PaymentRequirementsPage()),
+        child: (_, __) => const PaymentUserRequirementsPage()),
   ];
 }

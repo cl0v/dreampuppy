@@ -18,6 +18,9 @@ class UserSensitiveDataFormComponent extends StatefulWidget {
 
 class _UserSensitiveDataFormComponentState
     extends State<UserSensitiveDataFormComponent> {
+  final TextEditingController fullNameController = TextEditingController(
+    text: kDebugMode? "Maria do Carmo": null,
+  );
   final TextEditingController phoneController = TextEditingController(
     text: kDebugMode? "+55 (33) 99852-5199": null,
   );
@@ -65,6 +68,20 @@ class _UserSensitiveDataFormComponentState
               const SizedBox(
                 height: 12,
               ),
+               CustomAuthTextField(
+                    controller: fullNameController,
+                    hintText: 'Seu nome completo',
+                    validator: (value) {
+                      if (value == null) {
+                        print("Valor é nulo, investigar essa situação");
+                      }
+                      if (value!.isEmpty) {
+                        return 'Digite um nome válido';
+                      }
+                      return null;
+                    },
+                  ),
+                  const SizedBox(height: 8),
               CustomAuthTextField(
                 label: "Telefone | WhatsApp",
                 padding: EdgeInsets.zero,

@@ -2,7 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import '../errors/signup_handler.dart';
 
 abstract class SignupUseCase {
-  Future<String> call(String name, String email, String password, );
+  Future<String> call(String email, String password, );
 }
 
 class SignupUseCaseImpl implements SignupUseCase {
@@ -10,7 +10,8 @@ class SignupUseCaseImpl implements SignupUseCase {
 
   SignupUseCaseImpl(this.auth);
   @override
-  Future<String> call(String name, String email, String password) async {
+  Future<String> call(String email, String password) async {
+    //TODO: Adicionar uid ao usuario
     try {
       final u = await auth.createUserWithEmailAndPassword(
         email: email,

@@ -18,6 +18,7 @@
 import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:dreampuppy/src/_domain/singletons/user.dart';
 import 'package:dreampuppy/src/features/profile/domain/usecases/about.dart';
+import 'package:firebase_ui_auth/firebase_ui_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
@@ -49,18 +50,20 @@ class _UserProfileOptionsViewState extends State<UserProfileOptionsView> {
         child: SingleChildScrollView(
           child: Column(
             children: [
-              Padding(
+              const Padding(
                 padding: const EdgeInsets.symmetric(vertical: 36.0),
-                child: CircleAvatar(
-                  radius: 48,
-                  backgroundColor: Colors.black,
-                  child: Icon(
-                    //TODO: Caso tenha user e tenha foto de perfil, usa-la
-                    userSingleton.user == null ? Icons.lock : Icons.person,
-                    color: Colors.white,
-                    size: 64,
-                  ),
-                ),
+                child: 
+                 UserAvatar(),
+                // CircleAvatar(
+                //   radius: 48,
+                //   backgroundColor: Colors.black,
+                //   child: Icon(
+                //     //TODO: Caso tenha user e tenha foto de perfil, usa-la
+                //     userSingleton.user == null ? Icons.lock : Icons.person,
+                //     color: Colors.white,
+                //     size: 64,
+                //   ),
+                // ),
               ),
               userSingleton.user == null
                   ? ListTile(

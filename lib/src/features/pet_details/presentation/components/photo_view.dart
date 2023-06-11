@@ -4,7 +4,7 @@ import 'package:flutter_modular/flutter_modular.dart';
 import 'package:photo_view/photo_view.dart';
 import 'package:photo_view/photo_view_gallery.dart';
 
-
+//! TODO: Bug a barra preta está indo até o snackBar e a outra parte está completamente branca
 //TODO: Quando retornar, devolver o valor que está na página agora, para que eu salte para essa página na anterior
 class PhotoViewPage extends StatefulWidget {
   final List<String> photos;
@@ -42,7 +42,7 @@ void initState() {
         ),
       ),
       body: Padding(
-        padding: const EdgeInsets.only(top: 32.0),
+        padding: EdgeInsets.symmetric(vertical: 68),
         child: PhotoViewGallery.builder(
           pageController: pageController,
           itemCount: widget.photos.length,
