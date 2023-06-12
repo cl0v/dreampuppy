@@ -1,7 +1,8 @@
-import 'package:dreampuppy/src/features/gallery/domain/entities/gallery_entity.dart';
+import 'package:dreampuppy/src/modules/pet/domain/gallery/entities/gallery.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 abstract class GalleryEvent {}
+
 abstract class GalleryState {}
 
 class SetFiltersGalleryEvent extends GalleryEvent {
@@ -17,6 +18,7 @@ class GalleryStateSuccess extends GalleryState {
 
   GalleryStateSuccess(this.entities);
 }
+
 class GalleryStateError extends GalleryState {
   final String message;
   final String? code;
@@ -24,14 +26,13 @@ class GalleryStateError extends GalleryState {
   GalleryStateError(this.message, [this.code]);
 }
 
-class FetchGalleryBloc extends Bloc<GalleryEvent, GalleryState>{
-  FetchGalleryBloc(): super(GalleryStateLoading()) {
-    on<GalleryEvent>((event, emit) {
-      emit(GalleryStateSuccess([]));
-    });
+class FillGalleryBloc extends Bloc<GalleryEvent, GalleryState> {
+  FillGalleryBloc() : super(GalleryStateLoading()) {
+    on<GalleryEvent>(onFetchGallery);
   }
 
-  onFetchGallery() {
-   
+  onFetchGallery(GalleryEvent event, Emitter<GalleryState> emit) {
+    //TODO: Implementar o fetch da galeria
+    emit(GalleryStateSuccess([]));
   }
 }

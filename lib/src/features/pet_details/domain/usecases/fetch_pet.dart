@@ -1,4 +1,4 @@
-import '../../../../_domain/entities/pet.dart';
+import '../../../../modules/pet/domain/details/entities/pet.dart';
 import '../../infra/repositories/pet.dart';
 
 abstract class FetchPetByIDUseCase {

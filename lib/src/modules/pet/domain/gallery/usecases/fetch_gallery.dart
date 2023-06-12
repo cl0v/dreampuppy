@@ -1,4 +1,4 @@
-import '../entities/gallery_entity.dart';
+import '../entities/gallery.dart';
 
 abstract class FetchGalleryUseCase {
   Future<List<GalleryEntity>> call();

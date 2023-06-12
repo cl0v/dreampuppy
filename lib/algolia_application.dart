@@ -5,8 +5,8 @@ class AlgoliaApplication {
 
     AlgoliaApplication(){
       algolia = const Algolia.init(
-      applicationId: 'W662ONV5CU',
-      apiKey: '25d733041802e6f711fcd53f59fbac25',
+      applicationId: 'VIHVO0WIC9',
+      apiKey: '8cb97181f2d94fad2b5d3d0d3fd22caa', 
     );
     }
   }

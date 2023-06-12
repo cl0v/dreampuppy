@@ -1,5 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:dreampuppy/src/_domain/entities/pet.dart';
+import 'package:dreampuppy/src/modules/pet/domain/details/entities/pet.dart';
 import 'package:dreampuppy/src/utils/collections_prefix.dart';
 import '../../infra/datasources/pet.dart';
 

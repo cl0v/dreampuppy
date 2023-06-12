@@ -4,9 +4,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import '../../domain/entities/breed_details.dart';
 
-// TODO: Manter todos os botões de selecões do mesmo tamanho, para dar um aspecto melhor, mesmo que isso coma um pouco do texto.
+// TODO: Adicionar uma forma criativa de levar o leitor para a página gallery
 // TODO: Adicionar um divider vertical entre os botões e o seletor de filhote
-//TODO: É necessário que o pets sempre esteja alinhado conforme o esperado.
+// TODO: Manter todos os botões de selecões do mesmo tamanho, para dar um aspecto melhor, mesmo que isso coma um pouco do texto.
+// TODO: É necessário que o pets sempre esteja alinhado conforme o esperado.
 // Alinhamento (No final do container colorido, deve ficar abaixo 33% do filhote, o restante deve permanecer dentro do container)
 
 class BreedDetailsPage extends StatefulWidget {

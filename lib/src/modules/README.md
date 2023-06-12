@@ -38,13 +38,14 @@ All modules contain the same infra, domain, (...) files that i'm representing in
 ------/usecases  # e.g PetDataSource.fillGallery(PetPreferences)
 ------/entities  # e.g PetPreferences(SelectedGender, SelectedColor, SelectedVariation, etc...), GalleryEntity(imgUrl, idb => iddatabase)
 ------/errors  # e.g FailedToFillGallery(cause, message, code) ## Por enquanto apenas "message" já quebra o galho.
-----/details (pet_details.dart)
-----/adults (Alterar o nome, preciso representar os pais da ninhada)
-----/ninhadas (Alterar o nome, preciso representar a ninhada)
+----/Details (pet_details.dart)
+----/Adults (Alterar o nome, preciso representar os pais da ninhada)
+----/Ninhadas (Alterar o nome, preciso representar a ninhada)
 --/presenter
----- gallery.dart
----- details.dart
----- parent.dart
+---- filters.dart (/:breed) 
+---- gallery.dart (/:breed/gallery)
+---- details.dart (/p/:id)
+---- parent.dart 
 ---- l.dart (Representa o "lote", alterar nome, por enquanto usar ninhada)
 
 /user

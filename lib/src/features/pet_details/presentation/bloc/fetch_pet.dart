@@ -2,7 +2,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:sentry_flutter/sentry_flutter.dart';
-import '../../../../_domain/entities/pet.dart';
+import '../../../../modules/pet/domain/details/entities/pet.dart';
 import '../../domain/usecases/fetch_pet.dart';
 
 abstract class PetEvent {}

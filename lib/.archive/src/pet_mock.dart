@@ -1,6 +1,6 @@
 import 'package:uuid/uuid.dart';
 import 'package:dio/dio.dart';
-import 'src/_domain/entities/pet.dart';
+import '../../src/_domain/entities/pet.dart';
 
 class PetMockHelper {
   final Dio dio;

@@ -5,7 +5,7 @@ import '../bloc/fetch_pet.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_modular/flutter_modular.dart';
-import 'package:dreampuppy/src/_domain/entities/pet.dart';
+import 'package:dreampuppy/src/modules/pet/domain/details/entities/pet.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import '../components/photo_view.dart';
 

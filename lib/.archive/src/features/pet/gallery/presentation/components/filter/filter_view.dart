@@ -1,12 +1,10 @@
-import 'package:dreampuppy/src/features/gallery/presentation/components/filter/components/filter_header.dart';
+import 'package:dreampuppy/.archive/src/features/pet/gallery/presentation/components/filter/components/filter_header.dart';
 import 'package:flutter/material.dart';
 
 import 'components/filter_footer.dart';
 
 //TODO: Implementar Drawer com filtros personalizados.
 //TODO: Aumentar botão de aplicar filtro e melhorar o estilo do de limpar filtros, possivelmente deixando ele todo preto.
-
-enum FiltersSection { none, sort, brand, size }
 
 class FilterView extends StatefulWidget {
   const FilterView({super.key, required this.barColor});
