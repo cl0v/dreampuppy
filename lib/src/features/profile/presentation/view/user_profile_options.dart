@@ -51,23 +51,13 @@ class _UserProfileOptionsViewState extends State<UserProfileOptionsView> {
           child: Column(
             children: [
               const Padding(
-                padding: const EdgeInsets.symmetric(vertical: 36.0),
+                padding: EdgeInsets.symmetric(vertical: 36.0),
                 child: 
-                 UserAvatar(),
-                // CircleAvatar(
-                //   radius: 48,
-                //   backgroundColor: Colors.black,
-                //   child: Icon(
-                //     //TODO: Caso tenha user e tenha foto de perfil, usa-la
-                //     userSingleton.user == null ? Icons.lock : Icons.person,
-                //     color: Colors.white,
-                //     size: 64,
-                //   ),
-                // ),
+                UserAvatar(),
               ),
               userSingleton.user == null
                   ? ListTile(
-                      //TODO: Adicionar um fundo como se fosse a entrada de um parque de diversões
+                      // Adicionar um fundo como se fosse a entrada de um parque de diversões
                       leading: const Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [

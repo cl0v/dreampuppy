@@ -31,7 +31,10 @@ class AuthenticationModule extends Module {
   @override
   get routes => [
         ChildRoute('/', child: (c, a) => const LoginPage()),
-        ChildRoute('/create', child: (c, a) =>  RegisterPage(onCreate: a.data['onCreate'], shouldPop: a.data['pop'],)),
+        ChildRoute('/create',
+            child: (c, a) => RegisterPage(
+                  onRedirect: a.data['onCreate'],
+                )),
         ChildRoute('/reset-password', child: (_, args)=> ResetPasswordPage(code: args.data['oobCode'])),
       ];
 }

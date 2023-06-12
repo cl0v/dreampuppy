@@ -1,14 +1,14 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-class LoadingBlackButton extends StatelessWidget {
+class BtnLoading extends StatelessWidget {
   final Function()? onTap;
   final String label;
   final bool isLoading;
   final Color color;
   final EdgeInsetsGeometry? margin;
 
-  const LoadingBlackButton({
+  const BtnLoading({
     super.key,
     required this.onTap,
     this.label = 'Entrar',

@@ -1,4 +1,4 @@
-import 'package:dreampuppy/src/features/authentication/presentation/components/loading_black_button.dart';
+import 'package:dreampuppy/src/features/authentication/presentation/components/btn_loading.dart';
 import 'package:flutter/material.dart';
 
 import '../components/user_sensitive_data_form.dart';
@@ -142,7 +142,7 @@ class _PaymentUserRequirementsPageState
                 child: ValueListenableBuilder(
                     valueListenable: loadingNotifier,
                     builder: (_, isLoading, __) {
-                      return LoadingBlackButton(
+                      return BtnLoading(
                         margin: EdgeInsets.zero,
                         color: Colors.blue,
                         isLoading: isLoading,

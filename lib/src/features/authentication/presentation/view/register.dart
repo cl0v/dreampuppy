@@ -2,19 +2,17 @@ import 'package:dreampuppy/src/features/authentication/domain/usecases/signup.da
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
-import '../components/loading_black_button.dart';
+import '../components/btn_loading.dart';
 import '../components/custom_auth_text_field.dart';
 import '../../domain/errors/signup_handler.dart';
 
 class RegisterPage extends StatefulWidget {
   const RegisterPage({
     super.key,
-    this.onCreate,
-    this.shouldPop = true,
+    this.onRedirect,
   });
 
-  final Future<VoidCallback>? onCreate;
-  final bool shouldPop;
+  final VoidCallback? onRedirect;
 
   @override
   State<RegisterPage> createState() => _RegisterPageState();
@@ -41,8 +39,10 @@ class _RegisterPageState extends State<RegisterPage> {
     _isLoading.value = true;
     try {
       await signupUseCase(emailController.text.trim(), passwordController.text);
-       (await widget.onCreate)?.call();
-      if(widget.shouldPop) Modular.to.pop();
+
+      var onDone = widget.onRedirect ?? ()=> Modular.to.pop();
+      onDone.call();
+     
     } on SignUpErrorHandler catch (e) {
       ScaffoldMessenger.of(context).clearSnackBars();
       ScaffoldMessenger.of(context).showSnackBar(
@@ -130,7 +130,7 @@ class _RegisterPageState extends State<RegisterPage> {
                   ValueListenableBuilder(
                     valueListenable: _isLoading,
                     builder: (_, isloading, __) {
-                      return LoadingBlackButton(
+                      return BtnLoading(
                         label: 'Cadastrar',
                         onTap: signUp,
                         isLoading: isloading,

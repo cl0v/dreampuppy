@@ -1,5 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:dreampuppy/src/features/authentication/presentation/components/loading_black_button.dart';
+import 'package:dreampuppy/src/features/authentication/presentation/components/btn_loading.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
@@ -135,7 +135,7 @@ Obs: Filhote com 2 meses de vida, vacinado e vermifugado.
                   const SizedBox(
                     height: 36,
                   ),
-                  LoadingBlackButton(
+                  BtnLoading(
                     onTap: onContinuePressed,
                     label: "Continuar",
                   )
