@@ -15,6 +15,7 @@ All modules contain the same infra, domain, (...) files that i'm representing in
 
 ### New file structure
 /breed
+--/feats
 ----/List (Hoje é a breed_list)
 ----/About (Sobre a raça. Design parcialmente pronto nos Arquivos)
 ----/Survey (breed_priority_survey)
