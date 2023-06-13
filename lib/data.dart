@@ -1,4 +1,4 @@
-import 'package:dreampuppy/src/features/pet_list/domain/entities/pet_card.dart';
+import 'package:dreampuppy/src/modules/pet/domain/gallery/entities/pet_card.dart';
 import 'package:flutter/material.dart';
 
 final suggestedCaracteristics = [

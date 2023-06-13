@@ -1,4 +1,4 @@
-import 'package:dreampuppy/src/features/payment/external/services/iugu_payment_api.dart';
+import 'package:dreampuppy/src/modules/payment/external/services/iugu_payment_api.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {

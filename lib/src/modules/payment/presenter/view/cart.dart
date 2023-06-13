@@ -1,6 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:dreampuppy/src/features/authentication/presentation/components/btn_loading.dart';
-import 'package:dreampuppy/src/modules/payment/external.dart';
+import 'package:dreampuppy/src/widgets/btn_loading.dart';
+import 'package:dreampuppy/src/modules/payment/interfaces/navigation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 

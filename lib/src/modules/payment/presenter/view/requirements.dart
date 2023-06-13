@@ -1,7 +1,7 @@
-import 'package:dreampuppy/src/features/authentication/presentation/components/btn_loading.dart';
+import 'package:dreampuppy/src/widgets/btn_loading.dart';
 import 'package:flutter/material.dart';
 
-import '../components/user_sensitive_data_form.dart';
+import '../../../user/presenter/view/profile/create_minimum.dart';
 
 class PaymentUserRequirementsPage extends StatefulWidget {
   const PaymentUserRequirementsPage({super.key});
@@ -98,7 +98,7 @@ class _PaymentUserRequirementsPageState
         title: const Text("Dados"),
         content: Padding(
           padding: const EdgeInsets.only(bottom: 64.0),
-          child: UserSensitiveDataFormComponent(
+          child: UserSensitiveDataFormPage(
             setFormKey: getDataFormKey,
           ),
         ),

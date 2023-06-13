@@ -1,4 +1,4 @@
-import 'package:dreampuppy/src/features/payment/domain/entities/cart_card_entity.dart';
+import 'package:dreampuppy/src/modules/payment/domain/cart/entities/cart_pet_card_entity.dart';
 import 'package:dreampuppy/src/modules/pet/domain/details/entities/pet.dart';
 import 'package:dreampuppy/src/modules/pet/plugs.dart';
 import 'package:flutter_modular/flutter_modular.dart';

@@ -1,24 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/foundation.dart';
-import 'src/_domain/singletons/user.dart';
+import 'src/providers/user.dart';
+import 'src/modules/help/help.module.dart';
 import 'src/modules/payment/payment.module.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:dreampuppy/src/modules/user/user.module.dart';
-import 'src/features/profile/domain/usecases/request_contact.dart';
 import 'package:dreampuppy/src/modules/pet/pets.module.dart';
-import 'package:dreampuppy/src/features/help_center/presenter/view/wiki.dart';
 import 'package:dreampuppy/src/modules/breed/breeds.module.dart';
 import 'package:dreampuppy/src/modules/payment/presenter/view/requirements.dart';
-import 'package:dreampuppy/src/features/authentication/authentication.module.dart';
-import 'package:dreampuppy/src/features/pet_list/presentation/view/breed_list.dart';
-import 'src/features/pet_list/features/search_others/presentation/view/breed_priority_survey.dart';
-import 'package:dreampuppy/src/features/pet_list/features/search_others/infra/datasources/search.dart';
-import 'package:dreampuppy/src/features/pet_list/features/search_others/infra/repositories/search.dart';
-import 'package:dreampuppy/src/features/pet_list/features/search_others/domain/usecases/save_search.dart';
-import 'package:dreampuppy/src/features/pet_list/features/search_others/external/datasources/search.dart';
+import 'package:dreampuppy/src/modules/breed/presenter/view/list.dart';
 
-import 'src/modules/payment/external.dart';
+import 'src/modules/payment/interfaces/navigation.dart';
 import 'src/modules/pet/plugs.dart';
 import 'src/plugs/connect_payment.dart';
 import 'src/plugs/connect_pet.dart';
@@ -27,13 +20,8 @@ class AppModule extends Module {
   @override
   get binds => [
         Bind.lazySingleton((i) => FirebaseFirestore.instance),
-        Bind.lazySingleton((i) => UserSingleton()),
-        Bind.factory<SearchDataSource>((i) => SearchDataSourceImpl(i())),
-        Bind.factory<SearchRepository>((i) => SearchRepositoryImpl(i())),
-        Bind.factory<SaveSearchUseCase>((i) => SaveSearchUseCaseImpl(i())),
-        Bind.factory<RequestContactUseCase>(
-            (i) => WhatsAppContactUseCaseImpl()),
-
+        Bind.lazySingleton((i) => UserProvider()),
+        
         // Modules External Navigators
         Bind.factory<PetModuleExternalNavigation>(
             (i) => ConnectPetModuleExternalNavigation()),
@@ -48,17 +36,14 @@ class AppModule extends Module {
           ChildRoute('/',
               child: (context, args) => const PaymentUserRequirementsPage()),
         if (kDebugMode)
+          ChildRoute('/', child: (context, args) => const FirstPage()),
         ChildRoute('/', child: (context, args) => const BreedListPage()),
-        ChildRoute('/', child: (context, args) => const FirstPage()),
         // ChildRoute('/', child: (context, args) => const CreditCardCreateFormPage()),
-        ChildRoute('/breed_priority_research',
-            child: (context, args) => const BreedPrioritySurveyPage()),
-        ChildRoute('/help', child: (context, args) => const HelpCenterPage()),
-        ModuleRoute('/pet', module: PetsModule()),
-        ModuleRoute('/user', module: UserModule()),
-        ModuleRoute('/login', module: AuthenticationModule()),
         ModuleRoute('/breeds', module: BreedsModule()),
+        ModuleRoute('/pets', module: PetsModule()),
+        ModuleRoute('/user', module: UserModule()),
         ModuleRoute('/payment', module: PaymentModule()),
+        ModuleRoute('/help', module: HelpModule()),
       ];
 }
 

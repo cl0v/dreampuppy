@@ -1,7 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
-import '../../../../features/authentication/presentation/components/custom_auth_text_field.dart';
+import '../../../../widgets/custom_text_field.dart';
 
 class UserAddressFormComponent extends StatefulWidget {
   const UserAddressFormComponent({
@@ -65,7 +65,7 @@ class _UserAddressFormComponentState
               const SizedBox(
                 height: 12,
               ),
-              CustomAuthTextField(
+              CustomTextFieldWidget(
                 label: "Telefone | WhatsApp",
                 padding: EdgeInsets.zero,
                 hintText: "e.g (33) 99999-9999",
@@ -81,7 +81,7 @@ class _UserAddressFormComponentState
               const SizedBox(
                 height: 8,
               ),
-              CustomAuthTextField(
+              CustomTextFieldWidget(
                 label: "CPF",
                 masks: [cpfMaskFormatter],
                 padding: EdgeInsets.zero,

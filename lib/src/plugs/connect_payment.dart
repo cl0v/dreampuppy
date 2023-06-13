@@ -1,4 +1,4 @@
-import '../modules/payment/external.dart';
+import '../modules/payment/interfaces/navigation.dart';
 
 /// Cria a conexão entre o módulo de pets e o módulo de pagamento.
 class ConnectPaymentModuleExternalNavigation

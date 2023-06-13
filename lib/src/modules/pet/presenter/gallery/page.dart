@@ -1,7 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:dreampuppy/data.dart';
 import 'package:dreampuppy/src/modules/pet/domain/gallery/entities/gallery.dart';
-import 'package:dreampuppy/src/features/pet_list/domain/entities/pet_card.dart';
+import 'package:dreampuppy/src/modules/pet/domain/gallery/entities/pet_card.dart';
 import 'package:dreampuppy/src/utils/platform.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
