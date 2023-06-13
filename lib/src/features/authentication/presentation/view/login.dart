@@ -161,7 +161,7 @@ class _LoginPageState extends State<LoginPage> {
 
                   // sign in button
                   BtnLoading(
-                    onTap: login,
+                    onPressed: login,
                     label: 'Entrar',
                   ),
 

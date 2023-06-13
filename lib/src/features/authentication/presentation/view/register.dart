@@ -132,7 +132,7 @@ class _RegisterPageState extends State<RegisterPage> {
                     builder: (_, isloading, __) {
                       return BtnLoading(
                         label: 'Cadastrar',
-                        onTap: signUp,
+                        onPressed: signUp,
                         isLoading: isloading,
                       );
                     },

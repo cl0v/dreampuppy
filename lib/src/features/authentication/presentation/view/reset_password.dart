@@ -100,7 +100,7 @@ class ResetPasswordPage extends StatelessWidget {
                   ),
 
                   BtnLoading(
-                    onTap: resetPassword,
+                    onPressed: resetPassword,
                     label: 'Redefinir senha',
                   ),
                 ],

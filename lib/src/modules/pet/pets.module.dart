@@ -1,11 +1,11 @@
-import 'package:dreampuppy/src/features/pet_details/infra/repositories/pet.dart';
-import 'package:dreampuppy/src/features/pet_details/external/datasources/firestore_pet.dart';
+import 'package:dreampuppy/src/modules/pet/infra/repositories/pet.dart';
+import 'package:dreampuppy/src/modules/pet/external/datasources/firestore_pet.dart';
 import 'package:dreampuppy/src/modules/pet/presenter/gallery/page.dart';
 import 'package:flutter_modular/flutter_modular.dart';
-import '../../features/pet_details/domain/usecases/fetch_pet.dart';
-import '../../features/pet_details/infra/datasources/pet.dart';
-import '../../features/pet_details/presentation/bloc/fetch_pet.dart';
-import '../../features/pet_details/presentation/view/pet_details.dart';
+import 'domain/details/usecases/fetch_pet.dart';
+import 'infra/datasources/pet.dart';
+import 'presenter/details/bloc/fetch_pet.dart';
+import 'presenter/details/page.dart';
 import '../../../algolia_application.dart';
 
 class PetsModule extends Module {

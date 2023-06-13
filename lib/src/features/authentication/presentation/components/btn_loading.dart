@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class BtnLoading extends StatelessWidget {
-  final Function()? onTap;
+  final Function()? onPressed;
   final String label;
   final bool isLoading;
   final Color color;
@@ -10,7 +10,7 @@ class BtnLoading extends StatelessWidget {
 
   const BtnLoading({
     super.key,
-    required this.onTap,
+    required this.onPressed,
     this.label = 'Entrar',
     this.isLoading = false,
     this.color = Colors.black,
@@ -29,12 +29,12 @@ class BtnLoading extends StatelessWidget {
     );
 
     return GestureDetector(
-      onTap: onTap,
+      onTap: isLoading ? null : onPressed,
       child: Container(
         padding: const EdgeInsets.symmetric(horizontal: 25, vertical: 20),
         margin: margin ?? const EdgeInsets.symmetric(horizontal: 25),
         decoration: BoxDecoration(
-          color: color,
+          color: onPressed != null ? color : color.withOpacity(.5),
           borderRadius: BorderRadius.circular(8),
         ),
         child: Center(

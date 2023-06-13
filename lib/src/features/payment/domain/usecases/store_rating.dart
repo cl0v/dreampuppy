@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:url_launcher/url_launcher.dart';
 
+/// Abre a loja oficial da Apple ou Google para avaliação do app.
 abstract class StoreRatingUseCase {
   call();
 }

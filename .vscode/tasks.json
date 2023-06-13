@@ -12,6 +12,16 @@
                 "${file}"
             ],
             "problemMatcher": []
+        },
+        {
+            "label": "build cleanDart folder structure",
+            "type": "shell",
+            "command": "dart",
+            "args": [
+                "scripts/clean_dart_folder_structure.dart",
+                "${file}"
+            ],
+            "problemMatcher": []
         }
     ]
 }
