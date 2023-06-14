@@ -1,4 +1,4 @@
-import '../datasources/gallery.dart';
+import '../datasources/gallery_datasource.dart';
 import '../../domain/gallery/entities/gallery.dart';
 
 abstract class IGalleryRepository {

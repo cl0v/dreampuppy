@@ -1,14 +1,11 @@
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:dreampuppy/data.dart';
 import 'package:dreampuppy/src/modules/pet/domain/gallery/entities/gallery.dart';
-import 'package:dreampuppy/src/modules/pet/domain/gallery/entities/pet_card.dart';
 import 'package:dreampuppy/src/utils/platform.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_modular/flutter_modular.dart';
-import '../../../../../config.dart';
 import 'bloc/fetch_gallery.dart';
 
 // TODO: O enquadramento das imagens será disposta em um modelo diferente, focando em 9/16; Para a imagem em grid
@@ -50,7 +47,7 @@ class GalleryPage extends StatefulWidget {
 class _GalleryPageState extends State<GalleryPage> {
   //TODO: BUG: GlobalKey está dando erro.
   late GlobalKey<ScaffoldState> _key;
-  late final PetCardEntity petCard;
+  // late final PetCardEntity petCard;
 
   final galleryBloc = Modular.get<FillGalleryBloc>();
 
@@ -58,15 +55,14 @@ class _GalleryPageState extends State<GalleryPage> {
 
   @override
   void initState() {
-    populateMockPetList();
     _key = GlobalKey();
-    petCard = cards.firstWhere((element) => element.path == widget.breed);
-    SystemConfig.changeStatusBarColor(petCard.color);
-    galleryBloc.add(SetFiltersGalleryEvent([]));
+    // petCard = cards.firstWhere((element) => element.path == widget.breed);
+    // SystemConfig.changeStatusBarColor(petCard.color);
+    Future.microtask(() => galleryBloc.add(SetFiltersGalleryEvent([])));
     super.initState();
   }
 
-  populateMockPetList() {}
+  List<String> imgStack = [];
 
   @override
   Widget build(BuildContext context) {
@@ -127,12 +123,11 @@ class _GalleryPageState extends State<GalleryPage> {
             actions: const [
               SizedBox.shrink(),
             ],
-            backgroundColor: petCard.color,
+            // elevation: 0,
+            // backgroundColor: petCard.color,
             centerTitle: true,
             leading: IconButton(
               onPressed: () {
-                //TODO: O comportamento esperado é que esse botão volte sempre pra lista de raças.
-                //TODO: Interrogar usuários o que eles acham desse botão ter esse comportamento.
                 if (Modular.to.canPop()) {
                   Modular.to.pop();
                 } else {
@@ -144,6 +139,7 @@ class _GalleryPageState extends State<GalleryPage> {
                 color: Colors.white,
               ),
             ),
+            automaticallyImplyLeading: false,
             title: const Text(
               "Gallery",
               style: TextStyle(
@@ -157,72 +153,78 @@ class _GalleryPageState extends State<GalleryPage> {
           bottomNavigationBar: Visibility(
             visible: false,
             child: BottomAppBar(
-                color: petCard.color,
-                child: Row(mainAxisAlignment: MainAxisAlignment.end, children: [
-                  // Modular.to.canPop()
-                  //     ? TextButton.icon(
-                  //         onPressed: Modular.to.pop,
-                  //         icon: const Icon(
-                  //           Icons.arrow_back_ios,
-                  //           color: Colors.white,
-                  //         ),
-                  //         label: const Text(
-                  //           "Anterior",
-                  //           style: TextStyle(color: Colors.white),
-                  //         ))
-                  //     : const SizedBox.shrink(),
-                  Row(
+                // color: petCard.color,
+                child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      const Visibility(
-                        visible: false,
-                        child: IconButton(
-                          //TODO: Adicionar botão de ir para o carrinho.
-                          onPressed: null,
-                          icon: Icon(
-                            Icons.shopping_bag,
-                            color: Colors.white,
-                          ),
-                          tooltip: "Itens escolhidos",
-                        ),
-                      ),
-                      Visibility(
-                        visible: kDebugMode,
-                        child: IconButton(
-                          //TODO: Implementar compartilhar
-                          onPressed: () {},
-                          icon: const Icon(
-                            Icons.share,
-                            color: Colors.white,
-                          ),
-                          tooltip: "Compartilhar",
-                        ),
-                      ),
-                      //TODO: Adicionar botão de filtros
-                      Visibility(
-                        visible: true,
-                        child: IconButton(
-                          onPressed: () {
-                            _key.currentState?.openEndDrawer();
-                          },
-                          icon: Transform(
-                            alignment: Alignment.center,
-                            transform: Matrix4.identity()
-                              ..scale(
-                                  -1.0, 1.0, 1.0), // Apply horizontal mirroring
-                            child: const RotatedBox(
-                              quarterTurns: 0,
-                              child: Icon(
-                                Icons.sort,
+                      Modular.to.canPop()
+                          ? Padding(
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 8.0),
+                              child: TextButton.icon(
+                                  onPressed: Modular.to.pop,
+                                  icon: const Icon(
+                                    Icons.arrow_back_ios,
+                                    color: Colors.white,
+                                  ),
+                                  label: const Text(
+                                    "Voltar",
+                                    style: TextStyle(color: Colors.white),
+                                  )),
+                            )
+                          : const SizedBox.shrink(),
+                      Row(
+                        children: [
+                          const Visibility(
+                            visible: false,
+                            child: IconButton(
+                              //TODO: Adicionar botão de ir para o carrinho.
+                              onPressed: null,
+                              icon: Icon(
+                                Icons.shopping_bag,
                                 color: Colors.white,
                               ),
+                              tooltip: "Itens escolhidos",
                             ),
                           ),
-                          tooltip: "Adicionar filtros",
-                        ),
-                      ),
-                    ],
-                  )
-                ])),
+                          Visibility(
+                            visible: kDebugMode,
+                            child: IconButton(
+                              //TODO: Implementar compartilhar
+                              onPressed: () {},
+                              icon: const Icon(
+                                Icons.share,
+                                color: Colors.white,
+                              ),
+                              tooltip: "Compartilhar",
+                            ),
+                          ),
+                          //TODO: Adicionar botão de filtros
+                          Visibility(
+                            visible: true,
+                            child: IconButton(
+                              onPressed: () {
+                                _key.currentState?.openEndDrawer();
+                              },
+                              icon: Transform(
+                                alignment: Alignment.center,
+                                transform: Matrix4.identity()
+                                  ..scale(-1.0, 1.0,
+                                      1.0), // Apply horizontal mirroring
+                                child: const RotatedBox(
+                                  quarterTurns: 0,
+                                  child: Icon(
+                                    Icons.sort,
+                                    color: Colors.white,
+                                  ),
+                                ),
+                              ),
+                              tooltip: "Adicionar filtros",
+                            ),
+                          ),
+                        ],
+                      )
+                    ])),
           ),
           // appBar: AppBar(
           //   actions: const [
@@ -266,7 +268,21 @@ class _GalleryPageState extends State<GalleryPage> {
                 return Container(
                   padding: const EdgeInsets.all(0.5),
                   child: InkWell(
-                    onTap: () => Modular.to.pushNamed('/pets/p/${entity.petId}'),
+                    onTap: () {
+                      // if (kDebugMode) {
+                      //   imgStack.add(entity.imgUrl);
+                      //   final directory =
+                      //       await getApplicationDocumentsDirectory();
+                      //   print(directory.path);
+                      //   final file = File('${directory.path}/imgs.json');
+                      //   await file.writeAsString(jsonEncode(imgStack.toSet().toList()));
+                      // }
+                      try {
+                        Modular.to.pushNamed('/pets/p/${entity.petId}');
+                      } catch (e) {
+                        print(e);
+                      }
+                    },
                     child: Hero(
                       tag: entity.imgUrl,
                       child: CachedNetworkImage(
@@ -274,12 +290,15 @@ class _GalleryPageState extends State<GalleryPage> {
                         fit: BoxFit.fitHeight,
                         placeholder: (context, url) =>
                             Container(color: Colors.grey),
-                        errorWidget: (context, url, error) => Center(
-                          //TODO: Substituir o erro quando não tem o url disponível ou houve um problema ao buscar a imagem.
-                          child: IconButton(
-                              onPressed: () =>
-                                  print("TODO: Adicionar ReloadGalleyImg"),
-                              icon: const Icon(Icons.refresh)),
+                        errorWidget: (context, url, error) => Container(
+                          color: Colors.grey.shade300,
+                          child: Center(
+                            //TODO: Substituir o erro quando não tem o url disponível ou houve um problema ao buscar a imagem.
+                            child: IconButton(
+                                onPressed: () =>
+                                    print("TODO: Adicionar ReloadGalleyImg"),
+                                icon: const Icon(Icons.refresh)),
+                          ),
                         ),
                       ),
                     ),

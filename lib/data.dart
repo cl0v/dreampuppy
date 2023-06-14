@@ -78,6 +78,10 @@ final List<PetCardEntity> cards = [
         "Robust and powerful, the Rottweiler is happiest when given a job to perform. His intelligence, endurance and willingness to work make him suitable as a police dog, herder, service dog, therapy dog, obedience competitor and devoted companion.",
     colorValue: Colors.brown[200]!.value,
   ),
+   PetCardEntity(
+      imgUrl: "assets/images/dogs/shihtzu.png",
+      breed: "Shih-tzu",
+      colorValue: Colors.cyan[200]!.value),
   PetCardEntity(
     imgUrl: "assets/images/dogs/shihtzu.png",
     breed: "Shih-tzu",
@@ -96,10 +100,7 @@ final List<PetCardEntity> cards = [
       imgUrl: "assets/images/dogs/shihtzu.png",
       breed: "Shih-tzu",
       colorValue: Colors.brown[200]!.value),
-  PetCardEntity(
-      imgUrl: "assets/images/dogs/shihtzu.png",
-      breed: "Shih-tzu",
-      colorValue: Colors.cyan[200]!.value),
+ 
   PetCardEntity(
       imgUrl: "assets/images/dogs/shihtzu.png",
       breed: "Shih-tzu",

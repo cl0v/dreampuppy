@@ -61,7 +61,6 @@ void main() async {
       },
     );
   }, (exception, stackTrace) async {
-    debugPrintStack(stackTrace: stackTrace);
     await Sentry.captureException(exception, stackTrace: stackTrace);
   });
 }

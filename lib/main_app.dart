@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
+import 'theme.dart';
+
 class App extends StatefulWidget {
   const App({super.key});
 
@@ -25,6 +27,7 @@ class _AppState extends State<App> {
         debugShowCheckedModeBanner: false,
         title: 'DreamPuppy - Galeria de filhotes',
         themeMode: ThemeMode.dark,
+        theme: defaultTheme,
         routeInformationParser: Modular.routeInformationParser,
         routerDelegate: Modular.routerDelegate,
     );

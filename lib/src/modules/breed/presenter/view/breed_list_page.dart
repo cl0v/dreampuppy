@@ -3,6 +3,7 @@ import 'package:dreampuppy/src/providers/user.dart';
 import 'package:dreampuppy/src/modules/breed/presenter/view/survey/components/card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import '../../domain/list/entities/breed_card.dart';
 
 //TODO: Usar o icone para organizar: Icons.filter_list_sharp (sort)
@@ -31,7 +32,7 @@ class _BreedListPageState extends State<BreedListPage> {
       onWillPop: () async {
         //TODO: Adicionar dialog de prevenção de saida do app. (Usar esse botão como atalho rapido para chamar o suporte)
         return true;
-        // > (Quando o user tocar 2 vezes no sair, ou seja, abrir o dialog e tocar novamente em sair, apenas fechar o app...)
+        // > (Quando o user tocar 2 vezes no "voltar" (Padrão do android), abrir o dialog e tocar novamente em sair, apenas fechar o app...)
 
         // await AwesomeDialog(
         //   headerAnimationLoop: false,
@@ -57,10 +58,18 @@ class _BreedListPageState extends State<BreedListPage> {
         // ).show();
       },
       child: Scaffold(
+        backgroundColor: Colors.white,
         appBar: AppBar(
           //TODO: Latir quando tocar no botão
+          backgroundColor: Colors.white,
           leading: IconButton(
-            onPressed: null,
+            onPressed: () => Fluttertoast.showToast(
+              msg: "    Au au!    ",
+              toastLength: Toast.LENGTH_SHORT,
+              gravity: ToastGravity.CENTER,
+              textColor: Colors.white,
+              fontSize: 16.0,
+            ),
             icon: Image.asset(
               "assets/images/icons/logo512.png",
             ),
@@ -102,7 +111,6 @@ class _BreedListPageState extends State<BreedListPage> {
               ),
             ],
           ),
-          backgroundColor: Colors.white,
           actions: [
             TextButton.icon(
               style: TextButton.styleFrom(),
@@ -119,60 +127,57 @@ class _BreedListPageState extends State<BreedListPage> {
             )
           ],
         ),
-        body: SafeArea(
-          minimum: const EdgeInsets.only(
-            left: 6,
-            right: 6,
-          ),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              // Barra de pesquisa (Sem appBar)
-              Visibility(
-                visible: false,
-                child: SearchBar(
-                  controller: searchController,
-                  hintText: 'Pesquisar por raça',
-                  hintStyle: MaterialStateProperty.resolveWith((states) {
-                    var color = Colors.grey[500];
-                    if (states.contains(MaterialState.focused)) {
-                      color = Colors.grey[300];
-                    }
-                    return TextStyle(color: color);
-                  }),
-                  trailing: [
-                    IconButton(
-                      icon: const Icon(Icons.search_rounded),
-                      onPressed: () => debugPrint(searchController.text),
-                    )
-                  ],
-                ),
+        body: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            // Barra de pesquisa (Sem appBar)
+            Visibility(
+              visible: false,
+              child: SearchBar(
+                controller: searchController,
+                hintText: 'Pesquisar por raça',
+                hintStyle: MaterialStateProperty.resolveWith((states) {
+                  var color = Colors.grey[500];
+                  if (states.contains(MaterialState.focused)) {
+                    color = Colors.grey[300];
+                  }
+                  return TextStyle(color: color);
+                }),
+                trailing: [
+                  IconButton(
+                    icon: const Icon(Icons.search_rounded),
+                    onPressed: () => debugPrint(searchController.text),
+                  )
+                ],
               ),
-              // const Divider(
-              //   thickness: 1,
-              // ),
-              // Row(
-              //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              //   children: [
-              //     const Text(
-              //       "Explorar",
-              //       style: TextStyle(fontSize: 18),
-              //     ),
-              //     //TODO: Adicionar um chip com o icone Icons.filter_list_sharp
-              //     DropdownButton(
-              //       items: const [
-              //         //TODO: Adicionar um dropdown de filtro (Pensar em outra alternativa caso necessario)
-              //         // DropdownMenuItem(child: Text("Ordem alfabetica (z-a)"))
-              //         DropdownMenuItem(child: Text("Ordem alfabetica (a-z)")),
-              //       ],
-              //       onChanged: (obj) => debugPrint(
-              //         obj.toString(),
-              //       ),
-              //     ),
-              //   ],
-              // ),
-              Expanded(
-                child: GridView(
+            ),
+            // const Divider(
+            //   thickness: 1,
+            // ),
+            // Row(
+            //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            //   children: [
+            //     const Text(
+            //       "Explorar",
+            //       style: TextStyle(fontSize: 18),
+            //     ),
+            //     //TODO: Adicionar um chip com o icone Icons.filter_list_sharp
+            //     DropdownButton(
+            //       items: const [
+            //         //TODO: Adicionar um dropdown de filtro (Pensar em outra alternativa caso necessario)
+            //         // DropdownMenuItem(child: Text("Ordem alfabetica (z-a)"))
+            //         DropdownMenuItem(child: Text("Ordem alfabetica (a-z)")),
+            //       ],
+            //       onChanged: (obj) => debugPrint(
+            //         obj.toString(),
+            //       ),
+            //     ),
+            //   ],
+            // ),
+            Expanded(
+                child:Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 10.0),
+              child:  GridView(
                     padding: EdgeInsets.symmetric(vertical: 6),
                     gridDelegate:
                         const SliverGridDelegateWithFixedCrossAxisCount(
@@ -192,10 +197,10 @@ class _BreedListPageState extends State<BreedListPage> {
                         ..add(const BreedsSurveyCardWidget()),
                     ]),
               ),
-              // const Divider(),
-              // const PageBottomWithInfos(),
-            ],
-          ),
+            ),
+            // const Divider(),
+            // const PageBottomWithInfos(),
+          ],
         ),
       ),
     );

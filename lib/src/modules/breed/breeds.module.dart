@@ -1,6 +1,6 @@
 import 'package:dreampuppy/src/modules/breed/presenter/view/survey/page.dart';
 import 'package:flutter_modular/flutter_modular.dart';
-import 'presenter/view/list.dart';
+import 'presenter/view/breed_list_page.dart';
 // import 'package:dreampuppy/.archive/src/features/pet_apply_filters_incomplete/presentation/view/breed_details.dart';
 
 // import 'package:dreampuppy/src/modules/help/presenter/view/help.dart';

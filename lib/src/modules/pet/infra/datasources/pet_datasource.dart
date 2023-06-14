@@ -2,6 +2,6 @@
 
 import '../../domain/details/entities/pet.dart';
 
-abstract class PetDataSource {
+abstract class IPetDataSource {
   Stream<Pet> fetchPetByID(String id);
   }

@@ -1,12 +1,12 @@
 import '../../domain/details/entities/pet.dart';
-import '../datasources/pet.dart';
+import '../datasources/pet_datasource.dart';
 
 abstract class PetRepository {
   Stream<Pet> fetchPetByID(String id);
 }
 
 class PetRepositoryImpl extends PetRepository {
-  final PetDataSource dataSource;
+  final IPetDataSource dataSource;
 
   PetRepositoryImpl(this.dataSource);
 

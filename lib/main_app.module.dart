@@ -9,7 +9,7 @@ import 'package:dreampuppy/src/modules/user/user.module.dart';
 import 'package:dreampuppy/src/modules/pet/pets.module.dart';
 import 'package:dreampuppy/src/modules/breed/breeds.module.dart';
 import 'package:dreampuppy/src/modules/payment/presenter/view/requirements.dart';
-import 'package:dreampuppy/src/modules/breed/presenter/view/list.dart';
+import 'package:dreampuppy/src/modules/breed/presenter/view/breed_list_page.dart';
 
 import 'src/modules/payment/interfaces/navigation.dart';
 import 'src/modules/pet/plugs.dart';

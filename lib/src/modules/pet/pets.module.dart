@@ -1,6 +1,6 @@
 import 'package:dreampuppy/src/modules/pet/domain/gallery/usecases/populate_gallery.dart';
-import 'package:dreampuppy/src/modules/pet/external/datasources/algolia_pet.dart';
-import 'package:dreampuppy/src/modules/pet/infra/datasources/gallery.dart';
+import 'package:dreampuppy/src/modules/pet/external/datasources/algolia_gallery.dart';
+import 'package:dreampuppy/src/modules/pet/infra/datasources/gallery_datasource.dart';
 import 'package:dreampuppy/src/modules/pet/infra/repositories/gallery.dart';
 import 'package:dreampuppy/src/modules/pet/infra/repositories/pet.dart';
 import 'package:dreampuppy/src/modules/pet/external/datasources/firestore_pet.dart';
@@ -8,9 +8,9 @@ import 'package:dreampuppy/src/modules/pet/presenter/gallery/gallery_page.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'domain/details/usecases/fetch_pet.dart';
-import 'infra/datasources/pet.dart';
+import 'infra/datasources/pet_datasource.dart';
 import 'presenter/details/bloc/fetch_pet.dart';
-import 'presenter/details/page.dart';
+import 'presenter/details/details_page.dart';
 import 'external/configs/algolia_application.dart';
 import 'presenter/gallery/bloc/fetch_gallery.dart';
 
@@ -39,7 +39,10 @@ class PetsModule extends Module {
     // Pet Details
     Bind.factory<FetchPetBloc>((i) => FetchPetBloc()),
     Bind.factory<PetRepository>((i) => PetRepositoryImpl(i())),
-    Bind.factory<PetDataSource>((i) => FirestorePetDataSourceImpl(i())),
+    Bind.factory<IPetDataSource>(
+      (i) =>
+          kDebugMode ? MockedPetDataSourceI() : FirestorePetDataSourceImpl(i()),
+    ),
     Bind.factory<FetchPetByIDUseCase>((i) => FetchPetByIDUseCaseImpl(i())),
   ];
 
