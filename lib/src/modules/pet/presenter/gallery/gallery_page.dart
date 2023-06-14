@@ -62,6 +62,7 @@ class _GalleryPageState extends State<GalleryPage> {
     _key = GlobalKey();
     petCard = cards.firstWhere((element) => element.path == widget.breed);
     SystemConfig.changeStatusBarColor(petCard.color);
+    galleryBloc.add(SetFiltersGalleryEvent([]));
     super.initState();
   }
 
@@ -70,7 +71,7 @@ class _GalleryPageState extends State<GalleryPage> {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<FillGalleryBloc, GalleryState>(
-      bloc: null,
+      bloc: galleryBloc,
       builder: (context, state) {
         Widget? child;
         List<GalleryEntity> entities = [];
@@ -114,16 +115,14 @@ class _GalleryPageState extends State<GalleryPage> {
 
         return Scaffold(
           key: _key,
+          //TODO: Implementar o sistema de filtros do Drawer
           //O Drawer deve ter o acesso facilitado ao máximo.
           // drawerEnableOpenDragGesture: kDebugMode,
-          //TODO: Implementar o sistema de filtros do Drawer
-          // endDrawer: kDebugMode
-          //     ? Drawer(
+          // endDrawer:  Drawer(
           //         child: FilterView(
           //           barColor: petCard.color,
           //         ),
-          //       )
-          //     : null,
+          //       ),
           appBar: AppBar(
             actions: const [
               SizedBox.shrink(),
@@ -226,7 +225,6 @@ class _GalleryPageState extends State<GalleryPage> {
                 ])),
           ),
           // appBar: AppBar(
-          //   title: const Text("Gallery"),
           //   actions: const [
           //     IconButton(
           //       onPressed: null,
@@ -268,7 +266,7 @@ class _GalleryPageState extends State<GalleryPage> {
                 return Container(
                   padding: const EdgeInsets.all(0.5),
                   child: InkWell(
-                    onTap: () => Modular.to.pushNamed('/pet/p/${entity.petId}'),
+                    onTap: () => Modular.to.pushNamed('/pets/p/${entity.petId}'),
                     child: Hero(
                       tag: entity.imgUrl,
                       child: CachedNetworkImage(
@@ -276,9 +274,12 @@ class _GalleryPageState extends State<GalleryPage> {
                         fit: BoxFit.fitHeight,
                         placeholder: (context, url) =>
                             Container(color: Colors.grey),
-                        errorWidget: (context, url, error) => const Center(
+                        errorWidget: (context, url, error) => Center(
                           //TODO: Substituir o erro quando não tem o url disponível ou houve um problema ao buscar a imagem.
-                          child: Text("Filhote indisponível"),
+                          child: IconButton(
+                              onPressed: () =>
+                                  print("TODO: Adicionar ReloadGalleyImg"),
+                              icon: const Icon(Icons.refresh)),
                         ),
                       ),
                     ),

@@ -3,9 +3,9 @@ class GalleryEntity {
   final String petId;
   final String imgUrl;
 
-  GalleryEntity(
-    this.id,
-    this.petId,
-    this.imgUrl,
-  );
+  GalleryEntity({
+    required this.id,
+    required this.petId,
+    required this.imgUrl,
+  });
 }

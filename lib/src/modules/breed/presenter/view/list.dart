@@ -1,6 +1,6 @@
 import 'package:dreampuppy/data.dart';
 import 'package:dreampuppy/src/providers/user.dart';
-import 'package:dreampuppy/src/features/pet_list/features/search_others/presentation/components/card.dart';
+import 'package:dreampuppy/src/modules/breed/presenter/view/survey/components/card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import '../../domain/list/entities/breed_card.dart';
@@ -189,7 +189,7 @@ class _BreedListPageState extends State<BreedListPage> {
                             ),
                           )
                           .toList()
-                        ..add(const MoreBreedsSurveyWidget()),
+                        ..add(const BreedsSurveyCardWidget()),
                     ]),
               ),
               // const Divider(),

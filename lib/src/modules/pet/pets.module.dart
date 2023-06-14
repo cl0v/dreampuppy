@@ -1,17 +1,42 @@
+import 'package:dreampuppy/src/modules/pet/domain/gallery/usecases/populate_gallery.dart';
+import 'package:dreampuppy/src/modules/pet/external/datasources/algolia_pet.dart';
+import 'package:dreampuppy/src/modules/pet/infra/datasources/gallery.dart';
+import 'package:dreampuppy/src/modules/pet/infra/repositories/gallery.dart';
 import 'package:dreampuppy/src/modules/pet/infra/repositories/pet.dart';
 import 'package:dreampuppy/src/modules/pet/external/datasources/firestore_pet.dart';
-import 'package:dreampuppy/src/modules/pet/presenter/gallery/page.dart';
+import 'package:dreampuppy/src/modules/pet/presenter/gallery/gallery_page.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'domain/details/usecases/fetch_pet.dart';
 import 'infra/datasources/pet.dart';
 import 'presenter/details/bloc/fetch_pet.dart';
 import 'presenter/details/page.dart';
-import '../../../algolia_application.dart';
+import 'external/configs/algolia_application.dart';
+import 'presenter/gallery/bloc/fetch_gallery.dart';
 
 class PetsModule extends Module {
   @override
   final List<Bind> binds = [
-    Bind.lazySingleton((i) => AlgoliaApplication()),
+    // Gallery
+    Bind.lazySingleton(
+      (i) => AlgoliaApplication(),
+    ),
+    Bind.factory<IGalleryDatasource>(
+      (i) => kDebugMode
+          ? MockedGalleryDatasourceI()
+          : AlogliaGalleryDatasourceI(i()),
+    ),
+    Bind.factory<IGalleryRepository>(
+      (i) => GalleryRepositoryI(i()),
+    ),
+    Bind.factory<PopulateGalleryUseCase>(
+      (i) => PopulateGalleryUseCaseImpl(i()),
+    ),
+    Bind.factory<FillGalleryBloc>(
+      (i) => FillGalleryBloc(i()),
+    ),
+
+    // Pet Details
     Bind.factory<FetchPetBloc>((i) => FetchPetBloc()),
     Bind.factory<PetRepository>((i) => PetRepositoryImpl(i())),
     Bind.factory<PetDataSource>((i) => FirestorePetDataSourceImpl(i())),

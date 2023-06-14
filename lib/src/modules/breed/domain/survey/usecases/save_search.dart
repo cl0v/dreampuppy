@@ -1,4 +1,4 @@
-import '../../infra/repositories/search.dart';
+import '../../../infra/repositories/search.dart';
 
 abstract class SaveSearchUseCase {
   call(String search);

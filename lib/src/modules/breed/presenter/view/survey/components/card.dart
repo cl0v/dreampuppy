@@ -1,23 +1,20 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
-class MoreBreedsSurveyWidget extends StatefulWidget {
-  const MoreBreedsSurveyWidget({
+class BreedsSurveyCardWidget extends StatefulWidget {
+  const BreedsSurveyCardWidget({
     super.key,
   });
 
   @override
-  State<MoreBreedsSurveyWidget> createState() => _MoreBreedsSurveyWidgetState();
+  State<BreedsSurveyCardWidget> createState() => _BreedsSurveyCardWidgetState();
 }
 
-class _MoreBreedsSurveyWidgetState extends State<MoreBreedsSurveyWidget> {
+class _BreedsSurveyCardWidgetState extends State<BreedsSurveyCardWidget> {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () => Modular.to.pushNamed(
-        '/breed_priority_research'
-      ),
+      onTap: () => Modular.to.pushNamed('/breed_priority_research'),
       child: Stack(
         children: [
           Container(
@@ -36,12 +33,11 @@ class _MoreBreedsSurveyWidgetState extends State<MoreBreedsSurveyWidget> {
               height: 120,
             )),
           ),
-       
-        const  Align(
-            alignment:  Alignment(0, 0.9),
+          const Align(
+            alignment: Alignment(0, 0.9),
             child: Text(
               'Outros',
-              style:  TextStyle(fontWeight: FontWeight.bold, fontSize: 24),
+              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 24),
             ),
           )
         ],

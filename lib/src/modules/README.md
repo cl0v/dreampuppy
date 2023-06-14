@@ -6,11 +6,11 @@ Atualmente, quando tento acessar a gallery, é impossível achar onde está o mo
 Isso resulta na necessidade de limpar o código e replanejar a arquitetura de pastas e arquivos. Podendo assim dar mais clareza, agilidade e bases sólidas para o mantimento do projeto.
 
 ### Todos
-1: Analyse the case where the widget is required outside the module. (Modular RouteOutlet)
+#1: Analyse the case where the widget is required outside the module. (Modular RouteOutlet)
 
 ### Instructions
 **/presenter/view/$1
-$1 -> Can be (page, widget, ?) page represents a scaffold, widget represents something that could be used inside the module freely. (TODO:1)
+$1 -> Can be (page, widget or ?) page represents a scaffold, widget represents something that could be used inside the module freely. (TODO:#1)
 All modules contain the same infra, domain, (...) files that i'm representing in the first module, so please, use them in all modules too
 
 ### New file structure
@@ -54,7 +54,7 @@ All modules contain the same infra, domain, (...) files that i'm representing in
 ------/usecases
 --------/signIn (login)
 --------/signUp (register)
---------/signOut (leave) ()
+--------/signOut (leave)  #É necessário que ele seja chamado no profile.
 /// O profile é o responsável por garantir um perfil para o usuário.
 /// Isso significa que deve ter um criador de profile.
 /// Que é quem alimenta as informações do user, criando assim um perfil.

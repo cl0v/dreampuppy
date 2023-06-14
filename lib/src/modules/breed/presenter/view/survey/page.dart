@@ -1,4 +1,4 @@
-import 'package:dreampuppy/src/features/pet_list/features/search_others/domain/usecases/save_search.dart';
+import 'package:dreampuppy/src/modules/breed/domain/survey/usecases/save_search.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
