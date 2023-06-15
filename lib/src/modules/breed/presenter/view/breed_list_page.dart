@@ -175,10 +175,10 @@ class _BreedListPageState extends State<BreedListPage> {
             //   ],
             // ),
             Expanded(
-                child:Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 10.0),
-              child:  GridView(
-                    padding: EdgeInsets.symmetric(vertical: 6),
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                child: GridView(
+                    padding: const EdgeInsets.symmetric(vertical: 6),
                     gridDelegate:
                         const SliverGridDelegateWithFixedCrossAxisCount(
                       crossAxisCount: 2,

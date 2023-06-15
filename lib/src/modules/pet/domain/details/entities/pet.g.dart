@@ -17,13 +17,14 @@ Pet _$PetFromJson(Map<String, dynamic> json) => Pet(
               .toList() ??
           const [],
       description: json['description'] as String? ?? 'Descrição',
-      genetics: json['genetics'] as String? ?? "Genetica",
-      lastUpdate: json['lastUpdate'] == null
+      genetics: json['genetics'] as String?,
+      updtedAt: json['updtedAt'] == null
           ? null
-          : DateTime.parse(json['lastUpdate'] as String),
-      birthDate: json['birthDate'] == null
-          ? null
-          : DateTime.parse(json['birthDate'] as String),
+          : DateTime.parse(json['updtedAt'] as String),
+      category: json['category'] as String? ?? 'Cachorro',
+      breed: json['breed'] as String,
+      birthDate: DateTime.parse(json['birthDate'] as String),
+      minLifeSpan: json['minLifeSpan'] as int? ?? 60,
       vaccineRecord: json['vaccineRecord'] == null
           ? null
           : VaccineRecord.fromJson(
@@ -31,6 +32,7 @@ Pet _$PetFromJson(Map<String, dynamic> json) => Pet(
       gender: $enumDecodeNullable(_$PetGenderEnumMap, json['gender']) ??
           PetGender.female,
     )
+      ..color = json['color'] as String?
       ..characteristics = (json['characteristics'] as List<dynamic>)
           .map((e) => e as String)
           .toList()
@@ -45,10 +47,14 @@ Map<String, dynamic> _$PetToJson(Pet instance) => <String, dynamic>{
       'price': instance.price,
       'images': instance.images,
       'imagesHistory': instance.imagesHistory,
+      'breed': instance.breed,
+      'category': instance.category,
       'description': instance.description,
+      'color': instance.color,
+      'minLifeSpan': instance.minLifeSpan,
       'genetics': instance.genetics,
-      'lastUpdate': instance.lastUpdate?.toIso8601String(),
-      'birthDate': instance.birthDate?.toIso8601String(),
+      'updtedAt': instance.updtedAt?.toIso8601String(),
+      'birthDate': instance.birthDate.toIso8601String(),
       'vaccineRecord': instance.vaccineRecord,
       'gender': _$PetGenderEnumMap[instance.gender]!,
       'characteristics': instance.characteristics,

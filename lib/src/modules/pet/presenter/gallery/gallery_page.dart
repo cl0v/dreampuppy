@@ -146,7 +146,6 @@ class _GalleryPageState extends State<GalleryPage> {
                 fontStyle: FontStyle.italic,
                 color: Colors.white,
                 fontWeight: FontWeight.w500,
-                fontSize: 16,
               ),
             ),
           ),
@@ -278,7 +277,7 @@ class _GalleryPageState extends State<GalleryPage> {
                       //   await file.writeAsString(jsonEncode(imgStack.toSet().toList()));
                       // }
                       try {
-                        Modular.to.pushNamed('/pets/p/${entity.petId}');
+                        Modular.to.pushNamed('./p/?id=${entity.petId}');
                       } catch (e) {
                         print(e);
                       }

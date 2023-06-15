@@ -11,6 +11,11 @@ enum PetGender {
   /// Valor que representa o sexo do pet no banco de dados e nos filtros de busca.
   final int value;
 
+  String get translate => {
+        -1: 'Fêmea',
+        1: 'Macho',
+      }[value]!;
+
   const PetGender({required this.value});
 }
 
@@ -18,28 +23,52 @@ enum PetGender {
 @JsonSerializable()
 class Pet {
   String id;
+
   /// Imagens do cover podem ser em 512x512.
   String coverImgUrl;
+
   /// Preço cobrado em reais, não existe centavos nesse momento do app.
   int price;
+
   /// Imagens do pet que serão exibidas na página principal.
   List<String> images;
+
   /// Imagens do pet que serão exibidas apenas caso o user acesse o historico de fotos.
   List<String> imagesHistory;
+
+  /// Raça do pet.
+  String breed;
+
+  /// Categoria do pet. Ex: Cachorro, Gato, Pássaro, etc.
+  String category;
+
   /// Breve descrição sobre a percepção do filhote.
   String description;
+
+  /// Cor do pet. Ex: Default, Preto, Branco, Marrom, etc.
+  String? color;
+
+  /// Tempo de vida minimo para a entrega do pet.
+  int minLifeSpan;
+
   /// Descreve a genética do filhote.
-  String genetics; //TODO: Tornar uma subcollection dos documentos da collection breeds
+  String? genetics;
+
   /// Data da ultima atualização do pet.
-  DateTime? lastUpdate = DateTime.now();
+  DateTime? updtedAt;
+
   /// Data de nascimento do pet.
-  DateTime? birthDate = DateTime.now();
+  DateTime birthDate = DateTime.now();
+
   /// Carteira de vacinação do pet.
   VaccineRecord? vaccineRecord;
+
   /// Sexo do pet.
   PetGender gender;
+
   /// Caracteristicas do pet. Auxilia nos filtros de busca.
   List<String> characteristics = [];
+
   /// Caracteristicas especiais do pet. Auxilia nos filtros de busca e no aumento dos preços.
   /// Será usado também para dar mais detalhes no card de revisão do pedido.
   List<String> specialCharacteristics = [];
@@ -51,9 +80,12 @@ class Pet {
     required this.images,
     this.imagesHistory = const [],
     this.description = 'Descrição',
-    this.genetics = "Genetica",
-    this.lastUpdate,
-    this.birthDate,
+    this.genetics,
+    this.updtedAt,
+    this.category = 'Cachorro',
+    required this.breed,
+    required this.birthDate,
+    this.minLifeSpan = 60,
     this.vaccineRecord,
     this.gender = PetGender.female,
   });
@@ -79,7 +111,6 @@ class VaccineRecord {
   Map<String, dynamic> toJson() => _$VaccineRecordToJson(this);
 }
 
-
 @JsonSerializable()
 class Vaccine {
   String brand;
@@ -95,7 +126,6 @@ class Vaccine {
 
   Map<String, dynamic> toJson() => _$VaccineToJson(this);
 }
-
 
 @JsonSerializable()
 class Dewormer {

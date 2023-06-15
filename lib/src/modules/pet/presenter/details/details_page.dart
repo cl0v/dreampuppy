@@ -1,7 +1,11 @@
+import 'package:dreampuppy/src/modules/pet/domain/details/usecases/format_birthdate.dart';
 import 'package:dreampuppy/src/modules/pet/plugs.dart';
 import 'package:dreampuppy/src/utils/platform.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import '../../domain/details/usecases/format_last_update.dart';
+import '../../domain/details/usecases/format_vaccination_record.dart';
+import '../../domain/gallery/usecases/format_genetics.dart';
 import 'bloc/fetch_pet.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -30,6 +34,11 @@ class PetDetailsPage extends StatefulWidget {
 class _PetDetailsPageState extends State<PetDetailsPage> {
   final pageController = PageController();
   late final fetchBloc = Modular.get<FetchPetBloc>();
+  late final formatBirthUsecase = Modular.get<FormatBirthDateUsecase>();
+  late final formatVaccinationRecordUsecase =
+      Modular.get<FormatVaccinationRecordUsecase>();
+  late final formatLastUpdateUsecase = Modular.get<FormatLastUpdateUsecase>();
+  late final formatGeneticsUsecase = Modular.get<FormatGeneticsUsecase>();
 
   Color? debugColor;
 
@@ -46,13 +55,13 @@ class _PetDetailsPageState extends State<PetDetailsPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Detalhes do pet"),
+        title: const Text("Detalhes do Pet"),
         centerTitle: true,
       ),
       body: BlocBuilder<FetchPetBloc, PetDetailsState>(
           bloc: fetchBloc,
           builder: (context, state) {
-            Pet? pet;
+            late Pet pet;
             if (state is PetDetailsStateLoading) {
               return Center(
                 child: isIos()
@@ -90,17 +99,17 @@ class _PetDetailsPageState extends State<PetDetailsPage> {
                     child: Stack(
                       children: [
                         PageView.builder(
-                          itemCount: pet!.images.length,
+                          itemCount: pet.images.length,
                           controller: pageController,
                           itemBuilder: (context, index) {
                             return Stack(
                               fit: StackFit.expand,
                               children: [
                                 CachedNetworkImage(
-                                  imageUrl: pet!.images[index],
+                                  imageUrl: pet.images[index],
                                   fit: BoxFit.fitHeight,
                                   placeholder: (context, url) => Hero(
-                                    tag: pet!.images[index],
+                                    tag: pet.images[index],
                                     child: CachedNetworkImage(
                                       imageUrl: pet.coverImgUrl,
                                       fit: BoxFit.fitHeight,
@@ -164,7 +173,7 @@ class _PetDetailsPageState extends State<PetDetailsPage> {
                                               fontWeight: FontWeight.bold),
                                     ),
                                     Text(
-                                     pet.price.toString(),
+                                      pet.price.toString(),
                                       textAlign: TextAlign.justify,
                                       style: Theme.of(context)
                                           .textTheme
@@ -203,7 +212,7 @@ class _PetDetailsPageState extends State<PetDetailsPage> {
                                     style: ElevatedButton.styleFrom(
                                       backgroundColor: Colors.black,
                                     ),
-                                    onPressed: onPetSelected,
+                                    onPressed: () => onPetSelected(pet),
                                     label: const Text("Comprar"),
                                   ),
                                 ],
@@ -219,8 +228,8 @@ class _PetDetailsPageState extends State<PetDetailsPage> {
                               const SizedBox(
                                 height: 14,
                               ),
-                               Text( pet.description
-                                 ), //TODO: Replace with $description
+                              Text(pet
+                                  .description), //TODO: Replace with $description
                               const SizedBox(
                                 height: 24,
                               ),
@@ -230,8 +239,8 @@ class _PetDetailsPageState extends State<PetDetailsPage> {
                                   Icons.cake_rounded,
                                   color: Colors.pink.shade100,
                                 ),
-                                child: const Text(
-                                  "23 Abril as 21:32",
+                                child: Text(
+                                  formatBirthUsecase(pet.birthDate),
                                 ),
                               ),
                               const SizedBox(
@@ -244,7 +253,8 @@ class _PetDetailsPageState extends State<PetDetailsPage> {
                                       "assets/images/icons/drug_medecine_syringue_icon.png",
                                       color: Colors.red.shade300,
                                     )),
-                                child: const Text("2x Importada"),
+                                child: Text(formatVaccinationRecordUsecase(
+                                    pet.vaccineRecord)),
                               ),
                               const SizedBox(
                                 height: 4,
@@ -256,8 +266,8 @@ class _PetDetailsPageState extends State<PetDetailsPage> {
                                       "assets/images/icons/dna_icon.png",
                                       color: Colors.blue.shade200,
                                     )),
-                                child: const Text(
-                                  "Genética alemã",
+                                child: Text(
+                                  formatGeneticsUsecase(pet.genetics),
                                 ),
                               ),
                               const SizedBox(
@@ -270,8 +280,8 @@ class _PetDetailsPageState extends State<PetDetailsPage> {
                                       Icons.camera_enhance_rounded,
                                       color: Colors.orange.shade200,
                                     )),
-                                child: const Text(
-                                  "Fotos atualizadas hà 15 dias",
+                                child: Text(
+                                  formatLastUpdateUsecase(pet.updtedAt),
                                 ),
                               ),
                               const Divider(),
@@ -316,14 +326,18 @@ class _PetDetailsPageState extends State<PetDetailsPage> {
                                   // TODO: Incentivar os canis a preferirem postar toda e qualquer foto relacionada aquele cachorro
                                   // Videos e fotos >
                                   // TODO: Exibir quantidade de fotos disponíveis.
-                                  trailing: CircleAvatar(
-                                      radius: 16,
-                                      backgroundColor:
-                                          Colors.black.withOpacity(.3),
-                                      child: const Text(
-                                        "101", //Dalmatas
-                                        style: TextStyle(color: Colors.white),
-                                      )),
+                                  trailing:
+                                      const Icon(Icons.lock_clock_rounded),
+                                  //  CircleAvatar(
+                                  //   radius: 16,
+                                  //   backgroundColor:
+                                  //       Colors.black.withOpacity(.3),
+                                  //   child:
+                                  //    const Text(
+                                  //     "101", //Dalmatas
+                                  //     style: TextStyle(color: Colors.white),
+                                  //   ),
+                                  // ),
                                 ),
                               ),
                             ],
@@ -339,10 +353,9 @@ class _PetDetailsPageState extends State<PetDetailsPage> {
     );
   }
 
-  void onPetSelected() async {
+  void onPetSelected(Pet pet) async {
     //TODO: Add pet to CartProvider. CartProvider should be global and can be accessed anywhere, anytime, including from external fonts link.
-    Modular.get<PetModuleExternalNavigation>();
-    await Modular.to.pushNamed('/payment/cart');
+    Modular.get<PetModuleExternalNavigation>().navigateToCart(pet);
   }
 }
 

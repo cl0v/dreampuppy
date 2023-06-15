@@ -8,8 +8,7 @@ import 'domain/done/usecases/rate.dart';
 import 'domain/done/usecases/request_contact.dart';
 import 'domain/done/usecases/store_rating.dart';
 import 'presenter/view/done.dart';
-import 'presenter/view/cart.dart';
-import 'presenter/view/requirements.dart';
+import 'presenter/view/cart_page.dart';
 import 'presenter/view/pay.dart';
 
 class PaymentModule extends Module {
@@ -24,16 +23,18 @@ class PaymentModule extends Module {
 
     // Done
     Bind.factory<RequestContactUseCase>((i) => WhatsAppContactUseCaseImpl()),
-
     // END Done
   ];
 
   @override
   final List<ModularRoute> routes = [
-    ChildRoute('/cart', child: (_, __) => const CartPage()),
+    ChildRoute('/cart',
+        child: (_, args) => CartPage(
+              cardEntity: args.data,
+            )),
     ChildRoute('/done', child: (_, __) => const PaymentDonePage()),
-    ChildRoute('/requirements',
-        child: (_, __) => const PaymentUserRequirementsPage()),
+    // ChildRoute('/requirements',
+    //     child: (_, __) => const PaymentUserRequirementsPage()),
     ChildRoute('/review', child: (_, __) => const PaymentPayPage()),
   ];
 }

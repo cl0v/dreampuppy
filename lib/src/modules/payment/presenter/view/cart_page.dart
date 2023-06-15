@@ -1,4 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:dreampuppy/src/modules/payment/domain/cart/entities/cart_pet_card_entity.dart';
 import 'package:dreampuppy/src/widgets/btn_loading.dart';
 import 'package:dreampuppy/src/modules/payment/interfaces/navigation.dart';
 import 'package:flutter/material.dart';
@@ -7,7 +8,12 @@ import 'package:flutter_modular/flutter_modular.dart';
 // Recebe os dados de usuario e carrinho do provider
 
 class CartPage extends StatefulWidget {
-  const CartPage({super.key});
+  const CartPage({
+    super.key,
+    required this.cardEntity,
+  });
+
+  final CartPetCardEntity cardEntity;
 
   @override
   State<CartPage> createState() => _CartPageState();
@@ -52,6 +58,7 @@ class _CartPageState extends State<CartPage> {
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.spaceAround,
                           children: <Widget>[
+                            const SizedBox(height: 8,),
                             const SizedBox(
                               height: 24,
                               child: Center(
@@ -60,25 +67,16 @@ class _CartPageState extends State<CartPage> {
                                 style: TextStyle(fontWeight: FontWeight.bold),
                               )),
                             ),
-                            const SizedBox(
-                              height: 100,
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                children: [
-                                  Expanded(
-                                    child: Text(
-                                      textAlign: TextAlign.start,
-                                      overflow: TextOverflow.clip,
-                                      '''
-Preço: R\$4999
-Raça: Golden Retriever
-Gênero: Macho | Fêmea
-Cor: Golden
-Obs: Filhote com 2 meses de vida, vacinado e vermifugado.
-                                      ''',
-                                    ),
-                                  ),
-                                ],
+                            const SizedBox(height: 8,),
+                            Expanded(
+                              child: Padding(
+                                padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                                child: Text(
+                                  textAlign: TextAlign.start,
+                                  overflow: TextOverflow.clip,
+                                  style: const TextStyle(fontSize: 12),
+                                  widget.cardEntity.resume,
+                                ),
                               ),
                             ),
                             Center(
@@ -105,15 +103,27 @@ Obs: Filhote com 2 meses de vida, vacinado e vermifugado.
                     textAlign: TextAlign.center,
                     "Os serviços de calculo de frete se encontram em desenvolvimento.",
                   ),
+                  const SizedBox(
+                    height: 4,
+                  ),
                   const Text(
                       textAlign: TextAlign.center,
-                      "Para podermos te passar os valores do frete, precisamos de tempo para oraçamentar com os TaxiDog que trabalham na região do canil, podendo oferecer variedade de preços e datas de entrega."),
+                      "Para podermos te passar os valores do frete, precisamos de tempo para orçamentar com os TaxiDog que trabalham na região do canil, podendo oferecer variedade nos preços e datas de entrega."),
+                  const SizedBox(
+                    height: 4,
+                  ),
                   const Text(
                       textAlign: TextAlign.center,
                       "Dito isso, vamos te contatar para te passar o valor do frete a parte, o qual será pago em outro momento, e não está incluso no valor do pedido."),
+                  const SizedBox(
+                    height: 4,
+                  ),
                   const Text(
                       textAlign: TextAlign.center,
                       "Não se preocupe, o valor do frete é bem acessível, e você pode optar por não contratar o serviço de frete, e vir buscar o seu filhote no canil, ou contratar um serviço de frete de sua preferência."),
+                  const SizedBox(
+                    height: 4,
+                  ),
                   const Text(
                       textAlign: TextAlign.center,
                       "Caso ainda não concordar com o valor do frete, você pode cancelar o pedido, e o valor pago será devolvido integralmente."),

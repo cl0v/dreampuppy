@@ -34,12 +34,17 @@ class MockedPetDataSourceI implements IPetDataSource {
   final Pet mockedPet = Pet(
     id: 'xyz',
     coverImgUrl: "https://wallpapers.com/images/featured/wj7msvc5kj9v6cyy.jpg",
-    
-    description: "Um verdadeiro ladrão de chinelos, não pode dar bobeira que você sempre vai achar seu chinelo em cima do sofá.",
+    breed: 'Golden Retriever',
+    description:
+        "Um verdadeiro ladrão de chinelos, não pode dar bobeira que você sempre vai achar seu chinelo em cima do sofá.",
     // "O filhote mais alegre da ninhada. Pode ter certeza que você se divertirá muito com essa fofura. Está sempre andando para os lados procurando alguém pra brincar."
     price: 3500,
+    birthDate: DateTime(2021, 07, 31, 18, 09),
     images: [
       "https://wallpapers.com/images/featured/wj7msvc5kj9v6cyy.jpg",
+      "https://www.estadao.com.br/resizer/naN2ELW2qMChAySxNYaHeA0fVaA=/1200x1200/filters:format(jpg):quality(80):focal(-5x-5:5x5)/cloudfront-us-east-1.images.arcpublishing.com/estadao/NR644VELJJPNRHWB7SX2HHH3YU.jpg",
+      "https://images.dog.ceo/breeds/retriever-golden/20200731_180910_200731.jpg",
+      "https://images.dog.ceo/breeds/retriever-golden/Z6A_4051_200803.jpg",
     ],
   );
 }
