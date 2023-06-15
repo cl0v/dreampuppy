@@ -8,17 +8,17 @@ class ConnectPaymentModuleExternalNavigation
     implements PaymentModuleExternalNavigation {
   @override
   onCartContinuePressed() {
-    final user = Modular.get<UserProvider>();
-    if (user.id == null) {
-      return Modular.to.pushNamed('/user/login/create');
-    } else if (user.sensitiveDataRequired) {
-      return Modular.to.pushNamed('/user/profile/create');
-    }
-    else if (user.addressResume == null) {
-      return Modular.to.pushNamed('/user/address/create');
-    } else if(user.defaultCardToken == null){
-      return Modular.to.pushNamed('/user/card/create');
-    }
-    return Modular.to.pushNamed('/payment/pay');
+    // final user = Modular.get<UserProvider>();
+    // if (user.id == null) {
+    //   return Modular.to.pushNamed('/user/login/create');
+    // } else if (user.sensitiveDataRequired) {
+    //   return Modular.to.pushNamed('/user/profile/create');
+    // }
+    // else if (user.addressResume == null) {
+    //   return Modular.to.pushNamed('/user/address/create');
+    // } else if(user.defaultCardToken == null){
+    //   return Modular.to.pushNamed('/user/card/create');
+    // }
+    return Modular.to.pushNamed('/user/flow');
   }
 }

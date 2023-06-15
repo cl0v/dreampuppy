@@ -1,4 +1,4 @@
-import 'package:dreampuppy/src/modules/user/infra/datasources/auth.dart';
+import 'package:dreampuppy/src/modules/user/infra/datasources/auth_datasource.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 import '../../domain/auth/errors/login_handler.dart';

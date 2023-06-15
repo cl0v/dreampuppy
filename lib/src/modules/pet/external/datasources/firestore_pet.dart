@@ -35,6 +35,7 @@ class MockedPetDataSourceI implements IPetDataSource {
     id: 'xyz',
     coverImgUrl: "https://wallpapers.com/images/featured/wj7msvc5kj9v6cyy.jpg",
     breed: 'Golden Retriever',
+    gender: PetGender.male,
     description:
         "Um verdadeiro ladrão de chinelos, não pode dar bobeira que você sempre vai achar seu chinelo em cima do sofá.",
     // "O filhote mais alegre da ninhada. Pode ter certeza que você se divertirá muito com essa fofura. Está sempre andando para os lados procurando alguém pra brincar."

@@ -8,7 +8,6 @@ import 'package:flutter_modular/flutter_modular.dart';
 import 'package:dreampuppy/src/modules/user/user.module.dart';
 import 'package:dreampuppy/src/modules/pet/pets.module.dart';
 import 'package:dreampuppy/src/modules/breed/breeds.module.dart';
-import 'package:dreampuppy/src/modules/payment/presenter/view/requirements.dart';
 import 'package:dreampuppy/src/modules/breed/presenter/view/breed_list_page.dart';
 
 import 'src/modules/payment/interfaces/navigation.dart';
@@ -32,12 +31,12 @@ class AppModule extends Module {
   @override
   get routes => [
         ModuleRoute('/', module: BreedsModule()),
+        // if (kDebugMode)
+        //   ChildRoute('/',
+        //       child: (context, args) => const PaymentUserRequirementsPage()),
         if (kDebugMode)
-          ChildRoute('/',
-              child: (context, args) => const PaymentUserRequirementsPage()),
-        if (kDebugMode)
-          ChildRoute('/', child: (context, args) => const FirstPage()),
         ChildRoute('/', child: (context, args) => const BreedListPage()),
+          ChildRoute('/', child: (context, args) => const FirstPage()),
         // ChildRoute('/', child: (context, args) => const CreditCardCreateFormPage()),
         ModuleRoute('/breeds', module: BreedsModule()),
         ModuleRoute('/pets', module: PetsModule()),
@@ -56,7 +55,7 @@ class FirstPage extends StatelessWidget {
       body: SafeArea(
         child: Center(
           child: ElevatedButton(
-            onPressed: () => Modular.to.pushNamed('/user/cards/create'),
+            onPressed: () => Modular.to.pushNamed('/user/flow'),
             child: const Text('Go to module'),
           ),
         ),

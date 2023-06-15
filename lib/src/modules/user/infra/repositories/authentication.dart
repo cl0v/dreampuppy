@@ -1,6 +1,6 @@
 import 'package:dreampuppy/src/modules/user/domain/auth/repositories/authentication.dart';
 
-import '../datasources/auth.dart';
+import '../datasources/auth_datasource.dart';
 
 class AuthRepositoryImpl implements AuthRepository {
   final AuthDataSource authDataSource;

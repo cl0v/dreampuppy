@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 class CustomTextFieldWidget extends StatelessWidget {
-  final TextEditingController controller;
+  final TextEditingController? controller;
   final String hintText;
   final bool isPasswordField;
   final String? Function(String?)? validator;
@@ -13,7 +13,7 @@ class CustomTextFieldWidget extends StatelessWidget {
   CustomTextFieldWidget(
       {
     super.key,
-    required this.controller,
+    this.controller,
     required this.hintText,
     this.isPasswordField = false,
     this.validator,

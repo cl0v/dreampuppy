@@ -2,17 +2,23 @@ import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:dreampuppy/src/modules/user/domain/auth/errors/login_handler.dart';
 import 'package:dreampuppy/src/modules/user/domain/auth/usecases/forgot_password.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import '../../../../../widgets/btn_loading.dart';
 import '../../../../../widgets/custom_text_field.dart';
 import '../../../domain/auth/usecases/login.dart';
+import '../../../interface/navigation.dart';
+import '../../controller/auth/auth_controller.dart';
 
 //TODO: Implementar esqueci minha senha
 
 class LoginPage extends StatefulWidget {
-  const LoginPage({super.key});
+  const LoginPage({
+    super.key,
+  });
+
 
   @override
   State<LoginPage> createState() => _LoginPageState();
@@ -21,10 +27,17 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
   final _formKey = GlobalKey<FormState>();
 
-  final emailController = TextEditingController();
-  final passwordController = TextEditingController();
+  final emailController = TextEditingController(
+    text: kDebugMode ? 'marcelo.viana@email.com' : null,
+  );
+  final passwordController = TextEditingController(
+    text: kDebugMode ? 'marcelo.viana@email.com' : null,
+  );
 
   late final loginUseCase = Modular.get<SignInWithEmailAndPasswordUseCase>();
+  late final forgotPasswordUseCase = Modular.get<ForgotPasswordUseCase>();
+  late final authNavigation = Modular.get<AuthNavigation>();
+  late final authController = Modular.get<AuthController>();
 
   final ValueNotifier<bool> _isLoading = ValueNotifier(false);
 
@@ -35,7 +48,7 @@ class _LoginPageState extends State<LoginPage> {
     _isLoading.value = true;
     try {
       await loginUseCase(emailController.text.trim(), passwordController.text);
-      Modular.to.pop();
+      authNavigation.onAuth(authController.from);
     } on LoginErrorHandler catch (e, s) {
       debugPrintStack(stackTrace: s);
       ScaffoldMessenger.of(context).showSnackBar(
@@ -53,7 +66,8 @@ class _LoginPageState extends State<LoginPage> {
     if (emailController.text.length < 4) {
       Fluttertoast.cancel();
       Fluttertoast.showToast(
-          toastLength: Toast.LENGTH_LONG,
+          toastLength:
+              Toast.LENGTH_LONG, // TODO: Aumentar a duração do toast para iOS
           gravity: ToastGravity.CENTER,
           msg:
               "Por favor preencha o email que deseja recuperar a senha no campo de email.");
@@ -64,8 +78,8 @@ class _LoginPageState extends State<LoginPage> {
             dialogType: DialogType.warning,
             showCloseIcon: true,
             btnOkText: 'Enviar email de recuperação',
-            btnOkOnPress: () => Modular.get<ForgotPasswordUseCase>()
-                .call(emailController.text.trim()),
+            btnOkOnPress: () =>
+                forgotPasswordUseCase.call(emailController.text.trim()),
             desc: //TODO: Fazer o email ficar em negrito e underline (Tentar deixar o mais claro para qual email será enviado)
                 'Um email será enviado para:\n\n${emailController.text.trim()}\n\nAcesse o link enviado para recuperar sua senha')
         .show();

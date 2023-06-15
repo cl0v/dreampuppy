@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
@@ -7,14 +8,16 @@ import '../../../../../widgets/custom_text_field.dart';
 
 import '../../../domain/auth/errors/signup_handler.dart';
 import '../../../domain/auth/usecases/signup.dart';
+import '../../../interface/navigation.dart';
+import '../../controller/auth/auth_controller.dart';
 
 class RegisterPage extends StatefulWidget {
   const RegisterPage({
     super.key,
-    this.onRedirect,
+    this.from,
   });
 
-  final VoidCallback? onRedirect;
+  final AuthFromRoute? from;
 
   @override
   State<RegisterPage> createState() => _RegisterPageState();
@@ -24,15 +27,23 @@ class _RegisterPageState extends State<RegisterPage> {
   final _formKey = GlobalKey<FormState>();
 
   final emailController = TextEditingController(
-      // text: kDebugMode ? 'marcelofv12@hotmail.com' : null,
-      );
+    text: kDebugMode ? 'marcelo.viana@email.com' : null,
+  );
   final passwordController = TextEditingController(
-      // text: kDebugMode ? '123123123' : null,
-      );
+    text: kDebugMode ? 'marcelo.viana@email.com' : null,
+  );
 
   late final SignupUseCase signupUseCase = Modular.get<SignupUseCase>();
+  late final authNavigation = Modular.get<AuthNavigation>();
+  late final authController = Modular.get<AuthController>();
 
   final ValueNotifier<bool> _isLoading = ValueNotifier(false);
+
+  @override
+  void initState() {
+    authController.from = widget.from ?? authController.from;
+    super.initState();
+  }
 
   signUp() async {
     //TODO: Implementar sistema de validaçao
@@ -41,9 +52,7 @@ class _RegisterPageState extends State<RegisterPage> {
     _isLoading.value = true;
     try {
       await signupUseCase(emailController.text.trim(), passwordController.text);
-
-      var onDone = widget.onRedirect ?? () => Modular.to.pop();
-      onDone.call();
+      return authNavigation.onAuth(authController.from);
     } on SignUpErrorHandler catch (e) {
       ScaffoldMessenger.of(context).clearSnackBars();
       ScaffoldMessenger.of(context).showSnackBar(

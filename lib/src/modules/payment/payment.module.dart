@@ -33,8 +33,7 @@ class PaymentModule extends Module {
               cardEntity: args.data,
             )),
     ChildRoute('/done', child: (_, __) => const PaymentDonePage()),
-    // ChildRoute('/requirements',
-    //     child: (_, __) => const PaymentUserRequirementsPage()),
     ChildRoute('/pay', child: (_, __) => const PaymentPayPage()),
+   
   ];
 }
