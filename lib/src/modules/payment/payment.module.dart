@@ -35,6 +35,6 @@ class PaymentModule extends Module {
     ChildRoute('/done', child: (_, __) => const PaymentDonePage()),
     // ChildRoute('/requirements',
     //     child: (_, __) => const PaymentUserRequirementsPage()),
-    ChildRoute('/review', child: (_, __) => const PaymentPayPage()),
+    ChildRoute('/pay', child: (_, __) => const PaymentPayPage()),
   ];
 }

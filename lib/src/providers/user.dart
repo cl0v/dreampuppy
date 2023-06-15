@@ -10,4 +10,6 @@ class UserProvider {
 
   /// Resumo do endereço do usuário para ser exibido na tela de pagamento.
   String? addressResume;
+
+  bool sensitiveDataRequired = true;
 }

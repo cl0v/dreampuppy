@@ -14,6 +14,7 @@ import 'presenter/view/auth/reset_password.dart';
 import 'external/datasources/firebase_auth.dart';
 import 'infra/datasources/auth.dart';
 import 'infra/repositories/authentication.dart';
+import 'presenter/view/profile/create_minimum.dart';
 import 'presenter/view/profile/profile.dart';
 
 import 'presenter/view/credit_card/create_card.dart';
@@ -44,6 +45,8 @@ class UserModule extends Module {
   @override
   get routes => [
         ChildRoute('/', child: (c, a) => const UserProfilePage()),
+        ChildRoute('/profile/create',
+            child: (c, a) => const UserSensitiveDataFormPage()),
         ChildRoute('/cards/create',
             child: (c, a) => const CreateCreditCardFormPage()),
 

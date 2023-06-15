@@ -56,6 +56,10 @@ class CustomTextFieldWidget extends StatelessWidget {
                 label: Text(
                   label,
                 ),
+                labelStyle: const TextStyle(
+                  letterSpacing: 0,
+                  fontWeight: FontWeight.normal
+                ),
                 errorText: null,
                 enabledBorder: const OutlineInputBorder(
                   borderSide: BorderSide(color: Colors.white),

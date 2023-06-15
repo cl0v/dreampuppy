@@ -1,11 +1,12 @@
-import 'package:dreampuppy/src/modules/user/domain/auth/usecases/signup.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+
 import '../../../../../widgets/btn_loading.dart';
 import '../../../../../widgets/custom_text_field.dart';
+
 import '../../../domain/auth/errors/signup_handler.dart';
+import '../../../domain/auth/usecases/signup.dart';
 
 class RegisterPage extends StatefulWidget {
   const RegisterPage({
@@ -29,7 +30,7 @@ class _RegisterPageState extends State<RegisterPage> {
       // text: kDebugMode ? '123123123' : null,
       );
 
-  late SignupUseCase signupUseCase = Modular.get<SignupUseCase>();
+  late final SignupUseCase signupUseCase = Modular.get<SignupUseCase>();
 
   final ValueNotifier<bool> _isLoading = ValueNotifier(false);
 
@@ -111,7 +112,6 @@ class _RegisterPageState extends State<RegisterPage> {
                     },
                   ),
                   const SizedBox(height: 10),
-                  // TODO: Adicionar sistema de verificação de senha (icone de olho + Quando exibido, afastar um pouco os caracteres)
                   CustomTextFieldWidget(
                     controller: passwordController,
                     isPasswordField: true,
