@@ -182,11 +182,15 @@ class _PetDetailsPageState extends State<PetDetailsPage> {
                                               fontWeight: FontWeight.bold),
                                     ),
                                     const Spacer(),
-                                    pet.gender == PetGender.male
-                                        ? Icon(Icons.male,
-                                            color: Colors.blue.shade300)
-                                        : Icon(Icons.female,
-                                            color: Colors.pink.shade300),
+                                    Tooltip(
+                                      preferBelow: false,
+                                      message: pet.gender.translate,
+                                      child: pet.gender == PetGender.male
+                                          ? Icon(Icons.male,
+                                              color: Colors.blue.shade300)
+                                          : Icon(Icons.female,
+                                              color: Colors.pink.shade300),
+                                    ),
                                   ],
                                 ),
                               ),
@@ -235,9 +239,13 @@ class _PetDetailsPageState extends State<PetDetailsPage> {
                               ),
                               // Divider(),
                               BirthRowWidget(
-                                icon: Icon(
-                                  Icons.cake_rounded,
-                                  color: Colors.pink.shade100,
+                                icon: Tooltip(
+                                  preferBelow: false,
+                                  message: 'Data de nascimento',
+                                  child: Icon(
+                                    Icons.cake_rounded,
+                                    color: Colors.pink.shade100,
+                                  ),
                                 ),
                                 child: Text(
                                   formatBirthUsecase(pet.birthDate),
@@ -247,12 +255,16 @@ class _PetDetailsPageState extends State<PetDetailsPage> {
                                 height: 4,
                               ),
                               BirthRowWidget(
-                                icon: SizedBox(
-                                    height: 24,
-                                    child: Image.asset(
-                                      "assets/images/icons/drug_medecine_syringue_icon.png",
-                                      color: Colors.red.shade300,
-                                    )),
+                                icon: Tooltip(
+                                  preferBelow: false,
+                                  message: 'Histórico de vacinação',
+                                  child: SizedBox(
+                                      height: 24,
+                                      child: Image.asset(
+                                        "assets/images/icons/drug_medecine_syringue_icon.png",
+                                        color: Colors.red.shade300,
+                                      )),
+                                ),
                                 child: Text(formatVaccinationRecordUsecase(
                                     pet.vaccineRecord)),
                               ),
@@ -260,12 +272,16 @@ class _PetDetailsPageState extends State<PetDetailsPage> {
                                 height: 4,
                               ),
                               BirthRowWidget(
-                                icon: SizedBox(
-                                    height: 24,
-                                    child: Image.asset(
-                                      "assets/images/icons/dna_icon.png",
-                                      color: Colors.blue.shade200,
-                                    )),
+                                icon: Tooltip(
+                                  preferBelow: false,
+                                  message: 'Genética | Linhagem',
+                                  child: SizedBox(
+                                      height: 24,
+                                      child: Image.asset(
+                                        "assets/images/icons/dna_icon.png",
+                                        color: Colors.blue.shade200,
+                                      )),
+                                ),
                                 child: Text(
                                   formatGeneticsUsecase(pet.genetics),
                                 ),
@@ -274,12 +290,16 @@ class _PetDetailsPageState extends State<PetDetailsPage> {
                                 height: 4,
                               ),
                               BirthRowWidget(
-                                icon: SizedBox(
-                                    height: 24,
-                                    child: Icon(
-                                      Icons.camera_enhance_rounded,
-                                      color: Colors.orange.shade200,
-                                    )),
+                                icon: Tooltip(
+                                  preferBelow: false,
+                                  message: 'Última atualização do Pet',
+                                  child: SizedBox(
+                                      height: 24,
+                                      child: Icon(
+                                        Icons.camera_enhance_rounded,
+                                        color: Colors.orange.shade200,
+                                      )),
+                                ),
                                 child: Text(
                                   formatLastUpdateUsecase(pet.updtedAt),
                                 ),
