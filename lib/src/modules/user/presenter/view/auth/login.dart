@@ -28,10 +28,10 @@ class _LoginPageState extends State<LoginPage> {
   final _formKey = GlobalKey<FormState>();
 
   final emailController = TextEditingController(
-    text: kDebugMode ? 'marcelo.viana@email.com' : null,
+    // text: kDebugMode ? 'marcelo.viana@email.com' : null,
   );
   final passwordController = TextEditingController(
-    text: kDebugMode ? 'marcelo.viana@email.com' : null,
+    // text: kDebugMode ? 'marcelo.viana@email.com' : null,
   );
 
   late final loginUseCase = Modular.get<SignInWithEmailAndPasswordUseCase>();
@@ -47,8 +47,8 @@ class _LoginPageState extends State<LoginPage> {
     if (!_formKey.currentState!.validate()) return;
     _isLoading.value = true;
     try {
-      await loginUseCase(emailController.text.trim(), passwordController.text);
-      authNavigation.onAuth(authController.from);
+      final uuid = await loginUseCase(emailController.text.trim(), passwordController.text);
+      authNavigation.onLogin(emailController.text, uuid);
     } on LoginErrorHandler catch (e, s) {
       debugPrintStack(stackTrace: s);
       ScaffoldMessenger.of(context).showSnackBar(

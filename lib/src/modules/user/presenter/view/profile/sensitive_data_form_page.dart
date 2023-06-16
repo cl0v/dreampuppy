@@ -1,6 +1,5 @@
 import 'package:dreampuppy/src/modules/user/domain/profile/entities/user_sensitive_data.dart';
 import 'package:dreampuppy/src/widgets/btn_loading.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
@@ -37,13 +36,13 @@ class _UserSensitiveDataFormPageState extends State<UserSensitiveDataFormPage> {
   var phoneMaskFormatter = MaskTextInputFormatter(
     mask: '+55 (##) #####-####',
     filter: {"#": RegExp(r'[0-9]')},
-    type: MaskAutoCompletionType.lazy,
+    type: MaskAutoCompletionType.eager,
   );
 
   var cpfMaskFormatter = MaskTextInputFormatter(
     mask: '###.###.###-##',
     filter: {"#": RegExp(r'[0-9]')},
-    type: MaskAutoCompletionType.lazy,
+    type: MaskAutoCompletionType.eager,
   );
 
   late final submitUserSensitiveDataFromUsecase =
@@ -51,7 +50,7 @@ class _UserSensitiveDataFormPageState extends State<UserSensitiveDataFormPage> {
 
   onSensitiveDataFormSubmit() {
     if (_formKey.currentState!.validate()) {
-      
+
       final fullName = fullNameController.text;
       final phone = phoneMaskFormatter.getUnmaskedText();
       final cpf = cpfMaskFormatter.getUnmaskedText();
@@ -75,7 +74,7 @@ class _UserSensitiveDataFormPageState extends State<UserSensitiveDataFormPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Dados de usuário"),
+        title: const Text("Cadastro de usuário"),
         centerTitle: true,
       ),
       body: Form(

@@ -9,21 +9,6 @@ import 'package:sentry_logging/sentry_logging.dart';
 import 'dart:async';
 import 'firebase_options.dart';
 
-  //? B1 "ElevatedButton",
-  //? B2 "TextButton",
-  //? C1 "Container",
-  //? C2 "Column",
-  //? C3 "Center",
-  //? C4 "Card",
-  //? F1 "Form",
-  //? L1 "ListView",
-  //? L2 "ListTile",
-  //? P1 "Placeholder",
-  //? P2 "Padding",
-  //? R1 "Row",
-  //? S1 "SizedBox",
-  //? T1 "Text",
-  //? T2 "TextField",
   
 //TODO: Adicionar credenciais de desenvolvedor e invalidar toda e qualquer ação que pode atrapalhar o funcionamento do app.
 // Login a ser usado: (email: openAccount@dreampuppy.com.br, senha: @developer@)

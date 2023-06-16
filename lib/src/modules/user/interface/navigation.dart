@@ -5,6 +5,8 @@ enum AuthFromRoute {
 
 abstract class AuthNavigation {
   /// É chamado para decidir o que fazer após o usuário se autenticar.
-  /// Vale para login, registro e recuperação de senha.
-  onAuth(AuthFromRoute from);
+  onLogin(String email, String uuid);
+
+  /// É chamado após o user se cadastrar no Auth
+  onRegister(String email, String uuid);
 }

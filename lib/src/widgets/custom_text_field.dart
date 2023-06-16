@@ -10,8 +10,7 @@ class CustomTextFieldWidget extends StatelessWidget {
   final String label;
   final List<TextInputFormatter>? masks;
 
-  CustomTextFieldWidget(
-      {
+  CustomTextFieldWidget({
     super.key,
     this.controller,
     required this.hintText,
@@ -19,7 +18,7 @@ class CustomTextFieldWidget extends StatelessWidget {
     this.validator,
     this.label = "",
     this.padding = const EdgeInsets.symmetric(horizontal: 25.0),
-    this.masks
+    this.masks,
   });
 
   final ValueNotifier<bool> _isPasswordVisible = ValueNotifier(false);
@@ -41,7 +40,7 @@ class CustomTextFieldWidget extends StatelessWidget {
                     )
                   : null,
               controller: controller,
-              // Tabela verdade [v] representa visível e [f] representa campo senha
+              // Tabela verdade [v] representa [isPasswordVisible] e [f] representa [isPasswordField]
               // [r] representa resultado [!] representa que é impossível acontecer
               /*
                 v    f    r
@@ -50,16 +49,15 @@ class CustomTextFieldWidget extends StatelessWidget {
                 T    T    F
                 T    F    !
               */
-              obscureText: !isPasswordVisible &&
-                  isPasswordField, //vF && fT = fT | vF && fF = fF | vT && fT = tT | vT && fT = tF
+              //vF && fT = fT | vF && fF = fF | vT && fT = tT | vT && fT = tF
+              obscureText: !isPasswordVisible && isPasswordField,
               decoration: InputDecoration(
+                
                 label: Text(
                   label,
                 ),
                 labelStyle: const TextStyle(
-                  letterSpacing: 0,
-                  fontWeight: FontWeight.normal
-                ),
+                    letterSpacing: 0, fontWeight: FontWeight.normal),
                 errorText: null,
                 enabledBorder: const OutlineInputBorder(
                   borderSide: BorderSide(color: Colors.white),
@@ -67,7 +65,8 @@ class CustomTextFieldWidget extends StatelessWidget {
                 focusedBorder: OutlineInputBorder(
                   borderSide: BorderSide(color: Colors.grey.shade400),
                 ),
-                fillColor: Colors.grey.shade200,
+                // fillColor: Colors.grey.shade200,
+                fillColor: Colors.white,
                 filled: true,
                 hintText: hintText,
                 hintStyle: TextStyle(

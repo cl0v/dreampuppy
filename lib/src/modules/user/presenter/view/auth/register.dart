@@ -27,10 +27,10 @@ class _RegisterPageState extends State<RegisterPage> {
   final _formKey = GlobalKey<FormState>();
 
   final emailController = TextEditingController(
-    text: kDebugMode ? 'marcelo.viana@email.com' : null,
+    // text: kDebugMode ? 'marcelo.viana@email.com' : null,
   );
   final passwordController = TextEditingController(
-    text: kDebugMode ? 'marcelo.viana@email.com' : null,
+    // text: kDebugMode ? 'marcelo.viana@email.com' : null,
   );
 
   late final SignupUseCase signupUseCase = Modular.get<SignupUseCase>();
@@ -51,8 +51,8 @@ class _RegisterPageState extends State<RegisterPage> {
     if (!_formKey.currentState!.validate()) return;
     _isLoading.value = true;
     try {
-      await signupUseCase(emailController.text.trim(), passwordController.text);
-      return authNavigation.onAuth(authController.from);
+      final uuid = await signupUseCase(emailController.text.trim(), passwordController.text);
+      return authNavigation.onRegister(emailController.text, uuid);
     } on SignUpErrorHandler catch (e) {
       ScaffoldMessenger.of(context).clearSnackBars();
       ScaffoldMessenger.of(context).showSnackBar(

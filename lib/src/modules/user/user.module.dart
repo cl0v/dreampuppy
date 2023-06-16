@@ -22,7 +22,7 @@ import 'infra/repositories/authentication.dart';
 import 'presenter/view/profile/sensitive_data_form_page.dart';
 import 'presenter/view/profile/profile.dart';
 import 'presenter/view/credit_card/create_card.dart';
-import 'presenter/view/address/create_address.dart';
+import 'presenter/view/address/create_address_page.dart';
 import 'presenter/view/minimum_registration_view.dart';
 
 class UserModule extends Module {

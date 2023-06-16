@@ -91,3 +91,14 @@ All modules contain the same infra, domain, (...) files that i'm representing in
 ----/About
 ----/Contact
 ----/Tutorials
+
+
+
+
+
+
+Detalhes -> Carrinho (Revisão) -> Login/Cadastro ->
+$1[CreateProfile / skip] -> $2[CreateAddress / skip] -> SelectPaymentMethod -> Order -> $3[ShowPixDetails / skip] -> DoneAndReview
+
+$1 -> Pula caso o user esteja associado à um UUID.
+$2 -> Pula caso o user já possua um endereço cadastrado.

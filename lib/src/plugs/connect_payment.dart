@@ -1,7 +1,5 @@
 import 'package:flutter_modular/flutter_modular.dart';
-
 import '../modules/payment/interfaces/navigation.dart';
-import '../providers/user.dart';
 
 /// Cria a conexão entre o módulo de pets e o módulo de pagamento.
 class ConnectPaymentModuleExternalNavigation

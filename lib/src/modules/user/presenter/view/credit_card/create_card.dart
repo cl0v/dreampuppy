@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:dreampuppy/src/widgets/btn_loading.dart';
 import 'package:dreampuppy/src/widgets/clean_checkbox_tile_widget.dart';
 
+//TODO: Permitir a selecão da quantidade de parcelas.
+
 class CreateCreditCardFormPage extends StatefulWidget {
   const CreateCreditCardFormPage({super.key});
 
@@ -41,7 +43,7 @@ class _CreateCreditCardFormPageState extends State<CreateCreditCardFormPage> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text(
-              'Preencha os dados do cartão',
+              'Preencha os dados do Cartão',
               style: textTheme.bodyLarge,
             ),
             const SizedBox(
