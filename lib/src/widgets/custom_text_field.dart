@@ -9,6 +9,7 @@ class CustomTextFieldWidget extends StatelessWidget {
   final EdgeInsetsGeometry padding;
   final String label;
   final List<TextInputFormatter>? masks;
+  final TextInputType? type;
 
   CustomTextFieldWidget({
     super.key,
@@ -19,6 +20,7 @@ class CustomTextFieldWidget extends StatelessWidget {
     this.label = "",
     this.padding = const EdgeInsets.symmetric(horizontal: 25.0),
     this.masks,
+    this.type
   });
 
   final ValueNotifier<bool> _isPasswordVisible = ValueNotifier(false);
@@ -51,7 +53,9 @@ class CustomTextFieldWidget extends StatelessWidget {
               */
               //vF && fT = fT | vF && fF = fF | vT && fT = tT | vT && fT = tF
               obscureText: !isPasswordVisible && isPasswordField,
+              keyboardType: type,
               decoration: InputDecoration(
+                
                 
                 label: Text(
                   label,

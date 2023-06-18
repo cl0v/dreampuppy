@@ -8,7 +8,7 @@ class AuthRepositoryImpl implements AuthRepository {
   AuthRepositoryImpl(this.authDataSource);
 
   @override
-  Future<String?> currentUser() => authDataSource.currentUser();
+  String? get currentUserId => authDataSource.uuid;
 
   @override
   Future<void> forgotPassword(String email) =>
@@ -32,4 +32,7 @@ class AuthRepositoryImpl implements AuthRepository {
   @override
   Future<String> fetchEmailFromPasswordRecovery(String code) =>
       authDataSource.fetchPasswordRecoverEmail(code);
+
+  @override
+  String? get currentUserEmail => authDataSource.userEmail;
 }

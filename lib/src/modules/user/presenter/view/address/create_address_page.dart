@@ -3,6 +3,7 @@ import 'package:dreampuppy/src/widgets/custom_text_field.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
+import '../../../domain/address/entities/address.dart';
 import '../../../domain/address/usecases/create_address.dart';
 
 class CreateAddressFormPage extends StatefulWidget {
@@ -22,11 +23,42 @@ class _CreateAddressFormPageState extends State<CreateAddressFormPage> {
 
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
+  final TextEditingController streetController = TextEditingController();
+  final TextEditingController numberController = TextEditingController();
+  final TextEditingController districtController = TextEditingController();
+  final TextEditingController referenceController = TextEditingController();
+  final TextEditingController cityController = TextEditingController();
+
   var cepMaskFormatter = MaskTextInputFormatter(
     mask: '#####-###',
     filter: {"#": RegExp(r'[0-9]')},
     type: MaskAutoCompletionType.eager,
   );
+
+  var ufStateMaskFormatter = MaskTextInputFormatter(
+    mask: '##',
+    filter: {"#": RegExp(r'[a-zA-Z]')},
+    type: MaskAutoCompletionType.eager,
+  );
+
+  createAddress() async {
+    if (formKey.currentState!.validate()) {
+      formKey.currentState!.save();
+      final uf = ufStateMaskFormatter.getMaskedText().toUpperCase();
+      await createAddressUsecase(
+        AddressEntity(
+          street: streetController.text,
+          num: numberController.text,
+          district: districtController.text,
+          complement: referenceController.text,
+          city: cityController.text,
+          stateUf: uf.isEmpty ? 'SN' : uf,
+          cep: cepMaskFormatter.getUnmaskedText(),
+        ),
+      );
+      widget.onSuccess!();
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -58,17 +90,8 @@ class _CreateAddressFormPageState extends State<CreateAddressFormPage> {
                   // TODO: Adicionar uma nota, avisando que o endereço é para entregar o filhote e para garantir a segurança do pagamento.
                   // TODO: Estudar se essa nota poderia ficar por aqui, seria muita leitura pro usuário, podendo ficar no contrato.
                   // TODO: Adicionar nota: "Detalhes do endereço podem ser encotrados na Clausula 7 do contrato".
-                  CustomTextFieldWidget(
-                    padding: EdgeInsets.zero,
-                    hintText: '00000-000',
-                    label: 'CEP',
-                    masks: [
-                      cepMaskFormatter,
-                    ],
-                  ),
-                  const SizedBox(
-                    height: 6,
-                  ),
+                
+                  
                   Row(
                     children: [
                       Flexible(
@@ -77,6 +100,12 @@ class _CreateAddressFormPageState extends State<CreateAddressFormPage> {
                           padding: EdgeInsets.zero,
                           hintText: 'Rua dos Pugs, Apto Dalmatas',
                           label: 'Endereço',
+                          validator: (p0) {
+                            if (p0 == null || p0.isEmpty) {
+                              return 'Campo obrigatório';
+                            }
+                            return null;
+                          },
                         ),
                       ),
                       const SizedBox(
@@ -88,6 +117,7 @@ class _CreateAddressFormPageState extends State<CreateAddressFormPage> {
                           padding: EdgeInsets.zero,
                           hintText: '101',
                           label: 'Número',
+                          type: TextInputType.number,
                         ),
                       ),
                     ],
@@ -109,6 +139,12 @@ class _CreateAddressFormPageState extends State<CreateAddressFormPage> {
                     padding: EdgeInsets.zero,
                     hintText: 'Marley',
                     label: 'Bairro',
+                    validator: (p0) {
+                      if (p0 == null || p0.isEmpty) {
+                        return 'Campo obrigatório';
+                      }
+                      return null;
+                    },
                   ),
                   const SizedBox(
                     height: 6,
@@ -121,6 +157,12 @@ class _CreateAddressFormPageState extends State<CreateAddressFormPage> {
                           padding: EdgeInsets.zero,
                           hintText: 'e.g. São Paulo',
                           label: 'Cidade',
+                          validator: (p0) {
+                            if (p0 == null || p0.isEmpty) {
+                              return 'Campo obrigatório';
+                            }
+                            return null;
+                          },
                         ),
                       ),
                       const SizedBox(
@@ -132,8 +174,35 @@ class _CreateAddressFormPageState extends State<CreateAddressFormPage> {
                           padding: EdgeInsets.zero,
                           hintText: 'SP',
                           label: 'UF',
+                          validator: (p0) {
+                            if (p0 == null || p0.isEmpty) {
+                              return 'Campo obrigatório';
+                            }
+                            return null;
+                          },
+                          masks: [
+                            ufStateMaskFormatter,
+                          ],
                         ),
                       ),
+                    ],
+                  ),
+                  const SizedBox(
+                    height: 6,
+                  ),
+                    CustomTextFieldWidget(
+                    padding: EdgeInsets.zero,
+                    type: TextInputType.number,
+                    hintText: '00000-000',
+                    label: 'CEP',
+                    validator: (p0) {
+                      if (p0 == null || p0.isEmpty || p0.length < 9) {
+                        return 'Campo obrigatório';
+                      }
+                      return null;
+                    },
+                    masks: [
+                      cepMaskFormatter,
                     ],
                   ),
                   const SizedBox(
@@ -144,7 +213,7 @@ class _CreateAddressFormPageState extends State<CreateAddressFormPage> {
                     height: 26,
                   ),
                   BtnLoading(
-                    onPressed: () {},
+                    onPressed: createAddress,
                     label: 'Cadastrar e continuar',
                     margin: EdgeInsets.zero,
                   ),

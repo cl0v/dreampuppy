@@ -1,5 +1,7 @@
 import 'package:dreampuppy/src/modules/user/domain/profile/entities/user_sensitive_data.dart';
+import 'package:dreampuppy/src/modules/user/presenter/validator/cpf_field_validator.dart';
 import 'package:dreampuppy/src/widgets/btn_loading.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
@@ -22,8 +24,8 @@ class UserSensitiveDataFormPage extends StatefulWidget {
 
 class _UserSensitiveDataFormPageState extends State<UserSensitiveDataFormPage> {
   final TextEditingController fullNameController = TextEditingController(
-      // text: kDebugMode ? "Maria do Carmo" : null,
-      );
+    text: kDebugMode ? "Marcelo Fernandes Viana" : null,
+  );
   // final TextEditingController phoneController = TextEditingController(
   //     // text: kDebugMode ? "+55 (33) 99852-5199" : null,
   //     );
@@ -34,7 +36,7 @@ class _UserSensitiveDataFormPageState extends State<UserSensitiveDataFormPage> {
   final _formKey = GlobalKey<FormState>();
 
   var phoneMaskFormatter = MaskTextInputFormatter(
-    mask: '+55 (##) #####-####',
+    mask: '+55 (##) 9####-####',
     filter: {"#": RegExp(r'[0-9]')},
     type: MaskAutoCompletionType.eager,
   );
@@ -47,14 +49,14 @@ class _UserSensitiveDataFormPageState extends State<UserSensitiveDataFormPage> {
 
   late final submitUserSensitiveDataFromUsecase =
       Modular.get<SubmitUserSensitiveDataFormUsecase>();
+  late final cpfValidador = Modular.get<CPFFieldValidator>();
 
   onSensitiveDataFormSubmit() {
     if (_formKey.currentState!.validate()) {
-
       final fullName = fullNameController.text;
       final phone = phoneMaskFormatter.getUnmaskedText();
       final cpf = cpfMaskFormatter.getUnmaskedText();
-    
+
       submitUserSensitiveDataFromUsecase(
         UserSensitiveDataEntity(
           name: fullName,
@@ -100,7 +102,7 @@ class _UserSensitiveDataFormPageState extends State<UserSensitiveDataFormPage> {
             const SizedBox(height: 8),
             CustomTextFieldWidget(
               label: "Telefone | WhatsApp",
-              hintText: "e.g (33) 99999-9999",
+              hintText: "e.g (11) 90000-0000",
               // controller: phoneController,
               masks: [phoneMaskFormatter],
               validator: (s) {
@@ -118,12 +120,7 @@ class _UserSensitiveDataFormPageState extends State<UserSensitiveDataFormPage> {
               masks: [cpfMaskFormatter],
               hintText: "e.g 000.000.000-00",
               // controller: cpfController,
-              validator: (s) {
-                if (s == null || s.isEmpty || s.length < 11) {
-                  return "Campo obrigatório";
-                }
-                return null;
-              },
+              validator: cpfValidador.call,
             ),
             const SizedBox(
               height: 28,

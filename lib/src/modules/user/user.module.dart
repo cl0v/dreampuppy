@@ -1,6 +1,7 @@
 import 'package:dreampuppy/src/modules/help/domain/usecases/about.dart';
 import 'package:dreampuppy/src/modules/user/domain/auth/usecases/login.dart';
 import 'package:dreampuppy/src/modules/user/external/datasources/firestore_user.dart';
+import 'package:dreampuppy/src/modules/user/presenter/validator/cpf_field_validator.dart';
 import 'package:dreampuppy/src/modules/user/presenter/view/auth/register.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_modular/flutter_modular.dart';
@@ -59,6 +60,9 @@ class UserModule extends Module {
         Bind.factory<OpenAboutUseCase>(
           (i) => OpenAboutUseCaseImpl(),
         ),
+        // FieldsValidators
+        Bind.factory<CPFFieldValidator>((i) => CPFFieldValidatorImpl()),
+        // EndValidators
         // END rofile
       ];
 

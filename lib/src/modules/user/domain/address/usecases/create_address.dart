@@ -1,17 +1,16 @@
+import 'package:dreampuppy/src/modules/user/domain/address/entities/address.dart';
+
 import '../repositories/address_repository.dart';
 
 abstract class CreateAddressUsecase {
-  call();
+  Future call(AddressEntity address);
 }
 
 class CreateAddressUsecaseI implements CreateAddressUsecase {
   final IAddressRepository repository;
 
   CreateAddressUsecaseI(this.repository);
-  
+
   @override
-  call() {
-    // TODO: implement call
-    throw UnimplementedError();
-  }
+  Future call(AddressEntity address) => repository.create(address);
 }

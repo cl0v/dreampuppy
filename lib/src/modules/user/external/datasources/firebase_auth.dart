@@ -12,8 +12,13 @@ class FirebaseAuthDataSourceImpl implements AuthDataSource {
 
   FirebaseAuthDataSourceImpl(this.auth);
 
+  String? _email;
+
   @override
-  Future<String?> currentUser() => Future.value(auth.currentUser?.uid);
+  String? get userEmail => _email;
+
+  @override
+  String? get uuid => auth.currentUser?.uid;
 
   @override
   Future<String> login(String email, String password) async {
@@ -22,6 +27,7 @@ class FirebaseAuthDataSourceImpl implements AuthDataSource {
         email: email,
         password: password,
       );
+      _email = email;
       return u.user!.uid;
     } on FirebaseAuthException catch (e) {
       throw LoginErrorHandler(e.code);
@@ -35,6 +41,7 @@ class FirebaseAuthDataSourceImpl implements AuthDataSource {
         email: email,
         password: password,
       );
+      _email = email;
       return u.user!.uid;
     } on FirebaseAuthException catch (e) {
       throw SignUpErrorHandler(e.code);
@@ -43,7 +50,6 @@ class FirebaseAuthDataSourceImpl implements AuthDataSource {
 
   @override
   Future<void> logout() => auth.signOut();
-
 
   @override
   //TODO: Implementar todas as possíveis exceções

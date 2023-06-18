@@ -18,10 +18,10 @@ class SubmitUserSensitiveDataFormUsecaseI
 
   @override
   call(UserSensitiveDataEntity entity) async {
-    final uuid = await _authRepository.currentUser();
-    if (uuid == null) {
+    if (_authRepository.currentUserId == null) {
       throw Exception("Usuário não autenticado");
     }
-    await userRepository.create(uuid, entity);
+    entity.email = _authRepository.currentUserEmail!;
+    await userRepository.create(entity);
   }
 }

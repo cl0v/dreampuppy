@@ -18,5 +18,8 @@ abstract class AuthRepository {
   Future<void> logout();
 
   /// Returns a [Future] that resolves to a [String] containing the user's token. [null] if the user is not logged in.
-  Future<String?> currentUser();
+  String? get currentUserId;
+
+  /// Returns a [Future] that resolves to a [String] containing the user's email. [null] if the user is not logged in.
+  String? get currentUserEmail;
 }

@@ -1,8 +1,6 @@
 import 'package:dreampuppy/src/modules/user/interface/navigation.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
-import '../modules/user/presenter/controller/auth/auth_controller.dart';
-
 class ConnectUserAuthNavigation implements AuthNavigation {
   @override
   onLogin(String email, String uuid) {

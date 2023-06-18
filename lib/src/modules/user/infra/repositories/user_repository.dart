@@ -3,7 +3,7 @@ import 'package:dreampuppy/src/modules/user/infra/datasources/user_datasource.da
 import '../../domain/profile/entities/user_sensitive_data.dart';
 
 abstract class IUserRepository {
-  Future<void> create(String uuid, UserSensitiveDataEntity entity);
+  Future<void> create(UserSensitiveDataEntity entity);
 }
 
 class UserRepositoryI implements IUserRepository {
@@ -12,7 +12,7 @@ class UserRepositoryI implements IUserRepository {
   UserRepositoryI(this._dataSource);
 
   @override
-  Future<void> create(String uuid, UserSensitiveDataEntity entity) {
-    return _dataSource.create(uuid, entity);
+  Future<void> create(UserSensitiveDataEntity entity) {
+    return _dataSource.create(entity);
   }
 }

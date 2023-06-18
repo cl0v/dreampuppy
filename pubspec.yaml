@@ -32,6 +32,7 @@ dependencies:
   awesome_dialog: ^3.0.2
   cached_network_image: ^3.2.3
   cloud_firestore: ^4.8.0
+  cpf_cnpj_validator: ^2.0.0
   credit_card_validator: ^2.1.0
   cupertino_icons: ^1.0.2
   device_info_plus: ^9.0.1

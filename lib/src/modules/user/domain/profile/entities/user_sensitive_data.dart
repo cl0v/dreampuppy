@@ -4,6 +4,7 @@ part 'user_sensitive_data.g.dart';
 
 @JsonSerializable()
 class UserSensitiveDataEntity {
+  late String email;
   final String name;
   final String phone;
   final String cpf;

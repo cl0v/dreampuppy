@@ -1,5 +1,5 @@
 import '../entities/address.dart';
 
 abstract class IAddressRepository {
-  create(AddressEntity address);
+  Future create(AddressEntity address);
 }
