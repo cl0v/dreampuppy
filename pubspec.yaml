@@ -31,13 +31,13 @@ dependencies:
   algolia: ^1.1.2
   awesome_dialog: ^3.0.2
   cached_network_image: ^3.2.3
-  cloud_firestore: ^4.8.0
+  cloud_firestore: ^4.8.1
   cpf_cnpj_validator: ^2.0.0
   credit_card_validator: ^2.1.0
   cupertino_icons: ^1.0.2
   device_info_plus: ^9.0.1
-  firebase_auth: ^4.6.2
-  firebase_core: ^2.13.0
+  firebase_auth: ^4.6.3
+  firebase_core: ^2.14.0
   firebase_ui_auth: ^1.4.2
   flutter:
     sdk: flutter
@@ -72,6 +72,8 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
   json_serializable: ^6.6.2
+  modular_test: ^2.0.0
+  patrol: ^1.1.4
 
 flutter_launcher_icons:
   android: "launcher_icon"

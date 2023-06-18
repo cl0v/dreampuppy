@@ -35,9 +35,9 @@ class AppModule extends Module {
         // if (kDebugMode)
         //   ChildRoute('/',
         //       child: (context, args) => const PaymentUserRequirementsPage()),
-        ChildRoute('/', child: (context, args) => const BreedListPage()),
         if (kDebugMode)
           ChildRoute('/', child: (context, args) => const FirstPage()),
+        ChildRoute('/', child: (context, args) => const BreedListPage()),
         // ChildRoute('/', child: (context, args) => const CreditCardCreateFormPage()),
         ModuleRoute('/breeds', module: BreedsModule()),
         ModuleRoute('/pets', module: PetsModule()),

@@ -190,11 +190,12 @@ class _BreedListPageState extends State<BreedListPage> {
                       ...cards
                           .map<Widget>(
                             (e) => BreedCardWidget(
+                              key: const Key('breedcard'),
                               card: e,
                             ),
                           )
                           .toList()
-                        ..add(const BreedsSurveyCardWidget()),
+                        ..add(const BreedsSurveyCardWidget( key: const Key('breedsurveycard'),)),
                     ]),
               ),
             ),

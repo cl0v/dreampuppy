@@ -26,7 +26,6 @@ class _AppState extends State<App> {
     return  MaterialApp.router(
         debugShowCheckedModeBanner: false,
         title: 'DreamPuppy - Galeria de filhotes',
-        themeMode: ThemeMode.dark,
         theme: defaultTheme,
         routeInformationParser: Modular.routeInformationParser,
         routerDelegate: Modular.routerDelegate,
