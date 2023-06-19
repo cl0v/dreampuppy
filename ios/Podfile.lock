@@ -66,6 +66,9 @@ PODS:
   - Flutter (1.0.0)
   - flutter_statusbarcolor_ns (0.0.1):
     - Flutter
+  - flutter_uxcam (2.4.1):
+    - Flutter
+    - UXCam (~> 3.6.2)
   - fluttertoast (0.0.2):
     - Flutter
     - Toast
@@ -260,6 +263,7 @@ PODS:
   - Toast (4.0.0)
   - url_launcher_ios (0.0.1):
     - Flutter
+  - UXCam (3.6.3)
   - webview_flutter_wkwebview (0.0.1):
     - Flutter
 
@@ -273,6 +277,7 @@ DEPENDENCIES:
   - FirebaseFirestore (from `https://github.com/invertase/firestore-ios-sdk-frameworks.git`, tag `10.10.0`)
   - Flutter (from `Flutter`)
   - flutter_statusbarcolor_ns (from `.symlinks/plugins/flutter_statusbarcolor_ns/ios`)
+  - flutter_uxcam (from `.symlinks/plugins/flutter_uxcam/ios`)
   - fluttertoast (from `.symlinks/plugins/fluttertoast/ios`)
   - integration_test (from `.symlinks/plugins/integration_test/ios`)
   - package_info_plus (from `.symlinks/plugins/package_info_plus/ios`)
@@ -325,6 +330,7 @@ SPEC REPOS:
     - SwiftNIOTransportServices
     - SwiftProtobuf
     - Toast
+    - UXCam
 
 EXTERNAL SOURCES:
   cloud_firestore:
@@ -346,6 +352,8 @@ EXTERNAL SOURCES:
     :path: Flutter
   flutter_statusbarcolor_ns:
     :path: ".symlinks/plugins/flutter_statusbarcolor_ns/ios"
+  flutter_uxcam:
+    :path: ".symlinks/plugins/flutter_uxcam/ios"
   fluttertoast:
     :path: ".symlinks/plugins/fluttertoast/ios"
   integration_test:
@@ -397,6 +405,7 @@ SPEC CHECKSUMS:
   FirebaseFirestore: b4b875bbcf4c2f7edac19064e5fc31bf814e963e
   Flutter: f04841e97a9d0b0a8025694d0796dd46242b2854
   flutter_statusbarcolor_ns: 68a360889d88d7915ae524e422aeab62e4063804
+  flutter_uxcam: fb2c4e69750fea755ec3897bc15608369d91ecf3
   fluttertoast: fafc4fa4d01a6a9e4f772ecd190ffa525e9e2d9c
   FMDB: 2ce00b547f966261cd18927a3ddb07cb6f3db82a
   GoogleUtilities: 9aa0ad5a7bc171f8bae016300bfcfa3fb8425749
@@ -430,6 +439,7 @@ SPEC CHECKSUMS:
   SwiftProtobuf: 40bd808372cb8706108f22d28f8ab4a6b9bc6989
   Toast: 91b396c56ee72a5790816f40d3a94dd357abc196
   url_launcher_ios: 08a3dfac5fb39e8759aeb0abbd5d9480f30fc8b4
+  UXCam: 5c8bf404e3ad81161d543c18803646f56f82db45
   webview_flutter_wkwebview: 2e2d318f21a5e036e2c3f26171342e95908bd60a
 
 PODFILE CHECKSUM: 1cae6b6a88b676ebde03ec72aa9d07f858715c7f

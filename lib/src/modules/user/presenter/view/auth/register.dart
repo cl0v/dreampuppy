@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:flutter_uxcam/flutter_uxcam.dart';
 
 import '../../../../../widgets/btn_loading.dart';
 import '../../../../../widgets/custom_text_field.dart';
@@ -106,35 +107,39 @@ class _RegisterPageState extends State<RegisterPage> {
                   const SizedBox(height: 25),
 
                   // username textfield
-                  CustomTextFieldWidget(
-                    controller: emailController,
-                    hintText: 'Seu melhor E-mail',
-                    label: 'E-mail',
-                    validator: (value) {
-                      if (value == null) {
-                        print("Valor é nulo, investigar essa situação");
-                      }
-                      if (value!.isEmpty) {
-                        return 'Digite um email válido';
-                      }
-                      return null;
-                    },
+                  OccludeWrapper(
+                    child: CustomTextFieldWidget(
+                      controller: emailController,
+                      hintText: 'Seu melhor E-mail',
+                      label: 'E-mail',
+                      validator: (value) {
+                        if (value == null) {
+                          print("Valor é nulo, investigar essa situação");
+                        }
+                        if (value!.isEmpty) {
+                          return 'Digite um email válido';
+                        }
+                        return null;
+                      },
+                    ),
                   ),
                   const SizedBox(height: 10),
-                  CustomTextFieldWidget(
-                    controller: passwordController,
-                    isPasswordField: true,
-                    label: "Senha",
-                    hintText: 'Senha de acesso',
-                    validator: (value) {
-                      if (value == null) {
-                        print("Valor é nulo, investigar essa situação");
-                      }
-                      if (value!.isEmpty) {
-                        return 'Digite uma senha válida';
-                      }
-                      return null;
-                    },
+                  OccludeWrapper(
+                    child: CustomTextFieldWidget(
+                      controller: passwordController,
+                      isPasswordField: true,
+                      label: "Senha",
+                      hintText: 'Senha de acesso',
+                      validator: (value) {
+                        if (value == null) {
+                          print("Valor é nulo, investigar essa situação");
+                        }
+                        if (value!.isEmpty) {
+                          return 'Digite uma senha válida';
+                        }
+                        return null;
+                      },
+                    ),
                   ),
 
                   const SizedBox(height: 35),

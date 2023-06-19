@@ -1,10 +1,11 @@
 import 'package:awesome_dialog/awesome_dialog.dart';
-import 'package:dreampuppy/src/modules/user/domain/auth/errors/login_handler.dart';
+import 'package:dreampuppy/src/modules/user/domain/auth/errors/login_error_handler.dart';
 import 'package:dreampuppy/src/modules/user/domain/auth/usecases/forgot_password.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:flutter_uxcam/flutter_uxcam.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import '../../../../../widgets/btn_loading.dart';
 import '../../../../../widgets/custom_text_field.dart';
@@ -19,7 +20,6 @@ class LoginPage extends StatefulWidget {
     super.key,
   });
 
-
   @override
   State<LoginPage> createState() => _LoginPageState();
 }
@@ -28,11 +28,11 @@ class _LoginPageState extends State<LoginPage> {
   final _formKey = GlobalKey<FormState>();
 
   final emailController = TextEditingController(
-    // text: kDebugMode ? 'marcelo.viana@email.com' : null,
-  );
+      // text: kDebugMode ? 'marcelo.viana@email.com' : null,
+      );
   final passwordController = TextEditingController(
-    // text: kDebugMode ? 'marcelo.viana@email.com' : null,
-  );
+      // text: kDebugMode ? 'marcelo.viana@email.com' : null,
+      );
 
   late final loginUseCase = Modular.get<SignInWithEmailAndPasswordUseCase>();
   late final forgotPasswordUseCase = Modular.get<ForgotPasswordUseCase>();
@@ -47,7 +47,8 @@ class _LoginPageState extends State<LoginPage> {
     if (!_formKey.currentState!.validate()) return;
     _isLoading.value = true;
     try {
-      final uuid = await loginUseCase(emailController.text.trim(), passwordController.text);
+      final uuid = await loginUseCase(
+          emailController.text.trim(), passwordController.text);
       authNavigation.onLogin(emailController.text, uuid);
     } on LoginErrorHandler catch (e, s) {
       debugPrintStack(stackTrace: s);
@@ -126,39 +127,45 @@ class _LoginPageState extends State<LoginPage> {
                   const SizedBox(height: 25),
 
                   // username textfield
-                  CustomTextFieldWidget(
-                    controller: emailController,
-                    hintText: 'E-mail',
-                    label: "E-mail",
-                    isPasswordField: false,
-                    validator: (value) {
-                      if (value == null) {
-                        print("Valor é nulo, investigar essa situação");
-                      }
-                      if (value!.isEmpty) {
-                        return 'Digite um email válido';
-                      }
-                      return null;
-                    },
+                  OccludeWrapper(
+                    child: CustomTextFieldWidget(
+                      key: const Key('email'),
+                      controller: emailController,
+                      hintText: 'E-mail',
+                      label: "E-mail",
+                      isPasswordField: false,
+                      validator: (value) {
+                        if (value == null) {
+                          print("Valor é nulo, investigar essa situação");
+                        }
+                        if (value!.isEmpty) {
+                          return 'Digite um email válido';
+                        }
+                        return null;
+                      },
+                    ),
                   ),
 
                   const SizedBox(height: 10),
 
                   // password textfield
-                  CustomTextFieldWidget(
-                    controller: passwordController,
-                    hintText: 'Senha',
-                    label: "Senha",
-                    isPasswordField: true,
-                    validator: (value) {
-                      if (value == null) {
-                        print("Valor é nulo, investigar essa situação");
-                      }
-                      if (value!.isEmpty) {
-                        return 'Digite uma senha válida';
-                      }
-                      return null;
-                    },
+                  OccludeWrapper(
+                    child: CustomTextFieldWidget(
+                      key: const Key('password'),
+                      controller: passwordController,
+                      hintText: 'Senha',
+                      label: "Senha",
+                      isPasswordField: true,
+                      validator: (value) {
+                        if (value == null) {
+                          print("Valor é nulo, investigar essa situação");
+                        }
+                        if (value!.isEmpty) {
+                          return 'Digite uma senha válida';
+                        }
+                        return null;
+                      },
+                    ),
                   ),
 
                   const SizedBox(height: 10),
@@ -171,6 +178,7 @@ class _LoginPageState extends State<LoginPage> {
                       children: [
                         //TODO: Implementar esqueci minha senha
                         GestureDetector(
+                          key: const Key('btnForgotPassword'),
                           onTap: onForgotPassword,
                           child: Text(
                             'Esqueceu a senha?',
@@ -185,6 +193,7 @@ class _LoginPageState extends State<LoginPage> {
 
                   // sign in button
                   BtnLoading(
+                    key: const Key('btnLogin'),
                     onPressed: login,
                     label: 'Entrar',
                   ),
@@ -249,6 +258,7 @@ class _LoginPageState extends State<LoginPage> {
                         style: TextStyle(color: Colors.grey[700]),
                       ),
                       CupertinoButton(
+                        key: Key('btnRegister'),
                         padding: const EdgeInsets.symmetric(horizontal: 4),
                         onPressed: () async {
                           try {

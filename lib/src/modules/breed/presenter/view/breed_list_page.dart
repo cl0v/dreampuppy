@@ -195,7 +195,9 @@ class _BreedListPageState extends State<BreedListPage> {
                             ),
                           )
                           .toList()
-                        ..add(const BreedsSurveyCardWidget( key: const Key('breedsurveycard'),)),
+                        ..add(const BreedsSurveyCardWidget(
+                          key: Key('breedsurveycard'),
+                        )),
                     ]),
               ),
             ),

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 
 import 'package:dreampuppy/src/widgets/btn_loading.dart';
 import 'package:dreampuppy/src/widgets/clean_checkbox_tile_widget.dart';
+import 'package:flutter_uxcam/flutter_uxcam.dart';
 
 //TODO: Permitir a selecão da quantidade de parcelas.
 
@@ -49,12 +50,14 @@ class _CreateCreditCardFormPageState extends State<CreateCreditCardFormPage> {
             const SizedBox(
               height: 32,
             ),
-            _CardFormWidget(
-              formKey: formKey,
-              tName: tName,
-              tNum: tNum,
-              tDate: tDate,
-              tCVV: tCVV,
+            OccludeWrapper(
+              child: _CardFormWidget(
+                formKey: formKey,
+                tName: tName,
+                tNum: tNum,
+                tDate: tDate,
+                tCVV: tCVV,
+              ),
             ),
             const SizedBox(
               height: 16,

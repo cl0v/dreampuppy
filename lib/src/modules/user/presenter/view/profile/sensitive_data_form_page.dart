@@ -4,6 +4,7 @@ import 'package:dreampuppy/src/widgets/btn_loading.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:flutter_uxcam/flutter_uxcam.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 import '../../../../../widgets/custom_text_field.dart';
 import '../../../domain/profile/usecases/submit_user_sensitive_data_form.dart';
@@ -85,42 +86,48 @@ class _UserSensitiveDataFormPageState extends State<UserSensitiveDataFormPage> {
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            CustomTextFieldWidget(
-              label: "Nome completo",
-              controller: fullNameController,
-              hintText: 'Seu nome completo',
-              validator: (value) {
-                if (value == null) {
-                  print("Valor é nulo, investigar essa situação");
-                }
-                if (value!.isEmpty) {
-                  return 'Digite um nome válido';
-                }
-                return null;
-              },
+            OccludeWrapper(
+              child: CustomTextFieldWidget(
+                label: "Nome completo",
+                controller: fullNameController,
+                hintText: 'Seu nome completo',
+                validator: (value) {
+                  if (value == null) {
+                    print("Valor é nulo, investigar essa situação");
+                  }
+                  if (value!.isEmpty) {
+                    return 'Digite um nome válido';
+                  }
+                  return null;
+                },
+              ),
             ),
             const SizedBox(height: 8),
-            CustomTextFieldWidget(
-              label: "Telefone | WhatsApp",
-              hintText: "e.g (11) 90000-0000",
-              // controller: phoneController,
-              masks: [phoneMaskFormatter],
-              validator: (s) {
-                if (s == null || s.isEmpty || s.length < 9) {
-                  return "Campo obrigatório";
-                }
-                return null;
-              },
+            OccludeWrapper(
+              child: CustomTextFieldWidget(
+                label: "Telefone | WhatsApp",
+                hintText: "e.g (11) 90000-0000",
+                // controller: phoneController,
+                masks: [phoneMaskFormatter],
+                validator: (s) {
+                  if (s == null || s.isEmpty || s.length < 9) {
+                    return "Campo obrigatório";
+                  }
+                  return null;
+                },
+              ),
             ),
             const SizedBox(
               height: 8,
             ),
-            CustomTextFieldWidget(
-              label: "CPF",
-              masks: [cpfMaskFormatter],
-              hintText: "e.g 000.000.000-00",
-              // controller: cpfController,
-              validator: cpfValidador.call,
+            OccludeWrapper(
+              child: CustomTextFieldWidget(
+                label: "CPF",
+                masks: [cpfMaskFormatter],
+                hintText: "e.g 000.000.000-00",
+                // controller: cpfController,
+                validator: cpfValidador.call,
+              ),
             ),
             const SizedBox(
               height: 28,

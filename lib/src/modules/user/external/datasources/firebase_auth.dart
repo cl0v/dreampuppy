@@ -1,7 +1,7 @@
 import 'package:dreampuppy/src/modules/user/infra/datasources/auth_datasource.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
-import '../../domain/auth/errors/login_handler.dart';
+import '../../domain/auth/errors/login_error_handler.dart';
 import '../../domain/auth/errors/signup_handler.dart';
 
 /// Todas as responsabilidade do firebaseAuth estão encapsuladas no Auth

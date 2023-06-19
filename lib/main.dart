@@ -8,8 +8,8 @@ import 'package:sentry_flutter/sentry_flutter.dart';
 import 'package:sentry_logging/sentry_logging.dart';
 import 'dart:async';
 import 'firebase_options.dart';
+import 'package:flutter_uxcam/flutter_uxcam.dart';
 
-  
 //TODO: Adicionar credenciais de desenvolvedor e invalidar toda e qualquer ação que pode atrapalhar o funcionamento do app.
 // Login a ser usado: (email: openAccount@dreampuppy.com.br, senha: @developer@)
 
@@ -28,6 +28,13 @@ void main() async {
       },
       appRunner: () async {
         WidgetsFlutterBinding.ensureInitialized();
+        FlutterUxcam
+            .optIntoSchematicRecordings(); // Confirm that you have user permission for screen recording
+        FlutterUxConfig config = FlutterUxConfig(
+          userAppKey: "piiwng1ux20g3sh", //TODO: Solicitar ao UXCAM uma 
+          enableAutomaticScreenNameTagging: false,
+        );
+        FlutterUxcam.startWithConfiguration(config);
 
         await Firebase.initializeApp(
           options: DefaultFirebaseOptions.currentPlatform,
