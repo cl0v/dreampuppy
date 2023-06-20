@@ -73,6 +73,8 @@ class Pet {
   /// Será usado também para dar mais detalhes no card de revisão do pedido.
   List<String> specialCharacteristics = [];
 
+  bool chip;
+
   Pet({
     required this.id,
     required this.coverImgUrl,
@@ -87,6 +89,7 @@ class Pet {
     required this.birthDate,
     this.minLifeSpan = 60,
     this.vaccineRecord,
+    this.chip = false,
     this.gender = PetGender.female,
   });
 

@@ -274,6 +274,27 @@ class _PetDetailsPageState extends State<PetDetailsPage> {
                               BirthRowWidget(
                                 icon: Tooltip(
                                   preferBelow: false,
+                                  message: 'Microchip incluso',
+                                  child: SizedBox(
+                                    height: 24,
+                                    child:  Image.asset(
+                                        "assets/images/icons/cpu.png",
+                                      color: Colors.green.shade500,
+                                    ),
+                                    //  Image.asset(
+                                    //   "assets/images/icons/drug_medecine_syringue_icon.png",
+                                    //   color: Colors.red.shade300,
+                                    // )
+                                  ),
+                                ),
+                                child: Text('Microchip: ${pet.chip ? '': 'Não'} incluso'),
+                              ),
+                              const SizedBox(
+                                height: 4,
+                              ),
+                              BirthRowWidget(
+                                icon: Tooltip(
+                                  preferBelow: false,
                                   message: 'Genética | Linhagem',
                                   child: SizedBox(
                                       height: 24,

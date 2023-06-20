@@ -11,6 +11,6 @@ class FormatLastUpdateUsecaseI implements FormatLastUpdateUsecase {
     } else {
       diff = DateTime.now().difference(date);
     }
-    return 'Atualizado há ${diff.inDays} dias';
+    return 'Atualizado: Há ${diff.inDays} dias';
   }
 }

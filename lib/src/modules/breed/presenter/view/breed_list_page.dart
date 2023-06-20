@@ -177,8 +177,9 @@ class _BreedListPageState extends State<BreedListPage> {
             Expanded(
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 10.0),
-                child: GridView(
+                child: GridView.builder(
                     padding: const EdgeInsets.symmetric(vertical: 6),
+                    semanticChildCount: cards.length,
                     gridDelegate:
                         const SliverGridDelegateWithFixedCrossAxisCount(
                       crossAxisCount: 2,
@@ -186,23 +187,24 @@ class _BreedListPageState extends State<BreedListPage> {
                       childAspectRatio: 0.8,
                       mainAxisSpacing: 6,
                     ),
-                    children: [
-                      ...cards
-                          .map<Widget>(
-                            (e) => BreedCardWidget(
-                              key: const Key('breedcard'),
-                              card: e,
-                            ),
-                          )
-                          .toList()
-                        ..add(const BreedsSurveyCardWidget(
+                    itemCount: cards.length + 1,
+                    itemBuilder: (context, index) {
+                      if (index == cards.length) {
+                        return const BreedsSurveyCardWidget(
                           key: Key('breedsurveycard'),
-                        )),
-                    ]),
+                        );
+                      }
+                      cards.sort((a,b)=> a.breed.compareTo(b.breed));
+                      final card = cards[index];
+                      return BreedCardWidget(
+                        key: const Key('breedcard'),
+                        card: card,
+                      );
+                    }),
               ),
+              // const Divider(),
+              // const PageBottomWithInfos(),
             ),
-            // const Divider(),
-            // const PageBottomWithInfos(),
           ],
         ),
       ),

@@ -24,7 +24,7 @@ class FormatBirthDateUsecaseI implements FormatBirthDateUsecase {
     final hourS = _put0OnTime(date.hour.toString());
     final minuteS = _put0OnTime(date.minute.toString());
 
-    return '$dayS $monthS as $hourS:$minuteS';
+    return 'Nascimento: $dayS $monthS as $hourS:$minuteS';
   }
 
   String _put0OnTime(String time) {
