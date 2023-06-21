@@ -7,6 +7,7 @@ class AlogliaGalleryDatasourceI implements IGalleryDatasource {
 
   AlogliaGalleryDatasourceI(this.algolia);
 
+  @override
   Future<List<GalleryEntity>> populateGallery() async {
     print("TODO: Implementar o populate da galeria");
 

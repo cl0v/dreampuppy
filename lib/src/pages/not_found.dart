@@ -15,7 +15,7 @@ class _NotFound404PageState extends State<NotFound404Page> {
         title: const Text("404"),
         centerTitle: true,
       ),
-      body: Center(
+      body: const Center(
         child: Text("404"),
       ),
     );

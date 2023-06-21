@@ -3,7 +3,6 @@ import 'package:dreampuppy/src/modules/user/presenter/view/auth/login.dart';
 import 'package:dreampuppy/src/modules/user/user.module.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_auth_mocks/firebase_auth_mocks.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:flutter_test/flutter_test.dart';

@@ -2,7 +2,6 @@ import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:dreampuppy/src/modules/user/domain/auth/errors/login_error_handler.dart';
 import 'package:dreampuppy/src/modules/user/domain/auth/usecases/forgot_password.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:flutter_uxcam/flutter_uxcam.dart';
@@ -258,7 +257,7 @@ class _LoginPageState extends State<LoginPage> {
                         style: TextStyle(color: Colors.grey[700]),
                       ),
                       CupertinoButton(
-                        key: Key('btnRegister'),
+                        key: const Key('btnRegister'),
                         padding: const EdgeInsets.symmetric(horizontal: 4),
                         onPressed: () async {
                           try {

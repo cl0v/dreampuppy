@@ -3,7 +3,6 @@ import 'dart:async';
 import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:dreampuppy/src/modules/payment/domain/done/usecases/comments.dart';
 import 'package:dreampuppy/src/modules/payment/domain/done/usecases/request_contact.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';

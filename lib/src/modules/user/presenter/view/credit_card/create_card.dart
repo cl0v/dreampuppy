@@ -83,7 +83,7 @@ class _CreateCreditCardFormPageState extends State<CreateCreditCardFormPage> {
             ),
 
             //TODO: Replace by flat button
-            BtnLoading(onPressed: null, label: "Cadastrar cartão"),
+            const BtnLoading(onPressed: null, label: "Cadastrar cartão"),
           ],
         ),
       ),

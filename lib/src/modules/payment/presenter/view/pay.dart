@@ -42,16 +42,16 @@ class _PaymentPayPageState extends State<PaymentPayPage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: <Widget>[
-            Column(
+            const Column(
               children: [
                 Card(
                   child: ListTile(
                     title: Text("Praça Paris, 01, Centro, Rio de Janeiro - RJ"),
-                    subtitle: const Text("Toque para alterar o endereço"),
-                    leading: const Icon(Icons.location_on),
+                    subtitle: Text("Toque para alterar o endereço"),
+                    leading: Icon(Icons.location_on),
                   ),
                 ),
-                const SizedBox(
+                SizedBox(
                   height: 8,
                 ),
                 Card(
@@ -59,8 +59,8 @@ class _PaymentPayPageState extends State<PaymentPayPage> {
                     title: Text(
                         "Cartão de crédito (x1)"), // Pix Ou Cartão de crédito (x12)
                     subtitle:
-                        const Text("Toque para alterar a forma de pagamento"),
-                    leading: const Icon(Icons.payment_outlined),
+                        Text("Toque para alterar a forma de pagamento"),
+                    leading: Icon(Icons.payment_outlined),
                   ),
                 ),
               ],
