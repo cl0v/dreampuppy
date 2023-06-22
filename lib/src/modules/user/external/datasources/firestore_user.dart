@@ -13,7 +13,7 @@ class FirestoreUserDataSourceI implements IUserDataSource {
   String? userId;
   
   CollectionReference<Map<String, dynamic>> get collection =>
-      firestore.getCollection('/user');
+      firestore.getCollection('user');
 
   @override
   Future<void> create(UserSensitiveDataEntity data) async {
