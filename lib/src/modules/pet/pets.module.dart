@@ -29,9 +29,12 @@ class PetsModule extends Module {
       (i) => AlgoliaApplication(),
     ),
     Bind.factory<IGalleryDatasource>(
-      (i) => kDebugMode
-          ? MockedGalleryDatasourceI()
-          : AlogliaGalleryDatasourceI(i()),
+      (i) {
+        if (kDebugMode || kProfileMode) {
+          return MockedGalleryDatasourceI();
+        }
+        return AlogliaGalleryDatasourceI(i());
+      },
     ),
     Bind.factory<IGalleryRepository>(
       (i) => GalleryRepositoryI(i()),
@@ -72,7 +75,7 @@ class PetsModule extends Module {
     Bind.factory<FormatGeneticsUsecase>(
       (i) => FormatGeneticsUsecaseI(),
     ),
-     Bind.factory<FetchPetBloc>(
+    Bind.factory<FetchPetBloc>(
       (i) => FetchPetBloc(),
     ),
   ];

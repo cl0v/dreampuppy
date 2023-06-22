@@ -20,5 +20,6 @@ extension FirestorePrefix on FirebaseFirestore {
 }
 
 extension AlgoliaPrefix on Algolia {
-  getCollection(String collectionName) => index('$prefix$collectionName');
+  AlgoliaIndexReference getCollection(String collectionName) =>
+      index('$prefix$collectionName');
 }

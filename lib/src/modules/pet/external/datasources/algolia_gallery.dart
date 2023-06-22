@@ -1,17 +1,19 @@
 import 'package:algolia/algolia.dart';
+import 'package:dreampuppy/src/utils/collections_prefix.dart';
 import '../../domain/gallery/entities/gallery.dart';
 import '../../infra/datasources/gallery_datasource.dart';
 
 class AlogliaGalleryDatasourceI implements IGalleryDatasource {
-  final Algolia algolia;
-
   AlogliaGalleryDatasourceI(this.algolia);
+
+  final Algolia algolia;
 
   @override
   Future<List<GalleryEntity>> populateGallery() async {
+    final query = algolia.getCollection('pets');
+
     print("TODO: Implementar o populate da galeria");
 
-    // final query = algolia.instance.index('pets');
     // final result = await query.getObjects();
     // final pets = result.hits.map((e) => Pet.fromJson(e.data)).toList();
     return [];
@@ -19,18 +21,6 @@ class AlogliaGalleryDatasourceI implements IGalleryDatasource {
 }
 
 class MockedGalleryDatasourceI implements IGalleryDatasource {
-  @override
-  Future<List<GalleryEntity>> populateGallery() async {
-    return List.generate(
-      randomImages.length,
-      (i) => GalleryEntity(
-        id: randomImages[i],
-        petId: 'xyz',
-        imgUrl: randomImages[i],
-      ),
-    );
-  }
-
   final randomImages = {
     ...[
       "https://wallpapers.com/images/featured/wj7msvc5kj9v6cyy.jpg",
@@ -233,4 +223,15 @@ class MockedGalleryDatasourceI implements IGalleryDatasource {
     "https://images.dog.ceo/breeds/retriever-golden/n02099601_4005.jpg",
     "https://images.dog.ceo/breeds/retriever-golden/n02099601_286.jpg",
   }.toList();
+
+  @override
+  Future<List<GalleryEntity>> populateGallery() async => randomImages
+      .map<GalleryEntity>(
+        (e) => GalleryEntity(
+          id: e,
+          petId: 'xyz',
+          imgUrl: e,
+        ),
+      )
+      .toList();
 }
