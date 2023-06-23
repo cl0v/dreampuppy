@@ -8,7 +8,7 @@
             "type": "shell",
             "command": "dart",
             "args": [
-                "scripts/format_dart_file.dart",
+                "scripts/format_dart_file_script.dart",
                 "${file}"
             ],
             "problemMatcher": []
