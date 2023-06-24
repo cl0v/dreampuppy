@@ -1,14 +1,7 @@
-import '../format_dart_file_script.dart';
+import 'script.dart';
 
 void main() {
-  final result = formatScript(codeIn);
-  final s1 = result.split('');
-  final s2 = codeOut.split('');
-
-  print(s1.length);
-  print(s2.length);
-  print(result);
-
+  final result = formatScript(codeIn2);
   print(result == codeOut);
 }
 
@@ -86,3 +79,16 @@ final codeOut = '''Center(
           ],
         ),
       )''';
+
+
+
+
+
+final case2CodeIn = '''SizedBox(
+                  width: 40,
+                  child: Placeholder(child: T1t0),
+                ),''';
+                //TODO: Implementar codeOut2
+final case2CodeOut = '''SizedBox(
+  width: 40,
+  child: Placeholder(child: Text('Titulo')),''';

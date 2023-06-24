@@ -4,11 +4,11 @@
     "version": "2.0.0",
     "tasks": [
         {
-            "label": "run replacement script",
+            "label": "boost-flutter-tree",
             "type": "shell",
             "command": "dart",
             "args": [
-                "scripts/format_dart_file_script.dart",
+                "scripts/flutter_tree_boosted/script.dart",
                 "${file}"
             ],
             "problemMatcher": []
