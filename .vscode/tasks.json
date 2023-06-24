@@ -8,7 +8,7 @@
             "type": "shell",
             "command": "dart",
             "args": [
-                "scripts/flutter_tree_boosted/script.dart",
+                "scripts/boost-flutter-tree/script.dart",
                 "${file}"
             ],
             "problemMatcher": []

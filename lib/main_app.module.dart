@@ -1,3 +1,4 @@
+import 'package:dreampuppy/_temp_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/foundation.dart';
 import 'src/providers/user.dart';
@@ -34,9 +35,9 @@ class AppModule extends Module {
         // if (kDebugMode)
         //   ChildRoute('/',
         //       child: (context, args) => const PaymentUserRequirementsPage()),
+        ChildRoute('/', child: (context, args) => const BreedListPage()),
         if (kDebugMode)
           ChildRoute('/', child: (context, args) => const FirstPage()),
-        ChildRoute('/', child: (context, args) => const BreedListPage()),
         // ChildRoute('/', child: (context, args) => const CreditCardCreateFormPage()),
         ModuleRoute('/breeds', module: BreedsModule()),
         ModuleRoute('/pets', module: PetsModule()),
@@ -55,9 +56,9 @@ class FirstPage extends StatelessWidget {
       body: SafeArea(
         child: Center(
           child: ElevatedButton(
-            // onPressed: () => Modular.to.push(MaterialPageRoute(
-            //     builder: (context) => const CreateAddressFormPage())),
-            onPressed: () => Modular.to.pushNamed('/user/flow'),
+            onPressed: () => Modular.to.push(MaterialPageRoute(
+                builder: (context) => const TempPage())),
+            // onPressed: () => Modular.to.pushNamed('/user/flow'),
             child: const Text('Go to module'),
           ),
         ),
