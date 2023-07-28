@@ -1,5 +1,3 @@
-import 'package:dreampuppy/_temp_page.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter/foundation.dart';
 import 'src/providers/user.dart';
 import 'src/modules/help/help.module.dart';
@@ -10,7 +8,6 @@ import 'package:dreampuppy/src/modules/user/user.module.dart';
 import 'package:dreampuppy/src/modules/pet/pets.module.dart';
 import 'package:dreampuppy/src/modules/breed/breeds.module.dart';
 import 'package:dreampuppy/src/modules/breed/presenter/view/breed_list_page.dart';
-
 import 'src/modules/payment/interfaces/navigation.dart';
 import 'src/modules/pet/plugs.dart';
 import 'src/plugs/connect_payment.dart';
@@ -35,10 +32,6 @@ class AppModule extends Module {
         // if (kDebugMode)
         //   ChildRoute('/',
         //       child: (context, args) => const PaymentUserRequirementsPage()),
-        ChildRoute('/', child: (context, args) => const BreedListPage()),
-        if (kDebugMode)
-          ChildRoute('/', child: (context, args) => const FirstPage()),
-        // ChildRoute('/', child: (context, args) => const CreditCardCreateFormPage()),
         ModuleRoute('/breeds', module: BreedsModule()),
         ModuleRoute('/pets', module: PetsModule()),
         ModuleRoute('/user', module: UserModule()),
@@ -46,7 +39,7 @@ class AppModule extends Module {
         ModuleRoute('/help', module: HelpModule()),
       ];
 }
-
+/*
 class FirstPage extends StatelessWidget {
   const FirstPage({super.key});
 
@@ -66,3 +59,4 @@ class FirstPage extends StatelessWidget {
     );
   }
 }
+*/

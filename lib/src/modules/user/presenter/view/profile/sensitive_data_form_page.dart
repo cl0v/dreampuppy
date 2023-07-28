@@ -37,7 +37,7 @@ class _UserSensitiveDataFormPageState extends State<UserSensitiveDataFormPage> {
   final _formKey = GlobalKey<FormState>();
 
   var phoneMaskFormatter = MaskTextInputFormatter(
-    mask: '+55 (##) 9####-####',
+    mask: '+55 (##) #####-####',
     filter: {"#": RegExp(r'[0-9]')},
     type: MaskAutoCompletionType.eager,
   );
@@ -107,6 +107,7 @@ class _UserSensitiveDataFormPageState extends State<UserSensitiveDataFormPage> {
               child: CustomTextFieldWidget(
                 label: "Telefone | WhatsApp",
                 hintText: "e.g (11) 90000-0000",
+                type: TextInputType.number,
                 // controller: phoneController,
                 masks: [phoneMaskFormatter],
                 validator: (s) {
@@ -125,6 +126,7 @@ class _UserSensitiveDataFormPageState extends State<UserSensitiveDataFormPage> {
                 label: "CPF",
                 masks: [cpfMaskFormatter],
                 hintText: "e.g 000.000.000-00",
+                type: TextInputType.number,
                 // controller: cpfController,
                 validator: cpfValidador.call,
               ),

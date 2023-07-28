@@ -1,7 +1,7 @@
+import 'dart:io';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'address/create_address_page.dart';
-import 'credit_card/create_card.dart';
-import 'profile/sensitive_data_form_page.dart';
+import 'package:flutter_modular/flutter_modular.dart';
 
 class UserMinimumRequirementsView extends StatefulWidget {
   const UserMinimumRequirementsView({super.key});
@@ -13,33 +13,39 @@ class UserMinimumRequirementsView extends StatefulWidget {
 
 class _UserMinimumRequirementsViewState
     extends State<UserMinimumRequirementsView> {
-  //TODO: Busca pelo uuid conectado. Se não houver, redireciona para a tela de login
-  // Na sequencia ele baixa o usuario do sistema
-  // recebendo os dados necessários para a atividade de pagamento.
+  Widget? starterChild;
 
-   final PageController pageController = PageController();
+  @override
+  void initState() {
+    _init();
+    super.initState();
+  }
 
-  // TODO :Exibir um loading enquanto busca qual a primeira página que deve ser exibida.
-  // Caso não precise exibir nenhuma página, redirecionar para a tela de pagamento.
-  
-
-
-  onNext() {
-    pageController.nextPage(
-      duration: const Duration(microseconds: 500),
-      curve: Curves.linear,
+  _init() {
+    Future.microtask(
+      () => Modular.to.pushReplacementNamed('/user/login'),
     );
   }
 
   @override
   Widget build(BuildContext context) {
-    return PageView(controller: pageController, children: [
-      // RegisterPage(),
-      UserSensitiveDataFormPage(
-        onSuccess: onNext,
+    //TODO: Show texxt "Verificando status de usuáprio".
+    return Scaffold(
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            const Text('Verificando status de usuário'),
+            const SizedBox(
+              height: 8,
+            ),
+            Platform.isIOS
+                ? const CupertinoActivityIndicator()
+                : const CircularProgressIndicator(),
+          ],
+        ),
       ),
-      const CreateAddressFormPage(),
-      const CreateCreditCardFormPage(),
-    ]);
+    );
   }
 }

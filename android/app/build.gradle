@@ -27,8 +27,9 @@ apply plugin: 'kotlin-android'
 apply from: "$flutterRoot/packages/flutter_tools/gradle/flutter.gradle"
 
 android {
+    ndkVersion "25.1.8937393"
     compileSdkVersion flutter.compileSdkVersion
-    ndkVersion flutter.ndkVersion // Probabilidade alta de dar problema no codemagic
+    // ndkVersion flutter.ndkVersion // Probabilidade alta de dar problema no codemagic
 
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
@@ -67,12 +68,7 @@ android {
             applicationIdSuffix ".dev"
             debuggable true
         }
-
-        /**
-         * The `initWith` property lets you copy configurations from other build types,
-         * then configure only the settings you want to change. This one copies the debug build
-         * type, and then changes the manifest placeholder and application ID.
-         */
+        
         profile {
             applicationIdSuffix ".stg"
         }

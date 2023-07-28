@@ -70,7 +70,7 @@ class _LoginPageState extends State<LoginPage> {
               Toast.LENGTH_LONG, // TODO: Aumentar a duração do toast para iOS
           gravity: ToastGravity.CENTER,
           msg:
-              "Por favor preencha o email que deseja recuperar a senha no campo de email.");
+              "Preencha o campo de email.");
       return;
     }
     AwesomeDialog(
@@ -80,8 +80,9 @@ class _LoginPageState extends State<LoginPage> {
             btnOkText: 'Enviar email de recuperação',
             btnOkOnPress: () =>
                 forgotPasswordUseCase.call(emailController.text.trim()),
-            desc: //TODO: Fazer o email ficar em negrito e underline (Tentar deixar o mais claro para qual email será enviado)
-                'Um email será enviado para:\n\n${emailController.text.trim()}\n\nAcesse o link enviado para recuperar sua senha')
+            body: Text('Um email será enviado para:\n\n${emailController.text.trim()}\n\nAcesse o link enviado para recuperar sua senha'))
+            // desc: //TODO: Fazer o email ficar em negrito e underline (Tentar deixar o mais claro para qual email será enviado)
+            //     'Um email será enviado para:\n\n${emailController.text.trim()}\n\nAcesse o link enviado para recuperar sua senha')
         .show();
   }
 
