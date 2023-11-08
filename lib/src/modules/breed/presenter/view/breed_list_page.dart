@@ -1,10 +1,12 @@
 import 'package:dreampuppy/data.dart';
 import 'package:dreampuppy/src/providers/user.dart';
 import 'package:dreampuppy/src/modules/breed/presenter/view/survey/components/card.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import '../../domain/list/entities/breed_card.dart';
+import '../../infra/datasources/search.dart';
 
 //TODO: Usar o icone para organizar: Icons.filter_list_sharp (sort)
 
@@ -23,6 +25,7 @@ class _BreedListPageState extends State<BreedListPage> {
   @override
   void initState() {
     searchController = TextEditingController();
+    kDebugMode? Modular.get<SearchDataSource>().saveSearch('no') : null;
     super.initState();
   }
 

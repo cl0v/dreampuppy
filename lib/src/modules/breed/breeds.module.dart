@@ -1,5 +1,7 @@
+import 'package:dreampuppy/src/modules/breed/external/datasources/search.dart';
 import 'package:dreampuppy/src/modules/breed/presenter/view/survey/page.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+import 'infra/datasources/search.dart';
 import 'presenter/view/breed_list_page.dart';
 // import 'package:dreampuppy/.archive/src/features/pet_apply_filters_incomplete/presentation/view/breed_details.dart';
 
@@ -12,7 +14,9 @@ import 'presenter/view/breed_list_page.dart';
 
 class BreedsModule extends Module {
   @override
-  get binds => [];
+  get binds => [
+    Bind.factory<SearchDataSource>((i) => SearchDataSourceImpl()),
+  ];
 
   @override
   get routes => [
